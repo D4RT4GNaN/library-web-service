@@ -2,6 +2,9 @@ package libraryservice;
 
 import generated.libraryservice.Book;
 import org.openclassroom.projet.consumer.DaoFactory;
+import org.openclassroom.projet.consumer.contract.dao.UsagerDao;
+import org.openclassroom.projet.model.usager.Usager;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
@@ -43,11 +46,13 @@ public class LibraryService extends AbstractService implements generated.library
 
     @WebMethod
     public String addUser(String username, String password, String firstname, String lastname, String mail, String adress) {
-        return getDaoFactory().getUsagerDao().addUser(username, password, firstname, lastname, mail, adress);
+        return null;
     }
 
     @WebMethod
     public String connectUser(String identifier, String password) {
-        return null;
+        List<Usager> usagers = getDaoFactory().getUsagerDao().findAll();
+        return usagers.get(0).getAdress();
     }
+
 }

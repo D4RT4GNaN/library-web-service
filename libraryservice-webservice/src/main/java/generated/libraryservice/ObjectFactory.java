@@ -78,6 +78,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Usager }
+     * 
+     */
+    public Usager createUsager() {
+        return new Usager();
+    }
+
+    /**
      * Create an instance of {@link ExtendLoanResponse }
      * 
      */

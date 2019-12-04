@@ -1,18 +1,20 @@
 package libraryservice;
 
 import generated.libraryservice.Book;
-import org.openclassroom.projet.consumer.DaoFactory;
-import org.openclassroom.projet.consumer.contract.dao.UsagerDao;
-import org.openclassroom.projet.model.usager.Usager;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.openclassroom.projet.business.services.contract.UserService;
+import org.openclassroom.projet.model.database.usager.Usager;
 
+import javax.inject.Inject;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.List;
 
 @WebService(endpointInterface = "generated.libraryservice.LibraryService")
-public class LibraryService extends AbstractService implements generated.libraryservice.LibraryService {
+public class LibraryService implements generated.libraryservice.LibraryService {
+
+    @Inject
+    private UserService userService;
 
     @WebMethod
     public int getBookAvailability(String bookReference) {
@@ -44,15 +46,27 @@ public class LibraryService extends AbstractService implements generated.library
         return null;
     }
 
-    @WebMethod
-    public String addUser(String username, String password, String firstname, String lastname, String mail, String adress) {
-        return null;
+    @Override
+    public String addUser(generated.libraryservice.Usager usager) {
+        Usager user = new Usager();
+
+        user.setUsername(usager.getUsername());
+        user.setPassword(usager.getPassword());
+        user.setConfirmPassword(usager.getConfirmPassword());
+        user.setFirstName(usager.getFirstname());
+        user.setLastName(usager.getLastname());
+        user.setMail(usager.getMail());
+        user.setAdress(usager.getAdress());
+        user.setRole("USER");
+
+        userService.save(user);
+
+        return "Compte créer avec succès";
     }
 
     @WebMethod
     public String connectUser(String identifier, String password) {
-        List<Usager> usagers = getDaoFactory().getUsagerDao().findAll();
-        return usagers.get(0).getAdress();
+        return null;
     }
 
 }

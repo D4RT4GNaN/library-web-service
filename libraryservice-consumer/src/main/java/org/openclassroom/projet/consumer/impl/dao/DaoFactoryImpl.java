@@ -2,23 +2,33 @@ package org.openclassroom.projet.consumer.impl.dao;
 
 import org.openclassroom.projet.consumer.DaoFactory;
 import org.openclassroom.projet.consumer.contract.dao.UsagerDao;
-import org.openclassroom.projet.model.usager.Usager;
+import org.openclassroom.projet.consumer.repository.RoleRepository;
+import org.openclassroom.projet.consumer.repository.UsagerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
-import javax.inject.Inject;
 import javax.inject.Named;
-import java.util.List;
 
 @Named("daoFactory")
-@EnableJpaRepositories(basePackages = "org.openclassroom.projet.consumer.contract.dao")
+@EnableJpaRepositories(basePackages = "org.openclassroom.projet.consumer.repository")
 public class DaoFactoryImpl implements DaoFactory {
 
     @Autowired
-    private UsagerDao usagerDao;
+    private UsagerRepository usagerRepository;
+
+    /*@Autowired
+    private RoleRepository roleRepository;*/
 
     @Override
-    public UsagerDao getUsagerDao() {
-        return usagerDao;
+    public UsagerRepository getUsagerRepository() {
+        return usagerRepository;
+    }
+
+    /*@Override
+    public RoleRepository getRoleRepository() { return roleRepository; }*/
+
+    @Override
+    public void test() {
+        System.out.println("test");
     }
 }

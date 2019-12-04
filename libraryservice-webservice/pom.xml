@@ -42,7 +42,7 @@
 
     <dependency>
       <groupId>org.openclassroom.projet</groupId>
-      <artifactId>libraryservice-consumer</artifactId>
+      <artifactId>libraryservice-business</artifactId>
     </dependency>
 
     <dependency>
@@ -57,6 +57,7 @@
         <artifactId>jaxws-rt</artifactId>
     </dependency>
 
+    <!-- JaxWS compatibility with Spring -->
     <dependency>
       <groupId>org.jvnet.jax-ws-commons.spring</groupId>
       <artifactId>jaxws-spring</artifactId>

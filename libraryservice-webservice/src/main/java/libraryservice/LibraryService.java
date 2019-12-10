@@ -2,12 +2,16 @@ package libraryservice;
 
 import generated.libraryservice.Book;
 import org.openclassroom.projet.business.services.contract.UserService;
+import org.openclassroom.projet.model.database.usager.Role;
 import org.openclassroom.projet.model.database.usager.Usager;
+import org.springframework.beans.factory.annotation.Autowired;
+import utils.converters.UsagerConverter;
 
 import javax.inject.Inject;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.xml.datatype.XMLGregorianCalendar;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebService(endpointInterface = "generated.libraryservice.LibraryService")
@@ -15,6 +19,8 @@ public class LibraryService implements generated.libraryservice.LibraryService {
 
     @Inject
     private UserService userService;
+
+    private UsagerConverter usagerConverter = new UsagerConverter();
 
     @WebMethod
     public int getBookAvailability(String bookReference) {
@@ -47,26 +53,19 @@ public class LibraryService implements generated.libraryservice.LibraryService {
     }
 
     @Override
-    public String addUser(generated.libraryservice.Usager usager) {
-        Usager user = new Usager();
+    public String addUser(generated.libraryservice.Usager generatedUsager) {
+        Usager usager = usagerConverter.fromClient(generatedUsager);
 
-        user.setUsername(usager.getUsername());
-        user.setPassword(usager.getPassword());
-        user.setConfirmPassword(usager.getConfirmPassword());
-        user.setFirstName(usager.getFirstname());
-        user.setLastName(usager.getLastname());
-        user.setMail(usager.getMail());
-        user.setAdress(usager.getAdress());
-        user.setRole("USER");
-
-        userService.save(user);
+        userService.save(usager);
 
         return "Compte créer avec succès";
     }
 
     @WebMethod
-    public String connectUser(String identifier, String password) {
-        return null;
+    public generated.libraryservice.Usager connectUser(String identifier, String password) {
+        Usager usager = userService.login(identifier, password);
+
+        return usagerConverter.fromDatabase(usager);
     }
 
 }

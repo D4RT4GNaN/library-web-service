@@ -1,21 +1,25 @@
 package org.openclassroom.projet.model.database.usager;
 
 import javax.persistence.*;
-import java.util.Set;
+import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.NotNull;
+import java.util.List;
 
 @Entity
-//@Table(name = "role")
+@Table(name = "Roles")
 public class Role {
 
-    // ========== Attributes ==========
-    private int id;
-    private String name;
-    //private Set users;
-
-
-    // ========== Getters/Setters ===========
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    private int id;
+
+    @NotNull
+    @NotEmpty
+    @Column(nullable = false, unique = true)
+    private String name;
+
+    @ManyToMany(mappedBy = "roles", fetch = FetchType.EAGER)
+    private List<Usager> usagers;
+
     public int getId() {
         return id;
     }
@@ -30,11 +34,10 @@ public class Role {
         this.name = name;
     }
 
-    /*@ManyToMany(mappedBy = "roles")
-    public Set getUsers() {
-        return users;
+    public List<Usager> getUsagers() {
+        return usagers;
     }
-    public void setUsers(Set users) {
-        this.users = users;
-    }*/
+    public void setUsagers(List<Usager> usagers) {
+        this.usagers = usagers;
+    }
 }

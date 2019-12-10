@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="usager" type="{http://LibraryService/}usager"/>
+ *         &lt;element name="generatedUsager" type="{http://LibraryService/}usager"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -29,36 +29,36 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "usager"
+    "generatedUsager"
 })
 @XmlRootElement(name = "addUser")
 public class AddUser {
 
     @XmlElement(required = true)
-    protected Usager usager;
+    protected Usager generatedUsager;
 
     /**
-     * Gets the value of the usager property.
+     * Gets the value of the generatedUsager property.
      * 
      * @return
      *     possible object is
      *     {@link Usager }
      *     
      */
-    public Usager getUsager() {
-        return usager;
+    public Usager getGeneratedUsager() {
+        return generatedUsager;
     }
 
     /**
-     * Sets the value of the usager property.
+     * Sets the value of the generatedUsager property.
      * 
      * @param value
      *     allowed object is
      *     {@link Usager }
      *     
      */
-    public void setUsager(Usager value) {
-        this.usager = value;
+    public void setGeneratedUsager(Usager value) {
+        this.generatedUsager = value;
     }
 
 }

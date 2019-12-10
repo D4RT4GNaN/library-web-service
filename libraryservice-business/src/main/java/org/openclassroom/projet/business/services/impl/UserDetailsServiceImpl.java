@@ -1,36 +1,36 @@
-package services;
+package org.openclassroom.projet.business.services.impl;
 
 import org.openclassroom.projet.consumer.repository.UsagerRepository;
-import org.openclassroom.projet.model.database.usager.Role;
 import org.openclassroom.projet.model.database.usager.Usager;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
-import java.util.Set;
+import javax.inject.Named;
 
 @Service
+@Named("userDetailsService")
 public class UserDetailsServiceImpl implements UserDetailsService {
 
     @Autowired
     private UsagerRepository usagerRepository;
 
+    @Autowired
+    public UserDetailsServiceImpl(UsagerRepository usagerRepository) {
+        this.usagerRepository = usagerRepository;
+    }
+
     @Override
-    @Transactional(readOnly = true)
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Usager usager = usagerRepository.findByUsername(username);
-
-        Set grantedAuthorities = new HashSet<>();
-        /*for (Object role : usager.getRoles()) {
-            grantedAuthorities.add(new SimpleGrantedAuthority((((Role) role).getName())));
-        }*/
-
-        return new org.springframework.security.core.userdetails.User(usager.getUsername(), usager.getPassword(), grantedAuthorities);
+        Usager user = usagerRepository.findByEmail(username);
+        if (user == null) {
+            throw new UsernameNotFoundException("No user present with mail : " + username);
+        } else {
+            return user;
+        }
     }
 
 }

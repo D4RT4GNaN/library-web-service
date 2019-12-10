@@ -1,9 +1,6 @@
 
 package generated.libraryservice;
 
-import org.openclassroom.projet.model.security.annotations.PasswordMatches;
-import org.openclassroom.projet.model.security.annotations.ValidEmail;
-
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -20,12 +17,11 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;all>
- *         &lt;element name="username" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="password" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="confirmPassword" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="firstname" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="lastname" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="mail" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="email" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="adress" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/all>
  *     &lt;/restriction>
@@ -39,11 +35,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "usager", propOrder = {
 
 })
-@PasswordMatches
 public class Usager {
 
-    @XmlElement(required = true)
-    protected String username;
     @XmlElement(required = true)
     protected String password;
     @XmlElement(required = true)
@@ -53,34 +46,9 @@ public class Usager {
     @XmlElement(required = true)
     protected String lastname;
     @XmlElement(required = true)
-    @ValidEmail
-    protected String mail;
+    protected String email;
     @XmlElement(required = true)
     protected String adress;
-
-    /**
-     * Gets the value of the username property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getUsername() {
-        return username;
-    }
-
-    /**
-     * Sets the value of the username property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setUsername(String value) {
-        this.username = value;
-    }
 
     /**
      * Gets the value of the password property.
@@ -179,27 +147,27 @@ public class Usager {
     }
 
     /**
-     * Gets the value of the mail property.
+     * Gets the value of the email property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getMail() {
-        return mail;
+    public String getEmail() {
+        return email;
     }
 
     /**
-     * Sets the value of the mail property.
+     * Sets the value of the email property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setMail(String value) {
-        this.mail = value;
+    public void setEmail(String value) {
+        this.email = value;
     }
 
     /**

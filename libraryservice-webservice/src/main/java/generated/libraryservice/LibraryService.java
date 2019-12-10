@@ -144,7 +144,7 @@ public interface LibraryService {
 
     /**
      * 
-     * @param usager
+     * @param generatedUsager
      * @return
      *     returns java.lang.String
      */
@@ -153,21 +153,21 @@ public interface LibraryService {
     @RequestWrapper(localName = "addUser", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.AddUser")
     @ResponseWrapper(localName = "addUserResponse", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.AddUserResponse")
     public String addUser(
-        @WebParam(name = "usager", targetNamespace = "")
-        Usager usager);
+        @WebParam(name = "generatedUsager", targetNamespace = "")
+        Usager generatedUsager);
 
     /**
      * 
      * @param identifier
      * @param password
      * @return
-     *     returns java.lang.String
+     *     returns generated.libraryservice.Usager
      */
     @WebMethod(action = "http://LibraryService/connectUser")
-    @WebResult(name = "status", targetNamespace = "")
+    @WebResult(name = "user", targetNamespace = "")
     @RequestWrapper(localName = "connectUser", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.ConnectUser")
     @ResponseWrapper(localName = "connectUserResponse", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.ConnectUserResponse")
-    public String connectUser(
+    public Usager connectUser(
         @WebParam(name = "identifier", targetNamespace = "")
         String identifier,
         @WebParam(name = "password", targetNamespace = "")

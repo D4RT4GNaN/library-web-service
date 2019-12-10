@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="status" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="user" type="{http://LibraryService/}usager"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -29,36 +29,36 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "status"
+    "user"
 })
 @XmlRootElement(name = "connectUserResponse")
 public class ConnectUserResponse {
 
     @XmlElement(required = true)
-    protected String status;
+    protected Usager user;
 
     /**
-     * Gets the value of the status property.
+     * Gets the value of the user property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Usager }
      *     
      */
-    public String getStatus() {
-        return status;
+    public Usager getUser() {
+        return user;
     }
 
     /**
-     * Sets the value of the status property.
+     * Sets the value of the user property.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Usager }
      *     
      */
-    public void setStatus(String value) {
-        this.status = value;
+    public void setUser(Usager value) {
+        this.user = value;
     }
 
 }

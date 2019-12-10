@@ -8,13 +8,15 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.stereotype.Service;
 
+import javax.inject.Inject;
+
 @Service
 public class SecurityServiceImpl implements SecurityService {
 
     @Autowired
     private AuthenticationManager authenticationManager;
 
-    @Autowired
+    @Inject
     private UserDetailsService userDetailsService;
 
     @Override

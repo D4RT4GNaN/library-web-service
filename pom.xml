@@ -128,11 +128,11 @@
       </dependency>
 
       <!-- Javax-Servlet API -->
-      <!--<dependency>
+      <dependency>
         <groupId>javax.servlet</groupId>
         <artifactId>javax.servlet-api</artifactId>
         <version>4.0.1</version>
-      </dependency>-->
+      </dependency>
 
       <!-- Javax-Validation API / JSR-303 -->
       <dependency>

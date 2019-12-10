@@ -32,6 +32,12 @@
   <!-- Dependencies -->
   <!-- =============================================================== -->
   <dependencies>
+    <!-- ===== Modules ===== -->
+    <dependency>
+      <groupId>org.openclassroom.projet</groupId>
+      <artifactId>libraryservice-model</artifactId>
+    </dependency>
+
     <!-- ===== Bibliothèques tierces ===== -->
     <!-- Spring -->
     <dependency>
@@ -47,6 +53,12 @@
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-security</artifactId>
+    </dependency>
+
+    <!-- Javax Servlet API -->
+    <dependency>
+      <groupId>javax.servlet</groupId>
+      <artifactId>javax.servlet-api</artifactId>
     </dependency>
 
     <!-- PostgresSQL Driver -->

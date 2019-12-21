@@ -2,12 +2,9 @@ package utils.converters;
 
 import org.openclassroom.projet.model.database.usager.Usager;
 
-import javax.inject.Named;
-
-@Named("usagerConverter")
 public class UsagerConverter {
 
-    public generated.libraryservice.Usager fromDatabase(Usager usager) {
+    public static generated.libraryservice.Usager fromDatabase(Usager usager) {
         generated.libraryservice.Usager generatedUsager = new generated.libraryservice.Usager();
 
         generatedUsager.setEmail(usager.getEmail());
@@ -19,7 +16,7 @@ public class UsagerConverter {
         return generatedUsager;
     }
 
-    public Usager fromClient(generated.libraryservice.Usager generatedUsager) {
+    public static Usager fromClient(generated.libraryservice.Usager generatedUsager) {
         Usager usager = new Usager();
 
         usager.setEmail(generatedUsager.getEmail());

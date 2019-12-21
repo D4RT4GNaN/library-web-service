@@ -17,6 +17,7 @@
     <!-- Config for annotation -->
     <context:annotation-config/>
     <context:component-scan base-package="org.openclassroom.projet"/>
+    <context:property-placeholder location="classpath*:mail.properties"/>
 
     <!-- Config for JaxWS-Spring -->
     <wss:binding url="/libraryservice">

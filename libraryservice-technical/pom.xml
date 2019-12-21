@@ -80,6 +80,10 @@
       <version>4.11</version>
       <scope>test</scope>
     </dependency>
+      <dependency>
+          <groupId>javax.inject</groupId>
+          <artifactId>javax.inject</artifactId>
+      </dependency>
   </dependencies>
 
   <!-- =============================================================== -->

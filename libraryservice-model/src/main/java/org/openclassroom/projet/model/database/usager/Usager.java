@@ -5,16 +5,13 @@ import org.openclassroom.projet.model.security.annotations.ValidEmail;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.util.StringUtils;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @Table(name = "usager")
@@ -34,8 +31,6 @@ public class Usager implements Serializable, UserDetails {
     @NotEmpty
     private String password;
 
-    @NotNull
-    @NotEmpty
     @Transient
     private String confirmPassword;
 
@@ -60,14 +55,21 @@ public class Usager implements Serializable, UserDetails {
     @Column(name = "Roles", nullable = false)
     private List<Role> roles;
 
+    @Column(name = "enabled")
+    private boolean enabled;
+
 
     // ==================== Constructors ====================
     /**/
     public Usager() {
+        super();
+        this.enabled = false;
         //this.roles = new Role();
     }
 
     public Usager(String email, String password, String confirmPassword, String firstName, String lastName, String address, List<Role> roles) {
+        super();
+        this.enabled = false;
         this.email = email;
         this.password = password;
         this.confirmPassword = confirmPassword;
@@ -129,6 +131,11 @@ public class Usager implements Serializable, UserDetails {
     public List<Role> getRoles() { return roles; }
     public void setRoles(List<Role> roles) { this.roles = roles; }
 
+    public void setEnabled(boolean enabled) {
+        this.enabled = enabled;
+    }
+
+
     // ==================== Methods ====================
     @Override
     public String getUsername() { return email; }
@@ -157,7 +164,7 @@ public class Usager implements Serializable, UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return false;
+        return this.enabled;
     }
 
 }

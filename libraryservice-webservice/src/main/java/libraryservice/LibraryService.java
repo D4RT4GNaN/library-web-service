@@ -1,26 +1,17 @@
 package libraryservice;
 
 import generated.libraryservice.Book;
-import org.openclassroom.projet.business.services.contract.UserService;
-import org.openclassroom.projet.model.database.usager.Role;
 import org.openclassroom.projet.model.database.usager.Usager;
-import org.springframework.beans.factory.annotation.Autowired;
+import org.openclassroom.projet.model.database.usager.VerificationToken;
 import utils.converters.UsagerConverter;
 
-import javax.inject.Inject;
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.xml.datatype.XMLGregorianCalendar;
-import java.util.ArrayList;
 import java.util.List;
 
 @WebService(endpointInterface = "generated.libraryservice.LibraryService")
-public class LibraryService implements generated.libraryservice.LibraryService {
-
-    @Inject
-    private UserService userService;
-
-    private UsagerConverter usagerConverter = new UsagerConverter();
+public class LibraryService extends AbstractWebInterface implements generated.libraryservice.LibraryService {
 
     @WebMethod
     public int getBookAvailability(String bookReference) {
@@ -52,20 +43,24 @@ public class LibraryService implements generated.libraryservice.LibraryService {
         return null;
     }
 
-    @Override
+    @WebMethod
     public String addUser(generated.libraryservice.Usager generatedUsager) {
-        Usager usager = usagerConverter.fromClient(generatedUsager);
-
-        userService.save(usager);
-
-        return "Compte créer avec succès";
+        Usager usager = UsagerConverter.fromClient(generatedUsager);
+        getServiceFactory().getUserService().save(usager);
+        return "SUCCESS";
     }
 
     @WebMethod
     public generated.libraryservice.Usager connectUser(String identifier, String password) {
-        Usager usager = userService.login(identifier, password);
+        Usager usager = getServiceFactory().getUserService().login(identifier, password);
+        return UsagerConverter.fromDatabase(usager);
+    }
 
-        return usagerConverter.fromDatabase(usager);
+    @WebMethod
+    public String validEmailWith(String token) {
+        VerificationToken vToken = getServiceFactory().getUserService().verifyEmailFrom(token);
+        getServiceFactory().getUserService().validAccountFor(vToken);
+        return "SUCCESS";
     }
 
 }

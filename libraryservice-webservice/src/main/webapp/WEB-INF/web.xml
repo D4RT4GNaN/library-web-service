@@ -6,7 +6,7 @@
          xmlns="http://xmlns.jcp.org/xml/ns/javaee"
          xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
-  <display-name>Archetype Created Web Application</display-name>
+  <display-name>Library Web Service</display-name>
 
   <servlet>
     <servlet-name>libraryservice</servlet-name>
@@ -18,6 +18,7 @@
     <servlet-name>libraryservice</servlet-name>
     <url-pattern>/libraryservice</url-pattern>
   </servlet-mapping>
+
 
   <!-- Config Spring -->
   <listener>

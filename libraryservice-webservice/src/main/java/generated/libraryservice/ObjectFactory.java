@@ -30,6 +30,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ValidEmailWith }
+     * 
+     */
+    public ValidEmailWith createValidEmailWith() {
+        return new ValidEmailWith();
+    }
+
+    /**
      * Create an instance of {@link GetBookAvailability }
      * 
      */
@@ -99,6 +107,14 @@ public class ObjectFactory {
      */
     public ExtendLoan createExtendLoan() {
         return new ExtendLoan();
+    }
+
+    /**
+     * Create an instance of {@link ValidEmailWithResponse }
+     * 
+     */
+    public ValidEmailWithResponse createValidEmailWithResponse() {
+        return new ValidEmailWithResponse();
     }
 
     /**

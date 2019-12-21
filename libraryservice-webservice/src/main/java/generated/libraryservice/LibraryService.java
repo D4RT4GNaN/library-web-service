@@ -173,4 +173,18 @@ public interface LibraryService {
         @WebParam(name = "password", targetNamespace = "")
         String password);
 
+    /**
+     * 
+     * @param token
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod(action = "http://LibraryService/validEmailWith")
+    @WebResult(name = "status", targetNamespace = "")
+    @RequestWrapper(localName = "validEmailWith", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.ValidEmailWith")
+    @ResponseWrapper(localName = "validEmailWithResponse", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.ValidEmailWithResponse")
+    public String validEmailWith(
+        @WebParam(name = "token", targetNamespace = "")
+        String token);
+
 }

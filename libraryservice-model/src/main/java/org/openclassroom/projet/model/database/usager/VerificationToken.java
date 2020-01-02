@@ -1,5 +1,8 @@
 package org.openclassroom.projet.model.database.usager;
 
+import org.openclassroom.projet.model.enums.TokenTypeEnum;
+import org.openclassroom.projet.model.security.annotations.EnumMatches;
+
 import javax.persistence.*;
 import java.sql.Timestamp;
 import java.util.Calendar;
@@ -23,15 +26,19 @@ public class VerificationToken {
     @Column(name = "expiry_date")
     private Date expiryDate;
 
+    @EnumMatches(enumClass = TokenTypeEnum.class)
+    private String type;
+
 
     // ==================== Constructors ====================
     public VerificationToken() {
     }
 
-    public VerificationToken(Usager usager, String token) {
+    public VerificationToken(Usager usager, String token, TokenTypeEnum type) {
         this.token = token;
         this.usager = usager;
         this.expiryDate = calculateExpiryDate(EXPIRATION);
+        this.type = type.name();
     }
 
 
@@ -64,6 +71,12 @@ public class VerificationToken {
         this.expiryDate = expiryDate;
     }
 
+    public String getType() {
+        return type;
+    }
+    public void setType(String type) {
+        this.type = type;
+    }
 
     // ==================== Methods ====================
     private Date calculateExpiryDate(int expiryTimeInMinutes) {
@@ -71,5 +84,9 @@ public class VerificationToken {
         cal.setTime(new Timestamp(cal.getTime().getTime()));
         cal.add(Calendar.MINUTE, expiryTimeInMinutes);
         return new Date(cal.getTime().getTime());
+    }
+
+    public void resetExpiryDate() {
+        this.expiryDate = calculateExpiryDate(EXPIRATION);
     }
 }

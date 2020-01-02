@@ -46,6 +46,118 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link ResetPassword }
+     * 
+     */
+    public ResetPassword createResetPassword() {
+        return new ResetPassword();
+    }
+
+    /**
+     * Create an instance of {@link AddUser }
+     * 
+     */
+    public AddUser createAddUser() {
+        return new AddUser();
+    }
+
+    /**
+     * Create an instance of {@link Usager }
+     * 
+     */
+    public Usager createUsager() {
+        return new Usager();
+    }
+
+    /**
+     * Create an instance of {@link ExtendLoanResponse }
+     * 
+     */
+    public ExtendLoanResponse createExtendLoanResponse() {
+        return new ExtendLoanResponse();
+    }
+
+    /**
+     * Create an instance of {@link SendEmailToResetPassword }
+     * 
+     */
+    public SendEmailToResetPassword createSendEmailToResetPassword() {
+        return new SendEmailToResetPassword();
+    }
+
+    /**
+     * Create an instance of {@link ValidEmailWithResponse }
+     * 
+     */
+    public ValidEmailWithResponse createValidEmailWithResponse() {
+        return new ValidEmailWithResponse();
+    }
+
+    /**
+     * Create an instance of {@link ReturnBook }
+     * 
+     */
+    public ReturnBook createReturnBook() {
+        return new ReturnBook();
+    }
+
+    /**
+     * Create an instance of {@link ConnectUser }
+     * 
+     */
+    public ConnectUser createConnectUser() {
+        return new ConnectUser();
+    }
+
+    /**
+     * Create an instance of {@link ResetPasswordResponse }
+     * 
+     */
+    public ResetPasswordResponse createResetPasswordResponse() {
+        return new ResetPasswordResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetListBook }
+     * 
+     */
+    public GetListBook createGetListBook() {
+        return new GetListBook();
+    }
+
+    /**
+     * Create an instance of {@link AddUserResponse }
+     * 
+     */
+    public AddUserResponse createAddUserResponse() {
+        return new AddUserResponse();
+    }
+
+    /**
+     * Create an instance of {@link RequestPasswordReset }
+     * 
+     */
+    public RequestPasswordReset createRequestPasswordReset() {
+        return new RequestPasswordReset();
+    }
+
+    /**
+     * Create an instance of {@link GetBookAvailabilityResponse }
+     * 
+     */
+    public GetBookAvailabilityResponse createGetBookAvailabilityResponse() {
+        return new GetBookAvailabilityResponse();
+    }
+
+    /**
+     * Create an instance of {@link RequestPasswordResetResponse }
+     * 
+     */
+    public RequestPasswordResetResponse createRequestPasswordResetResponse() {
+        return new RequestPasswordResetResponse();
+    }
+
+    /**
      * Create an instance of {@link AddNewLoanResponse }
      * 
      */
@@ -78,27 +190,27 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link AddUser }
+     * Create an instance of {@link ResendVerificationEmail }
      * 
      */
-    public AddUser createAddUser() {
-        return new AddUser();
+    public ResendVerificationEmail createResendVerificationEmail() {
+        return new ResendVerificationEmail();
     }
 
     /**
-     * Create an instance of {@link Usager }
+     * Create an instance of {@link SendEmailToResetPasswordResponse }
      * 
      */
-    public Usager createUsager() {
-        return new Usager();
+    public SendEmailToResetPasswordResponse createSendEmailToResetPasswordResponse() {
+        return new SendEmailToResetPasswordResponse();
     }
 
     /**
-     * Create an instance of {@link ExtendLoanResponse }
+     * Create an instance of {@link ResendVerificationEmailResponse }
      * 
      */
-    public ExtendLoanResponse createExtendLoanResponse() {
-        return new ExtendLoanResponse();
+    public ResendVerificationEmailResponse createResendVerificationEmailResponse() {
+        return new ResendVerificationEmailResponse();
     }
 
     /**
@@ -107,30 +219,6 @@ public class ObjectFactory {
      */
     public ExtendLoan createExtendLoan() {
         return new ExtendLoan();
-    }
-
-    /**
-     * Create an instance of {@link ValidEmailWithResponse }
-     * 
-     */
-    public ValidEmailWithResponse createValidEmailWithResponse() {
-        return new ValidEmailWithResponse();
-    }
-
-    /**
-     * Create an instance of {@link ReturnBook }
-     * 
-     */
-    public ReturnBook createReturnBook() {
-        return new ReturnBook();
-    }
-
-    /**
-     * Create an instance of {@link ConnectUser }
-     * 
-     */
-    public ConnectUser createConnectUser() {
-        return new ConnectUser();
     }
 
     /**
@@ -150,35 +238,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetListBook }
-     * 
-     */
-    public GetListBook createGetListBook() {
-        return new GetListBook();
-    }
-
-    /**
      * Create an instance of {@link ReturnBookResponse }
      * 
      */
     public ReturnBookResponse createReturnBookResponse() {
         return new ReturnBookResponse();
-    }
-
-    /**
-     * Create an instance of {@link AddUserResponse }
-     * 
-     */
-    public AddUserResponse createAddUserResponse() {
-        return new AddUserResponse();
-    }
-
-    /**
-     * Create an instance of {@link GetBookAvailabilityResponse }
-     * 
-     */
-    public GetBookAvailabilityResponse createGetBookAvailabilityResponse() {
-        return new GetBookAvailabilityResponse();
     }
 
     /**

@@ -7,7 +7,7 @@ import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 public class CustomAuthenticationProvider implements AuthenticationProvider {
 
     @Autowired
-    private BCryptPasswordEncoder bCryptPasswordEncoder;
+    private PasswordEncoder passwordEncoder;
 
     @Override
     public Authentication authenticate(Authentication authentication) throws AuthenticationException {
@@ -24,7 +24,7 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         String password = authentication.getCredentials().toString();
         Usager user = (Usager)authentication.getPrincipal();
 
-        if (user.getEmail().equals(name) && bCryptPasswordEncoder.matches(password, user.getPassword())) {
+        if (user.getEmail().equals(name) && passwordEncoder.matches(password, user.getPassword())) {
             // Add later the role management
             return new UsernamePasswordAuthenticationToken(name, password, new ArrayList<>());
         } else {

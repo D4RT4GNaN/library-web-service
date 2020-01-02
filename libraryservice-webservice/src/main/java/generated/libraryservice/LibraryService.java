@@ -187,4 +187,66 @@ public interface LibraryService {
         @WebParam(name = "token", targetNamespace = "")
         String token);
 
+    /**
+     * 
+     * @param email
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod(action = "http://LibraryService/resendVerificationEmail")
+    @WebResult(name = "status", targetNamespace = "")
+    @RequestWrapper(localName = "resendVerificationEmail", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.ResendVerificationEmail")
+    @ResponseWrapper(localName = "resendVerificationEmailResponse", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.ResendVerificationEmailResponse")
+    public String resendVerificationEmail(
+        @WebParam(name = "email", targetNamespace = "")
+        String email);
+
+    /**
+     * 
+     * @param email
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod(action = "http://LibraryService/requestPasswordReset")
+    @WebResult(name = "status", targetNamespace = "")
+    @RequestWrapper(localName = "requestPasswordReset", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.RequestPasswordReset")
+    @ResponseWrapper(localName = "requestPasswordResetResponse", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.RequestPasswordResetResponse")
+    public String requestPasswordReset(
+        @WebParam(name = "email", targetNamespace = "")
+        String email);
+
+    /**
+     * 
+     * @param confirmNewPassword
+     * @param newPassword
+     * @param token
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod(action = "http://LibraryService/resetPassword")
+    @WebResult(name = "status", targetNamespace = "")
+    @RequestWrapper(localName = "resetPassword", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.ResetPassword")
+    @ResponseWrapper(localName = "resetPasswordResponse", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.ResetPasswordResponse")
+    public String resetPassword(
+        @WebParam(name = "token", targetNamespace = "")
+        String token,
+        @WebParam(name = "newPassword", targetNamespace = "")
+        String newPassword,
+        @WebParam(name = "confirmNewPassword", targetNamespace = "")
+        String confirmNewPassword);
+
+    /**
+     * 
+     * @param email
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod(action = "http://LibraryService/sendEmailToResetPassword")
+    @WebResult(name = "status", targetNamespace = "")
+    @RequestWrapper(localName = "sendEmailToResetPassword", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.SendEmailToResetPassword")
+    @ResponseWrapper(localName = "sendEmailToResetPasswordResponse", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.SendEmailToResetPasswordResponse")
+    public String sendEmailToResetPassword(
+        @WebParam(name = "email", targetNamespace = "")
+        String email);
+
 }

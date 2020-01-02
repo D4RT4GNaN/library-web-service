@@ -4,14 +4,13 @@ import org.openclassroom.projet.business.services.AbstractService;
 import org.openclassroom.projet.business.services.contract.UserService;
 import org.openclassroom.projet.model.database.usager.Usager;
 import org.openclassroom.projet.model.database.usager.VerificationToken;
-
+import org.openclassroom.projet.model.enums.TokenTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -77,23 +76,71 @@ public class UserServiceImpl extends AbstractService implements UserService {
     @Override
     public VerificationToken verifyEmailFrom(String token) {
         VerificationToken vToken = getDaoFactory().getVerificationTokenRepository().findByToken(token);
-        if (vToken != null) {
+        if (vToken != null && vToken.getType().equals("EMAIL")) {
             if (checkValidityOf(vToken)) {
                 return vToken;
             } else {
                 throw new RuntimeException("the link is no longer valid !");
             }
         } else {
-            throw new RuntimeException("This verification token doesn't exist !");
+            throw new RuntimeException("This verification token doesn't exist or is not valid !");
         }
     }
 
     @Override
     public void validAccountFor(VerificationToken vToken) {
-        Usager usager = vToken.getUsager();
-        usager.setEnabled(true);
-        getDaoFactory().getUsagerRepository().save(usager);
-        getDaoFactory().getVerificationTokenRepository().delete(vToken);
+        try {
+            Usager usager = vToken.getUsager();
+            if (vToken.getType().equals("EMAIL")) {
+                usager.setEnabled(true);
+                updateUsagerWithToken(usager, vToken);
+            } else {
+                throw new RuntimeException("There is no email token associated to this account !");
+            }
+        } catch (NullPointerException npe) {
+            throw new RuntimeException("There is no account associated to this token !");
+        }
+    }
+
+    @Override
+    public void resendVerificationEmail(String email) {
+        Usager usager = (Usager)userDetailsService.loadUserByUsername(email);
+        if (!usager.isEnabled()) {
+            String newToken = createVerificationToken(usager, TokenTypeEnum.EMAIL);
+            mailService.sendMailSMTP(usager.getEmail(), "Resend : Confirm your account", createVerificationEmailContent(newToken), true);
+        } else {
+            throw new RuntimeException("This account is already activated !");
+        }
+    }
+
+    @Override
+    public void sendEmailToResetPasswordFor(String email) {
+        Usager usager = (Usager)userDetailsService.loadUserByUsername(email);
+        if (usager.isEnabled()) {
+            String token = createVerificationToken(usager, TokenTypeEnum.PASSWORD);
+            mailService.sendMailSMTP(usager.getEmail(), "Forgotten password", createResetPasswordEmailContent(token), true);
+        } else {
+            throw new RuntimeException("This account is not already activated ! First check your email !");
+        }
+    }
+
+    @Override
+    public String createNewPasswordForUsagerWith(String token, String newPassword) {
+        VerificationToken vToken = getDaoFactory().getVerificationTokenRepository().findByToken(token);
+        try {
+            Usager usager = vToken.getUsager();
+
+            if (vToken.getType().equals("PASSWORD")) {
+                usager.setPassword(passwordEncoder.encode(newPassword));
+                updateUsagerWithToken(usager, vToken);
+            } else {
+                throw new RuntimeException("This token is not for reset password !");
+            }
+        } catch (NullPointerException npe) {
+            throw new RuntimeException("There is no account associated to this token for reset password !");
+        }
+
+        return "SUCCESS";
     }
 
 
@@ -110,20 +157,35 @@ public class UserServiceImpl extends AbstractService implements UserService {
     private void createNewAccount(Usager usager) {
         usager.setPassword(passwordEncoder.encode(usager.getPassword()));
         getDaoFactory().getUsagerRepository().save(usager);
-        String token = createVerificationToken(usager);
-        mailService.sendMailSMTP(usager.getEmail(), "Confirm your account", createEmailContent(token) ,true);
+        String token = createVerificationToken(usager, TokenTypeEnum.EMAIL);
+        mailService.sendMailSMTP(usager.getEmail(), "Confirm your account", createVerificationEmailContent(token) ,true);
     }
 
-    private String createVerificationToken(Usager usager) {
+    private String createVerificationToken(Usager usager, TokenTypeEnum type) {
         String token = UUID.randomUUID().toString();
-        VerificationToken vToken = new VerificationToken(usager, token);
+        VerificationToken vToken = getDaoFactory().getVerificationTokenRepository().findByUsager(usager);
+        if (vToken != null) {
+            vToken.setToken(token);
+            vToken.resetExpiryDate();
+        } else {
+            vToken = new VerificationToken(usager, token, type);
+        }
         getDaoFactory().getVerificationTokenRepository().save(vToken);
         return token;
     }
 
-    private String createEmailContent(String token) {
+    private String createVerificationEmailContent(String token) {
         String lineBreak = "\n\n";
         String before = "Thanks for signing up on our service! You must follow this link to activate your account:";
+        String after = "Have fun, and don't hesitate to contact us with your feedback." + lineBreak
+                + "The Library Team";
+
+        return before + lineBreak + serverAddress + "?token=" + token + lineBreak + after;
+    }
+
+    private String createResetPasswordEmailContent(String token) {
+        String lineBreak = "\n\n";
+        String before = "To reset your password, follow this link and change it:";
         String after = "Have fun, and don't hesitate to contact us with your feedback." + lineBreak
                 + "The Library Team";
 
@@ -133,6 +195,11 @@ public class UserServiceImpl extends AbstractService implements UserService {
     private boolean checkValidityOf(VerificationToken token) {
         Calendar cal = Calendar.getInstance();
         return token.getExpiryDate().getTime() - cal.getTime().getTime() >= 0;
+    }
+
+    private void updateUsagerWithToken(Usager usager, VerificationToken vToken) {
+        getDaoFactory().getUsagerRepository().save(usager);
+        getDaoFactory().getVerificationTokenRepository().delete(vToken);
     }
 
 }

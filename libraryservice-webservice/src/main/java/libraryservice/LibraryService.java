@@ -63,4 +63,32 @@ public class LibraryService extends AbstractWebInterface implements generated.li
         return "SUCCESS";
     }
 
+    @WebMethod
+    public String resendVerificationEmail(String email) {
+        getServiceFactory().getUserService().resendVerificationEmail(email);
+        return "SUCCESS";
+    }
+
+    @WebMethod
+    public String requestPasswordReset(String email) {
+        getServiceFactory().getUserService().sendEmailToResetPasswordFor(email);
+        return "SUCCESS";
+    }
+
+    @WebMethod
+    public String resetPassword(String token, String newPassword, String confirmNewPassword) {
+        if (newPassword.equals(confirmNewPassword)) {
+            getServiceFactory().getUserService().createNewPasswordForUsagerWith(token, newPassword);
+            return "SUCCESS";
+        }
+        throw new RuntimeException("Password and its confirmation don't match !");
+    }
+
+    @WebMethod
+    public String sendEmailToResetPassword(String email) {
+        getServiceFactory().getUserService().sendEmailToResetPasswordFor(email);
+        return "SUCCESS";
+    }
+
+
 }

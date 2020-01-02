@@ -9,5 +9,8 @@ public interface UserService {
     Usager login(String username, String password);
     VerificationToken verifyEmailFrom(String token);
     void validAccountFor(VerificationToken vToken);
+    void resendVerificationEmail(String email);
+    void sendEmailToResetPasswordFor(String email);
+    String createNewPasswordForUsagerWith(String token, String newPassword);
 
 }

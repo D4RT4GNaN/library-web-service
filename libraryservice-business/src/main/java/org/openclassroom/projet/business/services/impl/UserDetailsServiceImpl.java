@@ -17,14 +17,12 @@ public class UserDetailsServiceImpl implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         Usager user = usagerRepository.findByEmail(username);
+
         if (user == null) {
             throw new UsernameNotFoundException("No user present with mail : " + username);
-        } else {
-            if (!user.isEnabled()) {
-                throw new RuntimeException("Email not valid ! Check your email before !");
-            }
-            return user;
         }
+
+        return user;
     }
 
 }

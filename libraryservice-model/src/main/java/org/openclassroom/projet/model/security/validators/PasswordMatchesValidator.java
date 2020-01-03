@@ -2,7 +2,6 @@ package org.openclassroom.projet.model.security.validators;
 
 import org.openclassroom.projet.model.database.usager.Usager;
 import org.openclassroom.projet.model.security.annotations.PasswordMatches;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 
@@ -18,9 +17,9 @@ public class PasswordMatchesValidator implements ConstraintValidator<PasswordMat
 
     @Override
     public boolean isValid(Object obj, ConstraintValidatorContext context) {
-        System.out.println(passwordEncoder);
         Usager user = (Usager) obj;
-        if (!user.isEnabled()) {
+        if (user.getConfirmPassword() != null) {
+            System.out.println("\n\n\n Validation \n\n\n");
             return user.getPassword().equals(user.getConfirmPassword())
                     || passwordEncoder.matches(user.getConfirmPassword(), user.getPassword());
         } else {

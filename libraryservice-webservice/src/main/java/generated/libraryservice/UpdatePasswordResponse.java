@@ -31,8 +31,8 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "status"
 })
-@XmlRootElement(name = "sendEmailToResetPasswordResponse")
-public class SendEmailToResetPasswordResponse {
+@XmlRootElement(name = "updatePasswordResponse")
+public class UpdatePasswordResponse {
 
     @XmlElement(required = true)
     protected String status;

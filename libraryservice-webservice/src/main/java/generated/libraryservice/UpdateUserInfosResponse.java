@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="email" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="status" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -29,36 +29,36 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "email"
+    "status"
 })
-@XmlRootElement(name = "sendEmailToResetPassword")
-public class SendEmailToResetPassword {
+@XmlRootElement(name = "updateUserInfosResponse")
+public class UpdateUserInfosResponse {
 
     @XmlElement(required = true)
-    protected String email;
+    protected String status;
 
     /**
-     * Gets the value of the email property.
+     * Gets the value of the status property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getEmail() {
-        return email;
+    public String getStatus() {
+        return status;
     }
 
     /**
-     * Sets the value of the email property.
+     * Sets the value of the status property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setEmail(String value) {
-        this.email = value;
+    public void setStatus(String value) {
+        this.status = value;
     }
 
 }

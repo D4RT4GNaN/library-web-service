@@ -46,15 +46,11 @@ public class UserServiceImpl extends AbstractService implements UserService {
     // ==================== Public Methods ====================
     @Override // Think to add Role when user is created
     public void save(Usager usager) {
-        Set<ConstraintViolation<Usager>> vViolations = getConstraintValidator().validate(usager);
-        if (!vViolations.isEmpty()) {
-            throw new ConstraintViolationException(vViolations);
-        }
-
-        if (emailExist(usager.getEmail())) {
-            createNewAccount(usager);
-        } else {
+        validUsagerConstraints(usager);
+        if (!emailExist(usager.getEmail())) {
             throw new RuntimeException("There is already user with this email!");
+        } else {
+            createNewAccount(usager);
         }
     }
 
@@ -93,7 +89,8 @@ public class UserServiceImpl extends AbstractService implements UserService {
             Usager usager = vToken.getUsager();
             if (vToken.getType().equals("EMAIL")) {
                 usager.setEnabled(true);
-                updateUsagerWithToken(usager, vToken);
+                getDaoFactory().getUsagerRepository().save(usager);
+                getDaoFactory().getVerificationTokenRepository().delete(vToken);
             } else {
                 throw new RuntimeException("There is no email token associated to this account !");
             }
@@ -125,22 +122,57 @@ public class UserServiceImpl extends AbstractService implements UserService {
     }
 
     @Override
-    public String createNewPasswordForUsagerWith(String token, String newPassword) {
+    public void createNewPasswordForUsagerWith(String token, String newPassword, String confirmation) {
         VerificationToken vToken = getDaoFactory().getVerificationTokenRepository().findByToken(token);
         try {
             Usager usager = vToken.getUsager();
+            usager.setPassword(newPassword);
+            usager.setConfirmPassword(confirmation);
+
+            validUsagerConstraints(usager);
 
             if (vToken.getType().equals("PASSWORD")) {
-                usager.setPassword(passwordEncoder.encode(newPassword));
-                updateUsagerWithToken(usager, vToken);
+                encryptAndChangePassword(usager);
+                getDaoFactory().getVerificationTokenRepository().delete(vToken);
             } else {
                 throw new RuntimeException("This token is not for reset password !");
             }
         } catch (NullPointerException npe) {
             throw new RuntimeException("There is no account associated to this token for reset password !");
         }
+    }
 
-        return "SUCCESS";
+    @Override
+    public void changeUserPassword(String email, String newPassword, String confirmation) {
+        Usager usager = (Usager)userDetailsService.loadUserByUsername(email);
+        usager.setPassword(newPassword);
+        usager.setConfirmPassword(confirmation);
+
+        validUsagerConstraints(usager);
+
+        if (usager.isEnabled()) {
+            encryptAndChangePassword(usager);
+        } else {
+            throw new RuntimeException("This account is not already activated ! First check your email !");
+        }
+    }
+
+    @Override
+    public void updateUsagerInfos(String email, Usager usager) {
+        Usager dbUsager = (Usager)userDetailsService.loadUserByUsername(email);
+
+        dbUsager.setFirstName(usager.getFirstName());
+        dbUsager.setLastName(usager.getLastName());
+        dbUsager.setAddress(usager.getAddress());
+
+        if (!dbUsager.getEmail().equals(usager.getEmail())) {
+            dbUsager.setEmail(usager.getEmail());
+            dbUsager.setEnabled(false);
+            getDaoFactory().getUsagerRepository().save(dbUsager);
+            resendVerificationEmail(dbUsager.getEmail());
+        } else {
+            getDaoFactory().getUsagerRepository().save(dbUsager);
+        }
     }
 
 
@@ -148,17 +180,19 @@ public class UserServiceImpl extends AbstractService implements UserService {
     // ==================== Inner Methods ====================
     private Boolean emailExist(String email) {
         Usager usager = getDaoFactory().getUsagerRepository().findByEmail(email);
-
         if (usager != null) { return false; }
-
         return true;
     }
 
     private void createNewAccount(Usager usager) {
-        usager.setPassword(passwordEncoder.encode(usager.getPassword()));
-        getDaoFactory().getUsagerRepository().save(usager);
+        encryptAndChangePassword(usager);
         String token = createVerificationToken(usager, TokenTypeEnum.EMAIL);
         mailService.sendMailSMTP(usager.getEmail(), "Confirm your account", createVerificationEmailContent(token) ,true);
+    }
+
+    private void encryptAndChangePassword(Usager usager) {
+        usager.setPassword(passwordEncoder.encode(usager.getPassword()));
+        getDaoFactory().getUsagerRepository().save(usager);
     }
 
     private String createVerificationToken(Usager usager, TokenTypeEnum type) {
@@ -167,6 +201,7 @@ public class UserServiceImpl extends AbstractService implements UserService {
         if (vToken != null) {
             vToken.setToken(token);
             vToken.resetExpiryDate();
+            vToken.setType(type.name());
         } else {
             vToken = new VerificationToken(usager, token, type);
         }
@@ -197,9 +232,11 @@ public class UserServiceImpl extends AbstractService implements UserService {
         return token.getExpiryDate().getTime() - cal.getTime().getTime() >= 0;
     }
 
-    private void updateUsagerWithToken(Usager usager, VerificationToken vToken) {
-        getDaoFactory().getUsagerRepository().save(usager);
-        getDaoFactory().getVerificationTokenRepository().delete(vToken);
+    private void validUsagerConstraints(Usager usager) {
+        Set<ConstraintViolation<Usager>> vViolations = getConstraintValidator().validate(usager);
+        if (!vViolations.isEmpty()) {
+            throw new ConstraintViolationException(vViolations);
+        }
     }
 
 }

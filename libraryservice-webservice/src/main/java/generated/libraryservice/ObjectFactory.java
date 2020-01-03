@@ -54,6 +54,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link UpdatePasswordResponse }
+     * 
+     */
+    public UpdatePasswordResponse createUpdatePasswordResponse() {
+        return new UpdatePasswordResponse();
+    }
+
+    /**
      * Create an instance of {@link AddUser }
      * 
      */
@@ -75,14 +83,6 @@ public class ObjectFactory {
      */
     public ExtendLoanResponse createExtendLoanResponse() {
         return new ExtendLoanResponse();
-    }
-
-    /**
-     * Create an instance of {@link SendEmailToResetPassword }
-     * 
-     */
-    public SendEmailToResetPassword createSendEmailToResetPassword() {
-        return new SendEmailToResetPassword();
     }
 
     /**
@@ -174,6 +174,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link UpdatePassword }
+     * 
+     */
+    public UpdatePassword createUpdatePassword() {
+        return new UpdatePassword();
+    }
+
+    /**
      * Create an instance of {@link GetListBookResponse }
      * 
      */
@@ -198,11 +206,11 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link SendEmailToResetPasswordResponse }
+     * Create an instance of {@link UpdateUserInfosResponse }
      * 
      */
-    public SendEmailToResetPasswordResponse createSendEmailToResetPasswordResponse() {
-        return new SendEmailToResetPasswordResponse();
+    public UpdateUserInfosResponse createUpdateUserInfosResponse() {
+        return new UpdateUserInfosResponse();
     }
 
     /**
@@ -219,6 +227,14 @@ public class ObjectFactory {
      */
     public ExtendLoan createExtendLoan() {
         return new ExtendLoan();
+    }
+
+    /**
+     * Create an instance of {@link UpdateUserInfos }
+     * 
+     */
+    public UpdateUserInfos createUpdateUserInfos() {
+        return new UpdateUserInfos();
     }
 
     /**

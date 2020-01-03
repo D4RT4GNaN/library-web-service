@@ -11,6 +11,8 @@ public interface UserService {
     void validAccountFor(VerificationToken vToken);
     void resendVerificationEmail(String email);
     void sendEmailToResetPasswordFor(String email);
-    String createNewPasswordForUsagerWith(String token, String newPassword);
+    void createNewPasswordForUsagerWith(String token, String newPassword, String confirmation);
+    void changeUserPassword(String email, String newPassword, String confirmation);
+    void updateUsagerInfos(String email, Usager usager);
 
 }

@@ -237,16 +237,39 @@ public interface LibraryService {
 
     /**
      * 
+     * @param confirmNewPassword
+     * @param newPassword
      * @param email
      * @return
      *     returns java.lang.String
      */
-    @WebMethod(action = "http://LibraryService/sendEmailToResetPassword")
+    @WebMethod(action = "http://LibraryService/updatePassword")
     @WebResult(name = "status", targetNamespace = "")
-    @RequestWrapper(localName = "sendEmailToResetPassword", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.SendEmailToResetPassword")
-    @ResponseWrapper(localName = "sendEmailToResetPasswordResponse", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.SendEmailToResetPasswordResponse")
-    public String sendEmailToResetPassword(
+    @RequestWrapper(localName = "updatePassword", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.UpdatePassword")
+    @ResponseWrapper(localName = "updatePasswordResponse", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.UpdatePasswordResponse")
+    public String updatePassword(
         @WebParam(name = "email", targetNamespace = "")
-        String email);
+        String email,
+        @WebParam(name = "newPassword", targetNamespace = "")
+        String newPassword,
+        @WebParam(name = "confirmNewPassword", targetNamespace = "")
+        String confirmNewPassword);
+
+    /**
+     * 
+     * @param usager
+     * @param email
+     * @return
+     *     returns java.lang.String
+     */
+    @WebMethod(action = "http://LibraryService/updateUserInfos")
+    @WebResult(name = "status", targetNamespace = "")
+    @RequestWrapper(localName = "updateUserInfos", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.UpdateUserInfos")
+    @ResponseWrapper(localName = "updateUserInfosResponse", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.UpdateUserInfosResponse")
+    public String updateUserInfos(
+        @WebParam(name = "email", targetNamespace = "")
+        String email,
+        @WebParam(name = "usager", targetNamespace = "")
+        Usager usager);
 
 }

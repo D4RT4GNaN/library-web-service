@@ -50,6 +50,19 @@
       <artifactId>validation-api</artifactId>
     </dependency>
 
+    <dependency>
+      <groupId>org.passay</groupId>
+      <artifactId>passay</artifactId>
+      <version>1.5.0</version>
+    </dependency>
+
+    <!-- Passay Helper -->
+    <dependency>
+      <groupId>com.google.guava</groupId>
+      <artifactId>guava</artifactId>
+      <version>28.1-jre</version>
+    </dependency>
+
     <!-- JUnit -->
     <dependency>
       <groupId>junit</groupId>

@@ -1,7 +1,10 @@
 package org.openclassroom.projet.model.database.usager;
 
+import org.openclassroom.projet.model.enums.RoleEnum;
+import org.openclassroom.projet.model.security.annotations.EnumMatches;
 import org.openclassroom.projet.model.security.annotations.PasswordMatches;
 import org.openclassroom.projet.model.security.annotations.ValidEmail;
+import org.openclassroom.projet.model.security.annotations.ValidPassword;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -11,7 +14,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Collection;
-import java.util.List;
+import java.util.Collections;
 
 @Entity
 @Table(name = "usager")
@@ -29,6 +32,7 @@ public class Usager implements Serializable, UserDetails {
 
     @NotNull
     @NotEmpty
+    @ValidPassword
     private String password;
 
     @Transient
@@ -46,14 +50,8 @@ public class Usager implements Serializable, UserDetails {
     @NotEmpty
     private String address;
 
-    @ManyToMany(fetch = FetchType.EAGER)
-    @JoinTable(
-            name = "Usager_Role",
-            joinColumns = {@JoinColumn(name="USAGER_ID", referencedColumnName="ID")},
-            inverseJoinColumns = {@JoinColumn(name = "ROLE_ID", referencedColumnName="ID")}
-    )
-    @Column(name = "Roles", nullable = false)
-    private List<Role> roles;
+    @EnumMatches(enumClass = RoleEnum.class)
+    private String role;
 
     @Column(name = "enabled")
     private boolean enabled;
@@ -64,10 +62,10 @@ public class Usager implements Serializable, UserDetails {
     public Usager() {
         super();
         this.enabled = false;
-        //this.roles = new Role();
+        this.role = RoleEnum.USER.name();
     }
 
-    public Usager(String email, String password, String confirmPassword, String firstName, String lastName, String address, List<Role> roles) {
+    public Usager(String email, String password, String confirmPassword, String firstName, String lastName, String address, RoleEnum role) {
         super();
         this.enabled = false;
         this.email = email;
@@ -76,7 +74,7 @@ public class Usager implements Serializable, UserDetails {
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
-        this.roles = roles;
+        this.role = role.name();
     }
 
 
@@ -128,8 +126,8 @@ public class Usager implements Serializable, UserDetails {
         this.address = address;
     }
 
-    public List<Role> getRoles() { return roles; }
-    public void setRoles(List<Role> roles) { this.roles = roles; }
+    public String getRoles() { return role; }
+    public void setRoles(RoleEnum role) { this.role = role.name(); }
 
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
@@ -142,9 +140,7 @@ public class Usager implements Serializable, UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        String[] userRoles = getRoles().stream().map((role) -> role.getName()).toArray(String[]::new);
-        Collection<GrantedAuthority> authorities = AuthorityUtils.createAuthorityList(userRoles);
-        return authorities;
+        return AuthorityUtils.createAuthorityList(getRoles());
     }
 
     @Override

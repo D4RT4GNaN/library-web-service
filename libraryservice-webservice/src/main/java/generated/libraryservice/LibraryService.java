@@ -27,15 +27,18 @@ public interface LibraryService {
 
     /**
      * 
+     * @param libraryIds
      * @param bookReference
      * @return
-     *     returns int
+     *     returns java.util.List<generated.libraryservice.Stock>
      */
     @WebMethod(action = "http://LibraryService/getBookAvailability")
     @WebResult(name = "bookAvailability", targetNamespace = "")
     @RequestWrapper(localName = "getBookAvailability", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.GetBookAvailability")
     @ResponseWrapper(localName = "getBookAvailabilityResponse", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.GetBookAvailabilityResponse")
-    public int getBookAvailability(
+    public List<Stock> getBookAvailability(
+        @WebParam(name = "libraryIds", targetNamespace = "")
+        List<Integer> libraryIds,
         @WebParam(name = "bookReference", targetNamespace = "")
         String bookReference);
 
@@ -121,26 +124,17 @@ public interface LibraryService {
 
     /**
      * 
-     * @param author
-     * @param publisher
-     * @param language
      * @param keyword
      * @return
      *     returns java.util.List<generated.libraryservice.Book>
      */
-    @WebMethod(action = "http://LibraryService/getListBook")
+    @WebMethod(action = "http://LibraryService/getBooksWithKeyword")
     @WebResult(name = "listBooks", targetNamespace = "")
-    @RequestWrapper(localName = "getListBook", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.GetListBook")
-    @ResponseWrapper(localName = "getListBookResponse", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.GetListBookResponse")
-    public List<Book> getListBook(
+    @RequestWrapper(localName = "getBooksWithKeyword", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.GetBooksWithKeyword")
+    @ResponseWrapper(localName = "getBooksWithKeywordResponse", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.GetBooksWithKeywordResponse")
+    public List<Book> getBooksWithKeyword(
         @WebParam(name = "keyword", targetNamespace = "")
-        String keyword,
-        @WebParam(name = "author", targetNamespace = "")
-        String author,
-        @WebParam(name = "publisher", targetNamespace = "")
-        String publisher,
-        @WebParam(name = "language", targetNamespace = "")
-        String language);
+        String keyword);
 
     /**
      * 

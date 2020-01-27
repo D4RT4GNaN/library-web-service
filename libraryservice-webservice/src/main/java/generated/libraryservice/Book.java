@@ -18,8 +18,10 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="reference" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="imageUrl" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="title" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="author" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="synopsis" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="category" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="publisher" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="language" type="{http://www.w3.org/2001/XMLSchema}string"/>
@@ -34,8 +36,10 @@ import javax.xml.bind.annotation.XmlType;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "book", propOrder = {
     "reference",
+    "imageUrl",
     "title",
     "author",
+    "synopsis",
     "category",
     "publisher",
     "language"
@@ -45,9 +49,13 @@ public class Book {
     @XmlElement(required = true)
     protected String reference;
     @XmlElement(required = true)
+    protected String imageUrl;
+    @XmlElement(required = true)
     protected String title;
     @XmlElement(required = true)
     protected String author;
+    @XmlElement(required = true)
+    protected String synopsis;
     @XmlElement(required = true)
     protected String category;
     @XmlElement(required = true)
@@ -77,6 +85,30 @@ public class Book {
      */
     public void setReference(String value) {
         this.reference = value;
+    }
+
+    /**
+     * Gets the value of the imageUrl property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    /**
+     * Sets the value of the imageUrl property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setImageUrl(String value) {
+        this.imageUrl = value;
     }
 
     /**
@@ -125,6 +157,30 @@ public class Book {
      */
     public void setAuthor(String value) {
         this.author = value;
+    }
+
+    /**
+     * Gets the value of the synopsis property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getSynopsis() {
+        return synopsis;
+    }
+
+    /**
+     * Sets the value of the synopsis property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setSynopsis(String value) {
+        this.synopsis = value;
     }
 
     /**

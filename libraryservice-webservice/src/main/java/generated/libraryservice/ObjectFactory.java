@@ -118,14 +118,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetListBook }
-     * 
-     */
-    public GetListBook createGetListBook() {
-        return new GetListBook();
-    }
-
-    /**
      * Create an instance of {@link AddUserResponse }
      * 
      */
@@ -150,11 +142,35 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link Stock }
+     * 
+     */
+    public Stock createStock() {
+        return new Stock();
+    }
+
+    /**
      * Create an instance of {@link RequestPasswordResetResponse }
      * 
      */
     public RequestPasswordResetResponse createRequestPasswordResetResponse() {
         return new RequestPasswordResetResponse();
+    }
+
+    /**
+     * Create an instance of {@link GetBooksWithKeywordResponse }
+     * 
+     */
+    public GetBooksWithKeywordResponse createGetBooksWithKeywordResponse() {
+        return new GetBooksWithKeywordResponse();
+    }
+
+    /**
+     * Create an instance of {@link Book }
+     * 
+     */
+    public Book createBook() {
+        return new Book();
     }
 
     /**
@@ -179,22 +195,6 @@ public class ObjectFactory {
      */
     public UpdatePassword createUpdatePassword() {
         return new UpdatePassword();
-    }
-
-    /**
-     * Create an instance of {@link GetListBookResponse }
-     * 
-     */
-    public GetListBookResponse createGetListBookResponse() {
-        return new GetListBookResponse();
-    }
-
-    /**
-     * Create an instance of {@link Book }
-     * 
-     */
-    public Book createBook() {
-        return new Book();
     }
 
     /**
@@ -267,6 +267,22 @@ public class ObjectFactory {
      */
     public GetStatusLoan createGetStatusLoan() {
         return new GetStatusLoan();
+    }
+
+    /**
+     * Create an instance of {@link GetBooksWithKeyword }
+     * 
+     */
+    public GetBooksWithKeyword createGetBooksWithKeyword() {
+        return new GetBooksWithKeyword();
+    }
+
+    /**
+     * Create an instance of {@link Library }
+     * 
+     */
+    public Library createLibrary() {
+        return new Library();
     }
 
 }

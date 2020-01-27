@@ -1,10 +1,13 @@
 package org.openclassroom.projet.consumer;
 
-import org.openclassroom.projet.consumer.repository.UsagerRepository;
-import org.openclassroom.projet.consumer.repository.VerificationTokenRepository;
+import org.openclassroom.projet.consumer.repository.*;
 
 public interface DaoFactory {
+
     UsagerRepository getUsagerRepository();
-    //RoleRepository getRoleRepository();
     VerificationTokenRepository getVerificationTokenRepository();
+    BookRepository getBookRepository();
+    StockRepository getStockRepository();
+    LibraryRepository getLibraryRepository();
+
 }

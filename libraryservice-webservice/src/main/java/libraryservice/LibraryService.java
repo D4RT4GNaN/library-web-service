@@ -1,23 +1,25 @@
 package libraryservice;
 
-import generated.libraryservice.Book;
+import generated.libraryservice.Library;
+import org.openclassroom.projet.model.database.library.Book;
+import org.openclassroom.projet.model.database.library.Stock;
 import org.openclassroom.projet.model.database.usager.Usager;
 import org.openclassroom.projet.model.database.usager.VerificationToken;
+import utils.converters.BookConverter;
+import utils.converters.LibraryConverter;
+import utils.converters.StockConverter;
 import utils.converters.UsagerConverter;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.xml.datatype.XMLGregorianCalendar;
+import java.util.ArrayList;
 import java.util.List;
 
 @WebService(endpointInterface = "generated.libraryservice.LibraryService")
 public class LibraryService extends AbstractWebInterface implements generated.libraryservice.LibraryService {
 
-    @WebMethod
-    public int getBookAvailability(String bookReference) {
-        return 0;
-    }
-
+    // ---------------------- Loan ------------------------
     @WebMethod
     public String addNewLoan(XMLGregorianCalendar borrowingDate, String bookReference, int userID) {
         return null;
@@ -38,11 +40,31 @@ public class LibraryService extends AbstractWebInterface implements generated.li
         return null;
     }
 
+
+
+    // ---------------------- Usager ------------------------
     @WebMethod
-    public List<Book> getListBook(String keyword, String author, String publisher, String language) {
-        return null;
+    public List<generated.libraryservice.Stock> getBookAvailability(List<Integer> libraryIds, String bookReference) {
+        List<generated.libraryservice.Stock> generatedStocks = new ArrayList<>();
+
+        for (int libraryId : libraryIds) {
+            Library library = LibraryConverter.fromDatabase(getServiceFactory().getLibraryService().getLibrary(libraryId));
+            Stock stockBook = getServiceFactory().getBookFactory().getStockForBook(libraryId, bookReference);
+            generatedStocks.add(StockConverter.fromDatabase(stockBook, library));
+        }
+
+        return generatedStocks;
     }
 
+    @WebMethod
+    public List<generated.libraryservice.Book> getBooksWithKeyword(String keyword) {
+        List<Book> result = getServiceFactory().getBookFactory().getBooks(keyword);
+        return BookConverter.fromDatabase(result);
+    }
+
+
+
+    // ---------------------- Usager ------------------------
     @WebMethod
     public String addUser(generated.libraryservice.Usager generatedUsager) {
         Usager usager = UsagerConverter.fromClient(generatedUsager);

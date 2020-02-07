@@ -1,6 +1,7 @@
 package utils.converters;
 
 import org.openclassroom.projet.model.database.usager.Usager;
+import org.openclassroom.projet.model.database.usager.UsagerDto;
 
 public class UsagerConverter {
 
@@ -16,8 +17,8 @@ public class UsagerConverter {
         return generatedUsager;
     }
 
-    public static Usager fromClient(generated.libraryservice.Usager generatedUsager) {
-        Usager usager = new Usager();
+    public static UsagerDto fromClient(generated.libraryservice.Usager generatedUsager) {
+        UsagerDto usager = new UsagerDto();
 
         usager.setEmail(generatedUsager.getEmail());
         usager.setPassword(generatedUsager.getPassword());

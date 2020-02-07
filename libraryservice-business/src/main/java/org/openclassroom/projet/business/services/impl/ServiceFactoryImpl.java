@@ -1,9 +1,6 @@
 package org.openclassroom.projet.business.services.impl;
 
-import org.openclassroom.projet.business.services.contract.BookService;
-import org.openclassroom.projet.business.services.contract.LibraryService;
-import org.openclassroom.projet.business.services.contract.ServiceFactory;
-import org.openclassroom.projet.business.services.contract.UserService;
+import org.openclassroom.projet.business.services.contract.*;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.inject.Named;
@@ -19,6 +16,9 @@ public class ServiceFactoryImpl implements ServiceFactory {
     @Autowired
     private LibraryService libraryService;
 
+    @Autowired
+    private LoanService loanService;
+
     @Override
     public UserService getUserService() {
         return userService;
@@ -31,4 +31,7 @@ public class ServiceFactoryImpl implements ServiceFactory {
 
     @Override
     public LibraryService getLibraryService() { return libraryService; }
+
+    @Override
+    public  LoanService getLoanService() { return loanService; }
 }

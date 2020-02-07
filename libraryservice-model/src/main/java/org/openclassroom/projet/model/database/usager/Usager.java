@@ -1,56 +1,27 @@
 package org.openclassroom.projet.model.database.usager;
 
-import org.openclassroom.projet.model.enums.RoleEnum;
-import org.openclassroom.projet.model.security.annotations.EnumMatches;
-import org.openclassroom.projet.model.security.annotations.PasswordMatches;
-import org.openclassroom.projet.model.security.annotations.ValidEmail;
-import org.openclassroom.projet.model.security.annotations.ValidPassword;
 import org.springframework.security.core.GrantedAuthority;
-import org.springframework.security.core.authority.AuthorityUtils;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import javax.persistence.*;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Collection;
 
 @Entity
 @Table(name = "usager")
-@PasswordMatches
 public class Usager implements Serializable, UserDetails {
+
     // ==================== Attributes ====================
     @Id
     @GeneratedValue
     private int id;
 
-    @NotNull
-    @NotEmpty
-    @ValidEmail
     private String email;
-
-    @NotNull
-    @NotEmpty
-    @ValidPassword
     private String password;
-
-    @Transient
-    private String confirmPassword;
-
-    @NotNull
-    @NotEmpty
     private String firstName;
-
-    @NotNull
-    @NotEmpty
     private String lastName;
-
-    @NotNull
-    @NotEmpty
     private String address;
-
-    @EnumMatches(enumClass = RoleEnum.class)
-    private String role;
 
     @Column(name = "enabled")
     private boolean enabled;
@@ -61,19 +32,26 @@ public class Usager implements Serializable, UserDetails {
     public Usager() {
         super();
         this.enabled = false;
-        this.role = RoleEnum.USER.name();
+
     }
 
-    public Usager(String email, String password, String confirmPassword, String firstName, String lastName, String address, RoleEnum role) {
+    public Usager(UsagerDto usagerDto) {
+        this.email = usagerDto.getEmail();
+        this.password = encodePassword(usagerDto.getPassword());
+        this.firstName = usagerDto.getFirstName();
+        this.lastName = usagerDto.getLastName();
+        this.address = usagerDto.getAddress();
+        this.enabled = false;
+    }
+
+    public Usager(String email, String password, String firstName, String lastName, String address) {
         super();
         this.enabled = false;
         this.email = email;
         this.password = password;
-        this.confirmPassword = confirmPassword;
         this.firstName = firstName;
         this.lastName = lastName;
         this.address = address;
-        this.role = role.name();
     }
 
 
@@ -88,13 +66,6 @@ public class Usager implements Serializable, UserDetails {
     }
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public String getConfirmPassword() {
-        return confirmPassword;
-    }
-    public void setConfirmPassword(String confirmPassword) {
-        this.confirmPassword = confirmPassword;
     }
 
     public String getFirstName() {
@@ -125,9 +96,6 @@ public class Usager implements Serializable, UserDetails {
         this.address = address;
     }
 
-    public String getRoles() { return role; }
-    public void setRoles(RoleEnum role) { this.role = role.name(); }
-
     public void setEnabled(boolean enabled) {
         this.enabled = enabled;
     }
@@ -139,7 +107,7 @@ public class Usager implements Serializable, UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return AuthorityUtils.createAuthorityList(getRoles());
+        return null;
     }
 
     @Override
@@ -160,6 +128,11 @@ public class Usager implements Serializable, UserDetails {
     @Override
     public boolean isEnabled() {
         return this.enabled;
+    }
+
+    private String encodePassword(String password) {
+        BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
+        return bCryptPasswordEncoder.encode(password);
     }
 
 }

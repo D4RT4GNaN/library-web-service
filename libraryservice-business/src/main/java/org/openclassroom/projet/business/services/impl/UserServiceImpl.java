@@ -3,6 +3,7 @@ package org.openclassroom.projet.business.services.impl;
 import org.openclassroom.projet.business.services.AbstractService;
 import org.openclassroom.projet.business.services.contract.UserService;
 import org.openclassroom.projet.model.database.usager.Usager;
+import org.openclassroom.projet.model.database.usager.UsagerDto;
 import org.openclassroom.projet.model.database.usager.VerificationToken;
 import org.openclassroom.projet.model.enums.TokenTypeEnum;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,9 +28,6 @@ public class UserServiceImpl extends AbstractService implements UserService {
 
     // ==================== Attributes ====================
     @Autowired
-    private PasswordEncoder passwordEncoder;
-
-    @Autowired
     private AuthenticationManager authenticationManager;
 
     @Autowired
@@ -44,8 +42,8 @@ public class UserServiceImpl extends AbstractService implements UserService {
 
 
     // ==================== Public Methods ====================
-    @Override // Think to add Role when user is created
-    public void save(Usager usager) {
+    @Override
+    public void save(UsagerDto usager) {
         validUsagerConstraints(usager);
         if (!emailExist(usager.getEmail())) {
             throw new RuntimeException("There is already user with this email!");
@@ -126,13 +124,10 @@ public class UserServiceImpl extends AbstractService implements UserService {
         VerificationToken vToken = getDaoFactory().getVerificationTokenRepository().findByToken(token);
         try {
             Usager usager = vToken.getUsager();
-            usager.setPassword(newPassword);
-            usager.setConfirmPassword(confirmation);
-
-            validUsagerConstraints(usager);
+            UsagerDto usagerDto = validConstraintsWhenChangingPassword(usager, newPassword, confirmation);
 
             if (vToken.getType().equals("PASSWORD")) {
-                encryptAndChangePassword(usager);
+                encryptPasswordAndSave(usagerDto);
                 getDaoFactory().getVerificationTokenRepository().delete(vToken);
             } else {
                 throw new RuntimeException("This token is not for reset password !");
@@ -145,13 +140,10 @@ public class UserServiceImpl extends AbstractService implements UserService {
     @Override
     public void changeUserPassword(String email, String newPassword, String confirmation) {
         Usager usager = (Usager)userDetailsService.loadUserByUsername(email);
-        usager.setPassword(newPassword);
-        usager.setConfirmPassword(confirmation);
-
-        validUsagerConstraints(usager);
+        UsagerDto usagerDto = validConstraintsWhenChangingPassword(usager, newPassword, confirmation);
 
         if (usager.isEnabled()) {
-            encryptAndChangePassword(usager);
+            encryptPasswordAndSave(usagerDto);
         } else {
             throw new RuntimeException("This account is not already activated ! First check your email !");
         }
@@ -184,15 +176,19 @@ public class UserServiceImpl extends AbstractService implements UserService {
         return true;
     }
 
-    private void createNewAccount(Usager usager) {
-        encryptAndChangePassword(usager);
+    private void createNewAccount(UsagerDto usagerDto) {
+        Usager usager = encryptPasswordAndSave(usagerDto);
+        System.out.println("\n\n\n First \n\n\n");
         String token = createVerificationToken(usager, TokenTypeEnum.EMAIL);
+        System.out.println("\n\n\n Second \n\n\n");
         mailService.sendMailSMTP(usager.getEmail(), "Confirm your account", createVerificationEmailContent(token) ,true);
+        System.out.println("\n\n\n Third \n\n\n");
     }
 
-    private void encryptAndChangePassword(Usager usager) {
-        usager.setPassword(passwordEncoder.encode(usager.getPassword()));
+    private Usager encryptPasswordAndSave(UsagerDto usagerDto) {
+        Usager usager = new Usager(usagerDto);
         getDaoFactory().getUsagerRepository().save(usager);
+        return usager;
     }
 
     private String createVerificationToken(Usager usager, TokenTypeEnum type) {
@@ -232,11 +228,20 @@ public class UserServiceImpl extends AbstractService implements UserService {
         return token.getExpiryDate().getTime() - cal.getTime().getTime() >= 0;
     }
 
-    private void validUsagerConstraints(Usager usager) {
-        Set<ConstraintViolation<Usager>> vViolations = getConstraintValidator().validate(usager);
+    private boolean validUsagerConstraints(UsagerDto usager) {
+        Set<ConstraintViolation<UsagerDto>> vViolations = getConstraintValidator().validate(usager);
         if (!vViolations.isEmpty()) {
             throw new ConstraintViolationException(vViolations);
         }
+        return true;
+    }
+
+    private UsagerDto validConstraintsWhenChangingPassword(Usager usager, String newPassword, String confirmation) {
+        UsagerDto usagerDto = new UsagerDto(usager);
+        usagerDto.setPassword(newPassword);
+        usagerDto.setConfirmPassword(confirmation);
+
+        return validUsagerConstraints(usagerDto) ? usagerDto : null;
     }
 
 }

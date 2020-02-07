@@ -25,7 +25,6 @@ public class CustomAuthenticationProvider implements AuthenticationProvider {
         Usager user = (Usager)authentication.getPrincipal();
 
         if (user.getEmail().equals(name) && passwordEncoder.matches(password, user.getPassword())) {
-            // Add later the role management
             return new UsernamePasswordAuthenticationToken(name, password, new ArrayList<>());
         } else {
             throw new BadCredentialsException("email or password is wrong !");

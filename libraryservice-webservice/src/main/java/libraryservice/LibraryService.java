@@ -3,7 +3,10 @@ package libraryservice;
 import generated.libraryservice.Library;
 import org.openclassroom.projet.model.database.library.Book;
 import org.openclassroom.projet.model.database.library.Stock;
+import org.openclassroom.projet.model.database.service.Loan;
+import org.openclassroom.projet.model.database.service.LoanId;
 import org.openclassroom.projet.model.database.usager.Usager;
+import org.openclassroom.projet.model.database.usager.UsagerDto;
 import org.openclassroom.projet.model.database.usager.VerificationToken;
 import utils.converters.BookConverter;
 import utils.converters.LibraryConverter;
@@ -22,7 +25,9 @@ public class LibraryService extends AbstractWebInterface implements generated.li
     // ---------------------- Loan ------------------------
     @WebMethod
     public String addNewLoan(XMLGregorianCalendar borrowingDate, String bookReference, int userID) {
-        return null;
+        LoanId loanId = new LoanId(borrowingDate.toGregorianCalendar().getTime(), bookReference, userID);
+        getServiceFactory().getLoanService().addNewLoan(new Loan(loanId));
+        return "SUCCESS";
     }
 
     @WebMethod
@@ -42,7 +47,7 @@ public class LibraryService extends AbstractWebInterface implements generated.li
 
 
 
-    // ---------------------- Usager ------------------------
+    // ---------------------- Book ------------------------
     @WebMethod
     public List<generated.libraryservice.Stock> getBookAvailability(List<Integer> libraryIds, String bookReference) {
         List<generated.libraryservice.Stock> generatedStocks = new ArrayList<>();
@@ -67,8 +72,8 @@ public class LibraryService extends AbstractWebInterface implements generated.li
     // ---------------------- Usager ------------------------
     @WebMethod
     public String addUser(generated.libraryservice.Usager generatedUsager) {
-        Usager usager = UsagerConverter.fromClient(generatedUsager);
-        getServiceFactory().getUserService().save(usager);
+        UsagerDto usagerDto = UsagerConverter.fromClient(generatedUsager);
+        getServiceFactory().getUserService().save(usagerDto);
         return "SUCCESS";
     }
 
@@ -113,7 +118,8 @@ public class LibraryService extends AbstractWebInterface implements generated.li
 
     @WebMethod
     public String updateUserInfos(String email, generated.libraryservice.Usager usager) {
-        Usager convertedUsager = UsagerConverter.fromClient(usager);
+        UsagerDto usagerDto = UsagerConverter.fromClient(usager);
+        Usager convertedUsager = new Usager(usagerDto);
         getServiceFactory().getUserService().updateUsagerInfos(email, convertedUsager);
         return "SUCCESS";
     }

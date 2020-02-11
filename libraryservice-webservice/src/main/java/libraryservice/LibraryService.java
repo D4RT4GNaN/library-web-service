@@ -41,8 +41,8 @@ public class LibraryService extends AbstractWebInterface implements generated.li
     }
 
     @WebMethod
-    public String getStatusLoan(XMLGregorianCalendar borrowingDate, String bookReference, int userID) {
-        return null;
+    public String getStatusLoan(String bookReference, int userID) {
+        return getServiceFactory().getLoanService().getStatusLoan(bookReference, userID);
     }
 
 

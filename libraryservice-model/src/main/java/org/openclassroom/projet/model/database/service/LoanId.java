@@ -1,11 +1,7 @@
 package org.openclassroom.projet.model.database.service;
 
-import org.openclassroom.projet.model.database.library.StockId;
-
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -15,18 +11,12 @@ public class LoanId implements Serializable {
 
     // ==================== Attributes ====================
     @Column(name = "borrowing_date")
-    @NotEmpty
-    @NotNull
     private Date borrowingDate;
 
     @Column(name = "reference_book")
-    @NotEmpty
-    @NotNull
     private String referenceBook;
 
     @Column(name = "usager_id")
-    @NotEmpty
-    @NotNull
     private int usagerId;
 
 
@@ -61,6 +51,7 @@ public class LoanId implements Serializable {
     public void setUsagerId(int usagerId) {
         this.usagerId = usagerId;
     }
+
 
     // ==================== Methods ====================
     @Override

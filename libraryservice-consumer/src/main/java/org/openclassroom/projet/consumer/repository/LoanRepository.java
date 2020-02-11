@@ -7,4 +7,7 @@ import org.springframework.stereotype.Repository;
 
 @Repository
 public interface LoanRepository extends JpaRepository<Loan, LoanId> {
+
+    Loan findByLoanId_ReferenceBookAndLoanId_UsagerIdAndStatusNot(String referenceBook, int usagerId, String status);
+
 }

@@ -104,7 +104,6 @@ public interface LibraryService {
 
     /**
      * 
-     * @param borrowingDate
      * @param bookReference
      * @param userID
      * @return
@@ -115,8 +114,6 @@ public interface LibraryService {
     @RequestWrapper(localName = "getStatusLoan", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.GetStatusLoan")
     @ResponseWrapper(localName = "getStatusLoanResponse", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.GetStatusLoanResponse")
     public String getStatusLoan(
-        @WebParam(name = "borrowingDate", targetNamespace = "")
-        XMLGregorianCalendar borrowingDate,
         @WebParam(name = "bookReference", targetNamespace = "")
         String bookReference,
         @WebParam(name = "userID", targetNamespace = "")

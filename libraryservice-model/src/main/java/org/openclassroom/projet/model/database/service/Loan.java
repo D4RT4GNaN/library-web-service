@@ -12,7 +12,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 @Entity
-@Table(name = "books")
+@Table(name = "loan")
 public class Loan {
 
     // ==================== Attributes ====================
@@ -21,7 +21,7 @@ public class Loan {
 
     @NotNull
     @NotEmpty
-    @Column(name="expiry_date")
+    @Column(name = "expiry_date")
     private Date expiryDate;
 
     @NotNull
@@ -41,7 +41,7 @@ public class Loan {
 
     public Loan(LoanId loanId) {
         this.loanId = loanId;
-        this.expiryDate = this.calculateExpiryDate();
+        this.expiryDate = calculateExpiryDate();
         this.extended = false;
         this.status = LoanStatusEnum.OUTSTANDING.name();
     }
@@ -87,9 +87,10 @@ public class Loan {
     // ==================== Methods ====================
     private Date calculateExpiryDate() {
         Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Date());
+        calendar.setTime(new java.util.Date());
         calendar.add(Calendar.WEEK_OF_MONTH, 2);
         return calendar.getTime();
     }
+
 
 }

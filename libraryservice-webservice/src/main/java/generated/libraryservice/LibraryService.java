@@ -44,9 +44,7 @@ public interface LibraryService {
 
     /**
      * 
-     * @param borrowingDate
-     * @param bookReference
-     * @param userID
+     * @param newLoan
      * @return
      *     returns java.lang.String
      */
@@ -55,12 +53,8 @@ public interface LibraryService {
     @RequestWrapper(localName = "addNewLoan", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.AddNewLoan")
     @ResponseWrapper(localName = "addNewLoanResponse", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.AddNewLoanResponse")
     public String addNewLoan(
-        @WebParam(name = "borrowingDate", targetNamespace = "")
-        XMLGregorianCalendar borrowingDate,
-        @WebParam(name = "bookReference", targetNamespace = "")
-        String bookReference,
-        @WebParam(name = "userID", targetNamespace = "")
-        int userID);
+        @WebParam(name = "newLoan", targetNamespace = "")
+        Loan newLoan);
 
     /**
      * 
@@ -262,5 +256,19 @@ public interface LibraryService {
         String email,
         @WebParam(name = "usager", targetNamespace = "")
         Usager usager);
+
+    /**
+     * 
+     * @param userID
+     * @return
+     *     returns java.util.List<generated.libraryservice.Loan>
+     */
+    @WebMethod(action = "http://LibraryService/getLoansFor")
+    @WebResult(name = "loans", targetNamespace = "")
+    @RequestWrapper(localName = "getLoansFor", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.GetLoansFor")
+    @ResponseWrapper(localName = "getLoansForResponse", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.GetLoansForResponse")
+    public List<Loan> getLoansFor(
+        @WebParam(name = "userID", targetNamespace = "")
+        int userID);
 
 }

@@ -78,6 +78,30 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link GetLoansForResponse }
+     * 
+     */
+    public GetLoansForResponse createGetLoansForResponse() {
+        return new GetLoansForResponse();
+    }
+
+    /**
+     * Create an instance of {@link Loan }
+     * 
+     */
+    public Loan createLoan() {
+        return new Loan();
+    }
+
+    /**
+     * Create an instance of {@link GetLoansFor }
+     * 
+     */
+    public GetLoansFor createGetLoansFor() {
+        return new GetLoansFor();
+    }
+
+    /**
      * Create an instance of {@link ExtendLoanResponse }
      * 
      */

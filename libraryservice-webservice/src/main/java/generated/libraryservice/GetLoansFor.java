@@ -3,7 +3,6 @@ package generated.libraryservice;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -18,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="newLoan" type="{http://LibraryService/}loan"/>
+ *         &lt;element name="userID" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -29,36 +28,27 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "newLoan"
+    "userID"
 })
-@XmlRootElement(name = "addNewLoan")
-public class AddNewLoan {
+@XmlRootElement(name = "getLoansFor")
+public class GetLoansFor {
 
-    @XmlElement(required = true)
-    protected Loan newLoan;
+    protected int userID;
 
     /**
-     * Gets the value of the newLoan property.
+     * Gets the value of the userID property.
      * 
-     * @return
-     *     possible object is
-     *     {@link Loan }
-     *     
      */
-    public Loan getNewLoan() {
-        return newLoan;
+    public int getUserID() {
+        return userID;
     }
 
     /**
-     * Sets the value of the newLoan property.
+     * Sets the value of the userID property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link Loan }
-     *     
      */
-    public void setNewLoan(Loan value) {
-        this.newLoan = value;
+    public void setUserID(int value) {
+        this.userID = value;
     }
 
 }

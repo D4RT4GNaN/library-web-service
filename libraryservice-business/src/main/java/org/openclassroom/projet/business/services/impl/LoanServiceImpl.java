@@ -6,6 +6,8 @@ import org.openclassroom.projet.model.database.service.Loan;
 import org.openclassroom.projet.model.enums.LoanStatusEnum;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+
 @Service
 public class LoanServiceImpl extends AbstractService implements LoanService {
 
@@ -22,6 +24,11 @@ public class LoanServiceImpl extends AbstractService implements LoanService {
         } else {
             throw new RuntimeException("There is no loan for this reference : " + bookReference);
         }
+    }
+
+    @Override
+    public List<Loan> getLoansFor(int userID) {
+        return getDaoFactory().getLoanRepository().findById_UsagerId(userID);
     }
 
 }

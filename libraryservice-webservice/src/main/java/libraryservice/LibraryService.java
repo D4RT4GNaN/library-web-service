@@ -4,14 +4,10 @@ import generated.libraryservice.Library;
 import org.openclassroom.projet.model.database.library.Book;
 import org.openclassroom.projet.model.database.library.Stock;
 import org.openclassroom.projet.model.database.service.Loan;
-import org.openclassroom.projet.model.database.service.LoanId;
 import org.openclassroom.projet.model.database.usager.Usager;
 import org.openclassroom.projet.model.database.usager.UsagerDto;
 import org.openclassroom.projet.model.database.usager.VerificationToken;
-import utils.converters.BookConverter;
-import utils.converters.LibraryConverter;
-import utils.converters.StockConverter;
-import utils.converters.UsagerConverter;
+import utils.converters.*;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
@@ -24,9 +20,9 @@ public class LibraryService extends AbstractWebInterface implements generated.li
 
     // ---------------------- Loan ------------------------
     @WebMethod
-    public String addNewLoan(XMLGregorianCalendar borrowingDate, String bookReference, int userID) {
-        LoanId loanId = new LoanId(borrowingDate.toGregorianCalendar().getTime(), bookReference, userID);
-        getServiceFactory().getLoanService().addNewLoan(new Loan(loanId));
+    public String addNewLoan(generated.libraryservice.Loan generatedLoan) {
+        Loan loan = LoanConverter.fromClient(generatedLoan);
+        getServiceFactory().getLoanService().addNewLoan(loan);
         return "SUCCESS";
     }
 
@@ -43,6 +39,12 @@ public class LibraryService extends AbstractWebInterface implements generated.li
     @WebMethod
     public String getStatusLoan(String bookReference, int userID) {
         return getServiceFactory().getLoanService().getStatusLoan(bookReference, userID);
+    }
+
+    @WebMethod
+    public List<generated.libraryservice.Loan> getLoansFor(int userID) {
+        List<Loan> loans = getServiceFactory().getLoanService().getLoansFor(userID);
+        return LoanConverter.fromDatabase(loans);
     }
 
 

@@ -92,5 +92,16 @@ public class Loan {
         return calendar.getTime();
     }
 
+    private void extendExpiryDate() {
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(this.expiryDate);
+        calendar.add(Calendar.WEEK_OF_MONTH, 2);
+        this.setExpiryDate(calendar.getTime());
+    }
 
+    public void extendLoan() {
+        this.setExtended(true);
+        this.setStatus(LoanStatusEnum.EXTENDED.name());
+        this.extendExpiryDate();
+    }
 }

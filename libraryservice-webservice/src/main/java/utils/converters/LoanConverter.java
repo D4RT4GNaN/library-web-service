@@ -1,6 +1,5 @@
 package utils.converters;
 
-import com.sun.org.apache.xerces.internal.jaxp.datatype.XMLGregorianCalendarImpl;
 import org.openclassroom.projet.model.database.service.Loan;
 import org.openclassroom.projet.model.database.service.LoanId;
 
@@ -44,7 +43,10 @@ public class LoanConverter {
     public static Loan fromClient(generated.libraryservice.Loan generatedLoan) {
         LoanId loanId = new LoanId();
 
-        loanId.setBorrowingDate(generatedLoan.getBorrowingDate().toGregorianCalendar().getTime());
+        if (generatedLoan.getBorrowingDate() != null) {
+            loanId.setBorrowingDate(generatedLoan.getBorrowingDate().toGregorianCalendar().getTime());
+        }
+
         loanId.setReferenceBook(generatedLoan.getBookReference());
         loanId.setUsagerId(generatedLoan.getUserID());
 

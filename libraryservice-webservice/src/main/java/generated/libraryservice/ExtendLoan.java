@@ -5,9 +5,7 @@ import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlSchemaType;
 import javax.xml.bind.annotation.XmlType;
-import javax.xml.datatype.XMLGregorianCalendar;
 
 
 /**
@@ -20,9 +18,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="borrowingDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="bookReference" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="userID" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="loan" type="{http://LibraryService/}loan"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -33,82 +29,36 @@ import javax.xml.datatype.XMLGregorianCalendar;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "borrowingDate",
-    "bookReference",
-    "userID"
+    "loan"
 })
 @XmlRootElement(name = "extendLoan")
 public class ExtendLoan {
 
     @XmlElement(required = true)
-    @XmlSchemaType(name = "date")
-    protected XMLGregorianCalendar borrowingDate;
-    @XmlElement(required = true)
-    protected String bookReference;
-    protected int userID;
+    protected Loan loan;
 
     /**
-     * Gets the value of the borrowingDate property.
+     * Gets the value of the loan property.
      * 
      * @return
      *     possible object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Loan }
      *     
      */
-    public XMLGregorianCalendar getBorrowingDate() {
-        return borrowingDate;
+    public Loan getLoan() {
+        return loan;
     }
 
     /**
-     * Sets the value of the borrowingDate property.
+     * Sets the value of the loan property.
      * 
      * @param value
      *     allowed object is
-     *     {@link XMLGregorianCalendar }
+     *     {@link Loan }
      *     
      */
-    public void setBorrowingDate(XMLGregorianCalendar value) {
-        this.borrowingDate = value;
-    }
-
-    /**
-     * Gets the value of the bookReference property.
-     * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
-     */
-    public String getBookReference() {
-        return bookReference;
-    }
-
-    /**
-     * Sets the value of the bookReference property.
-     * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
-     */
-    public void setBookReference(String value) {
-        this.bookReference = value;
-    }
-
-    /**
-     * Gets the value of the userID property.
-     * 
-     */
-    public int getUserID() {
-        return userID;
-    }
-
-    /**
-     * Sets the value of the userID property.
-     * 
-     */
-    public void setUserID(int value) {
-        this.userID = value;
+    public void setLoan(Loan value) {
+        this.loan = value;
     }
 
 }

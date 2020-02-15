@@ -27,12 +27,13 @@ public class LibraryService extends AbstractWebInterface implements generated.li
     }
 
     @WebMethod
-    public boolean extendLoan(XMLGregorianCalendar borrowingDate, String bookReference, int userID) {
-        return false;
+    public boolean extendLoan(generated.libraryservice.Loan generatedLoan) {
+        Loan loan = LoanConverter.fromClient(generatedLoan);
+        return getServiceFactory().getLoanService().extendLoan(loan);
     }
 
     @WebMethod
-    public String returnBook(XMLGregorianCalendar borrowingDate, String bookReference, int userID) {
+    public String returnBook(generated.libraryservice.Loan generatedLoan) {
         return null;
     }
 

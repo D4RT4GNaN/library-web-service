@@ -7,7 +7,6 @@ import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.xml.bind.annotation.XmlSeeAlso;
-import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.ws.RequestWrapper;
 import javax.xml.ws.ResponseWrapper;
 
@@ -58,9 +57,7 @@ public interface LibraryService {
 
     /**
      * 
-     * @param borrowingDate
-     * @param bookReference
-     * @param userID
+     * @param loan
      * @return
      *     returns boolean
      */
@@ -69,18 +66,12 @@ public interface LibraryService {
     @RequestWrapper(localName = "extendLoan", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.ExtendLoan")
     @ResponseWrapper(localName = "extendLoanResponse", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.ExtendLoanResponse")
     public boolean extendLoan(
-        @WebParam(name = "borrowingDate", targetNamespace = "")
-        XMLGregorianCalendar borrowingDate,
-        @WebParam(name = "bookReference", targetNamespace = "")
-        String bookReference,
-        @WebParam(name = "userID", targetNamespace = "")
-        int userID);
+        @WebParam(name = "loan", targetNamespace = "")
+        Loan loan);
 
     /**
      * 
-     * @param borrowingDate
-     * @param bookReference
-     * @param userID
+     * @param loan
      * @return
      *     returns java.lang.String
      */
@@ -89,12 +80,8 @@ public interface LibraryService {
     @RequestWrapper(localName = "returnBook", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.ReturnBook")
     @ResponseWrapper(localName = "returnBookResponse", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.ReturnBookResponse")
     public String returnBook(
-        @WebParam(name = "borrowingDate", targetNamespace = "")
-        XMLGregorianCalendar borrowingDate,
-        @WebParam(name = "bookReference", targetNamespace = "")
-        String bookReference,
-        @WebParam(name = "userID", targetNamespace = "")
-        int userID);
+        @WebParam(name = "loan", targetNamespace = "")
+        Loan loan);
 
     /**
      * 

@@ -174,6 +174,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link CheckExpiration }
+     * 
+     */
+    public CheckExpiration createCheckExpiration() {
+        return new CheckExpiration();
+    }
+
+    /**
      * Create an instance of {@link RequestPasswordResetResponse }
      * 
      */
@@ -219,6 +227,14 @@ public class ObjectFactory {
      */
     public UpdatePassword createUpdatePassword() {
         return new UpdatePassword();
+    }
+
+    /**
+     * Create an instance of {@link CheckExpirationResponse }
+     * 
+     */
+    public CheckExpirationResponse createCheckExpirationResponse() {
+        return new CheckExpirationResponse();
     }
 
     /**

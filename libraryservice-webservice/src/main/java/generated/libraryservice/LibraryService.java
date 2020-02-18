@@ -258,4 +258,15 @@ public interface LibraryService {
         @WebParam(name = "userID", targetNamespace = "")
         int userID);
 
+    /**
+     * 
+     * @param generatedLoan
+     */
+    @WebMethod(operationName = "CheckExpiration", action = "http://LibraryService/CheckExpiration")
+    @RequestWrapper(localName = "CheckExpiration", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.CheckExpiration")
+    @ResponseWrapper(localName = "CheckExpirationResponse", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.CheckExpirationResponse")
+    public void checkExpiration(
+        @WebParam(name = "generatedLoan", targetNamespace = "")
+        Loan generatedLoan);
+
 }

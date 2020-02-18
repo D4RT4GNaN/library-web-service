@@ -49,4 +49,16 @@ public class LoanServiceImpl extends AbstractService implements LoanService {
         return true;
     }
 
+    @Override
+    public String closeLoan(Loan loan) {
+        String bookReference = loan.getLoanId().getReferenceBook();
+        int userID = loan.getLoanId().getUsagerId();
+        Loan dbLoan = getDaoFactory().getLoanRepository().findByLoanId_ReferenceBookAndLoanId_UsagerIdAndStatusNot(bookReference, userID, RETURNED);
+
+        dbLoan.setStatus(RETURNED);
+        getDaoFactory().getLoanRepository().save(dbLoan);
+
+        return "SUCCESS";
+    }
+
 }

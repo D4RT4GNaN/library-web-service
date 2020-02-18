@@ -34,7 +34,8 @@ public class LibraryService extends AbstractWebInterface implements generated.li
 
     @WebMethod
     public String returnBook(generated.libraryservice.Loan generatedLoan) {
-        return null;
+        Loan loan = LoanConverter.fromClient(generatedLoan);
+        return getServiceFactory().getLoanService().closeLoan(loan);
     }
 
     @WebMethod

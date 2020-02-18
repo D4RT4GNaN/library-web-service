@@ -11,5 +11,6 @@ public interface LoanService {
     String getStatusLoan(String bookReference, int userID);
     List<Loan> getLoansFor(int userID);
     boolean extendLoan(Loan loan);
+    String closeLoan(Loan loan);
 
 }

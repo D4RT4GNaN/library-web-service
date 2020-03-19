@@ -1,6 +1,8 @@
 package org.openclassroom.projet.business.services;
 
+import org.openclassroom.projet.business.services.impl.MailService;
 import org.openclassroom.projet.consumer.DaoFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.inject.Inject;
 import javax.validation.Configuration;
@@ -25,5 +27,11 @@ public abstract class AbstractService {
         ValidatorFactory vFactory = vConfiguration.buildValidatorFactory();
         Validator vValidator = vFactory.getValidator();
         return vValidator;
+    }
+
+    @Autowired
+    private MailService mailService;
+    protected MailService getMailService() {
+        return mailService;
     }
 }

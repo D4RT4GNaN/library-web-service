@@ -3,7 +3,6 @@ package org.openclassroom.projet.business.services.impl;
 import org.openclassroom.projet.business.services.AbstractService;
 import org.openclassroom.projet.business.services.contract.BookService;
 import org.openclassroom.projet.model.database.library.Book;
-import org.openclassroom.projet.model.database.library.Library;
 import org.openclassroom.projet.model.database.library.Stock;
 import org.openclassroom.projet.model.database.library.StockId;
 import org.springframework.stereotype.Service;
@@ -15,6 +14,9 @@ public class BookServiceImpl extends AbstractService implements BookService {
 
     @Override
     public List<Book> getBooks(String keyword) {
+        if (keyword.isEmpty())
+            return getDaoFactory().getBookRepository().findAll();
+
         List<Book> booksByReference = getDaoFactory().getBookRepository().findBooksByReferenceIgnoreCaseContaining(keyword);
         List<Book> booksByTitle = getDaoFactory().getBookRepository().findBooksByTitleIgnoreCaseContaining(keyword);
         List<Book> booksByAuthor = getDaoFactory().getBookRepository().findBooksByAuthorIgnoreCaseContaining(keyword);
@@ -22,7 +24,7 @@ public class BookServiceImpl extends AbstractService implements BookService {
         List<Book> booksByPublisher = getDaoFactory().getBookRepository().findBooksByPublisherIgnoreCaseContaining(keyword);
         List<Book> booksByLanguage = getDaoFactory().getBookRepository().findBooksByLanguageIgnoreCaseContaining(keyword);
 
-        Set<Book> result = new LinkedHashSet<>(booksByReference);
+        Set<Book> result = new HashSet<>(booksByReference);
         result.addAll(booksByTitle);
         result.addAll(booksByAuthor);
         result.addAll(booksByCategory);

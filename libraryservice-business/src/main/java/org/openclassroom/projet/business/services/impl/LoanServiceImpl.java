@@ -3,10 +3,11 @@ package org.openclassroom.projet.business.services.impl;
 import org.openclassroom.projet.business.services.AbstractService;
 import org.openclassroom.projet.business.services.contract.LoanService;
 import org.openclassroom.projet.model.database.service.Loan;
+import org.openclassroom.projet.model.database.usager.Usager;
 import org.openclassroom.projet.model.enums.LoanStatusEnum;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -41,7 +42,7 @@ public class LoanServiceImpl extends AbstractService implements LoanService {
         Loan dbLoan = getDaoFactory().getLoanRepository().findByLoanId_ReferenceBookAndLoanId_UsagerIdAndStatusNot(bookReference, userID, RETURNED);
 
         if (dbLoan.getExtended()) { throw new RuntimeException("This loan is already extended !"); }
-        if (dbLoan.getExpiryDate().after(new Date())) { throw new RuntimeException("This loan does not need to be extended."); }
+        if (dbLoan.isValid()) { throw new RuntimeException("This loan does not need to be extended."); }
 
         dbLoan.extendLoan();
         getDaoFactory().getLoanRepository().save(dbLoan);
@@ -59,6 +60,23 @@ public class LoanServiceImpl extends AbstractService implements LoanService {
         getDaoFactory().getLoanRepository().save(dbLoan);
 
         return "SUCCESS";
+    }
+
+    @Override
+    public List<Loan> checkExpiration() {
+        List<Loan> loans = getDaoFactory().getLoanRepository().findByStatusNot(RETURNED);
+        List<Loan> loansOverdue = new ArrayList<>();
+
+        for (Loan loan : loans) {
+            if (!loan.isValid()) {
+                int usagerID = loan.getLoanId().getUsagerId();
+                Usager usager = getDaoFactory().getUsagerRepository().findById(usagerID);
+                getMailService().sendReminderEmail(usager);
+                loansOverdue.add(loan);
+            }
+        }
+
+        return loansOverdue;
     }
 
 }

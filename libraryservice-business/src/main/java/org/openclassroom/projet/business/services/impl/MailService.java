@@ -1,7 +1,10 @@
 package org.openclassroom.projet.business.services.impl;
 
+import org.openclassroom.projet.model.database.usager.Usager;
+import org.openclassroom.projet.model.database.usager.VerificationToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.mail.Message;
@@ -17,11 +20,41 @@ import java.util.Properties;
 @Service
 public class MailService {
 
+    // ==================== Attributes ====================
     @Autowired
     @Qualifier("customProperties")
     private Properties customMailProperties;
 
-    public boolean sendMailSMTP(String toAddress, String title, String content, boolean debug) {
+    @Value("${service.address}")
+    private String serverAddress;
+
+
+
+    // ==================== Public Methods ====================
+    public void sendReminderEmail(Usager usager) {
+        String toAddress = usager.getEmail();
+        String title = "Reminder : Loan expired !";
+        String content = "Your loan has expired please extend it if it's not already done or return quickly your book !";
+
+        sendMailSMTP(toAddress, title, content, true);
+    }
+
+    public void sendConfirmationEmail(Usager usager, String token) {
+        sendMailSMTP(usager.getEmail(), "Confirm your account", createVerificationEmailContent(token) ,true);
+    }
+
+    public void resendConfirmationEmail(Usager usager, String newToken) {
+        sendMailSMTP(usager.getEmail(), "Resend : Confirm your account", createVerificationEmailContent(newToken), true);
+    }
+
+    public void sendResetPasswordEmail(Usager usager, String token) {
+        sendMailSMTP(usager.getEmail(), "Forgotten password", createResetPasswordEmailContent(token), true);
+    }
+
+
+
+    // ==================== Private Methods ====================
+    private boolean sendMailSMTP(String toAddress, String title, String content, boolean debug) {
         boolean result = false;
         String username = customMailProperties.getProperty("mail.user");
         String password = customMailProperties.getProperty("mail.password");
@@ -55,4 +88,23 @@ public class MailService {
 
         return result;
     }
+
+    private String createVerificationEmailContent(String token) {
+        String lineBreak = "\n\n";
+        String before = "Thanks for signing up on our service! You must follow this link to activate your account:";
+        String after = "Have fun, and don't hesitate to contact us with your feedback." + lineBreak
+                + "The Library Team";
+
+        return before + lineBreak + serverAddress + "?token=" + token + lineBreak + after;
+    }
+
+    private String createResetPasswordEmailContent(String token) {
+        String lineBreak = "\n\n";
+        String before = "To reset your password, follow this link and change it:";
+        String after = "Have fun, and don't hesitate to contact us with your feedback." + lineBreak
+                + "The Library Team";
+
+        return before + lineBreak + serverAddress + "?token=" + token + lineBreak + after;
+    }
+
 }

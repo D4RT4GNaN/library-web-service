@@ -12,5 +12,6 @@ public interface LoanRepository extends JpaRepository<Loan, LoanId> {
 
     Loan findByLoanId_ReferenceBookAndLoanId_UsagerIdAndStatusNot(String referenceBook, int usagerId, String status);
     List<Loan> findByLoanId_UsagerId(int usagerId);
+    List<Loan> findByStatusNot(String status);
 
 }

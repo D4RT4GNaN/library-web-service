@@ -260,13 +260,13 @@ public interface LibraryService {
 
     /**
      * 
-     * @param generatedLoan
+     * @return
+     *     returns java.util.List<generated.libraryservice.Loan>
      */
     @WebMethod(operationName = "CheckExpiration", action = "http://LibraryService/CheckExpiration")
+    @WebResult(name = "loansOverdue", targetNamespace = "")
     @RequestWrapper(localName = "CheckExpiration", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.CheckExpiration")
     @ResponseWrapper(localName = "CheckExpirationResponse", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.CheckExpirationResponse")
-    public void checkExpiration(
-        @WebParam(name = "generatedLoan", targetNamespace = "")
-        Loan generatedLoan);
+    public List<Loan> checkExpiration();
 
 }

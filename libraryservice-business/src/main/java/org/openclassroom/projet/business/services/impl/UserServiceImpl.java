@@ -33,12 +33,6 @@ public class UserServiceImpl extends AbstractService implements UserService {
     @Autowired
     private UserDetailsService userDetailsService;
 
-    @Autowired
-    private MailService mailService;
-
-    @Value("${service.address}")
-    private String serverAddress;
-
 
 
     // ==================== Public Methods ====================
@@ -102,7 +96,7 @@ public class UserServiceImpl extends AbstractService implements UserService {
         Usager usager = (Usager)userDetailsService.loadUserByUsername(email);
         if (!usager.isEnabled()) {
             String newToken = createVerificationToken(usager, TokenTypeEnum.EMAIL);
-            mailService.sendMailSMTP(usager.getEmail(), "Resend : Confirm your account", createVerificationEmailContent(newToken), true);
+            getMailService().resendConfirmationEmail(usager, newToken);
         } else {
             throw new RuntimeException("This account is already activated !");
         }
@@ -113,7 +107,7 @@ public class UserServiceImpl extends AbstractService implements UserService {
         Usager usager = (Usager)userDetailsService.loadUserByUsername(email);
         if (usager.isEnabled()) {
             String token = createVerificationToken(usager, TokenTypeEnum.PASSWORD);
-            mailService.sendMailSMTP(usager.getEmail(), "Forgotten password", createResetPasswordEmailContent(token), true);
+            getMailService().sendResetPasswordEmail(usager, token);
         } else {
             throw new RuntimeException("This account is not already activated ! First check your email !");
         }
@@ -124,10 +118,10 @@ public class UserServiceImpl extends AbstractService implements UserService {
         VerificationToken vToken = getDaoFactory().getVerificationTokenRepository().findByToken(token);
         try {
             Usager usager = vToken.getUsager();
-            UsagerDto usagerDto = validConstraintsWhenChangingPassword(usager, newPassword, confirmation);
+            usager = validConstraintsWhenChangingPassword(usager, newPassword, confirmation);
 
             if (vToken.getType().equals("PASSWORD")) {
-                encryptPasswordAndSave(usagerDto);
+                getDaoFactory().getUsagerRepository().save(usager);
                 getDaoFactory().getVerificationTokenRepository().delete(vToken);
             } else {
                 throw new RuntimeException("This token is not for reset password !");
@@ -140,10 +134,10 @@ public class UserServiceImpl extends AbstractService implements UserService {
     @Override
     public void changeUserPassword(String email, String newPassword, String confirmation) {
         Usager usager = (Usager)userDetailsService.loadUserByUsername(email);
-        UsagerDto usagerDto = validConstraintsWhenChangingPassword(usager, newPassword, confirmation);
+        usager = validConstraintsWhenChangingPassword(usager, newPassword, confirmation);
 
         if (usager.isEnabled()) {
-            encryptPasswordAndSave(usagerDto);
+            getDaoFactory().getUsagerRepository().save(usager);
         } else {
             throw new RuntimeException("This account is not already activated ! First check your email !");
         }
@@ -177,18 +171,10 @@ public class UserServiceImpl extends AbstractService implements UserService {
     }
 
     private void createNewAccount(UsagerDto usagerDto) {
-        Usager usager = encryptPasswordAndSave(usagerDto);
-        System.out.println("\n\n\n First \n\n\n");
-        String token = createVerificationToken(usager, TokenTypeEnum.EMAIL);
-        System.out.println("\n\n\n Second \n\n\n");
-        mailService.sendMailSMTP(usager.getEmail(), "Confirm your account", createVerificationEmailContent(token) ,true);
-        System.out.println("\n\n\n Third \n\n\n");
-    }
-
-    private Usager encryptPasswordAndSave(UsagerDto usagerDto) {
         Usager usager = new Usager(usagerDto);
         getDaoFactory().getUsagerRepository().save(usager);
-        return usager;
+        String token = createVerificationToken(usager, TokenTypeEnum.EMAIL);
+        getMailService().sendConfirmationEmail(usager, token);
     }
 
     private String createVerificationToken(Usager usager, TokenTypeEnum type) {
@@ -205,24 +191,6 @@ public class UserServiceImpl extends AbstractService implements UserService {
         return token;
     }
 
-    private String createVerificationEmailContent(String token) {
-        String lineBreak = "\n\n";
-        String before = "Thanks for signing up on our service! You must follow this link to activate your account:";
-        String after = "Have fun, and don't hesitate to contact us with your feedback." + lineBreak
-                + "The Library Team";
-
-        return before + lineBreak + serverAddress + "?token=" + token + lineBreak + after;
-    }
-
-    private String createResetPasswordEmailContent(String token) {
-        String lineBreak = "\n\n";
-        String before = "To reset your password, follow this link and change it:";
-        String after = "Have fun, and don't hesitate to contact us with your feedback." + lineBreak
-                + "The Library Team";
-
-        return before + lineBreak + serverAddress + "?token=" + token + lineBreak + after;
-    }
-
     private boolean checkValidityOf(VerificationToken token) {
         Calendar cal = Calendar.getInstance();
         return token.getExpiryDate().getTime() - cal.getTime().getTime() >= 0;
@@ -236,12 +204,23 @@ public class UserServiceImpl extends AbstractService implements UserService {
         return true;
     }
 
-    private UsagerDto validConstraintsWhenChangingPassword(Usager usager, String newPassword, String confirmation) {
+    private Usager validConstraintsWhenChangingPassword(Usager usager, String newPassword, String confirmation) {
         UsagerDto usagerDto = new UsagerDto(usager);
+        int id = usager.getId();
+        boolean enabled = usager.isEnabled();
+
         usagerDto.setPassword(newPassword);
         usagerDto.setConfirmPassword(confirmation);
 
-        return validUsagerConstraints(usagerDto) ? usagerDto : null;
+        if (validUsagerConstraints(usagerDto)) {
+            usager = new Usager(usagerDto);
+            usager.setId(id);
+            usager.setEnabled(enabled);
+            return usager;
+        } else {
+            return null;
+        }
+
     }
 
 }

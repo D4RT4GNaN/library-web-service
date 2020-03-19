@@ -104,4 +104,8 @@ public class Loan {
         this.setStatus(LoanStatusEnum.EXTENDED.name());
         this.extendExpiryDate();
     }
+
+    public boolean isValid() {
+        return this.expiryDate.after(new Date());
+    }
 }

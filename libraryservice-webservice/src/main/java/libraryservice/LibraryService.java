@@ -11,12 +11,20 @@ import utils.converters.*;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.ArrayList;
 import java.util.List;
 
 @WebService(endpointInterface = "generated.libraryservice.LibraryService")
 public class LibraryService extends AbstractWebInterface implements generated.libraryservice.LibraryService {
+
+    // ---------------------- Batch -------------------------
+    @Override
+    public List<generated.libraryservice.Loan> checkExpiration() {
+        List<Loan> loans = getServiceFactory().getLoanService().checkExpiration();
+        return LoanConverter.fromDatabase(loans);
+    }
+
+
 
     // ---------------------- Loan ------------------------
     @WebMethod

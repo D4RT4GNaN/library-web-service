@@ -134,6 +134,7 @@ public interface LibraryService {
      * @param password
      * @return
      *     returns generated.libraryservice.Usager
+     * @throws BadCredentialsException
      */
     @WebMethod(action = "http://LibraryService/connectUser")
     @WebResult(name = "user", targetNamespace = "")
@@ -143,7 +144,9 @@ public interface LibraryService {
         @WebParam(name = "identifier", targetNamespace = "")
         String identifier,
         @WebParam(name = "password", targetNamespace = "")
-        String password);
+        String password)
+        throws BadCredentialsException
+    ;
 
     /**
      * 

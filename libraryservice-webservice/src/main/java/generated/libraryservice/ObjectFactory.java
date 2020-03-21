@@ -1,7 +1,10 @@
 
 package generated.libraryservice;
 
+import javax.xml.bind.JAXBElement;
+import javax.xml.bind.annotation.XmlElementDecl;
 import javax.xml.bind.annotation.XmlRegistry;
+import javax.xml.namespace.QName;
 
 
 /**
@@ -21,6 +24,7 @@ import javax.xml.bind.annotation.XmlRegistry;
 @XmlRegistry
 public class ObjectFactory {
 
+    private final static QName _BadCredentialsFault_QNAME = new QName("http://LibraryService/", "BadCredentialsFault");
 
     /**
      * Create a new ObjectFactory that can be used to create new instances of schema derived classes for package: generated.libraryservice
@@ -75,6 +79,14 @@ public class ObjectFactory {
      */
     public Usager createUsager() {
         return new Usager();
+    }
+
+    /**
+     * Create an instance of {@link BadCredentialsFault }
+     * 
+     */
+    public BadCredentialsFault createBadCredentialsFault() {
+        return new BadCredentialsFault();
     }
 
     /**
@@ -323,6 +335,15 @@ public class ObjectFactory {
      */
     public Library createLibrary() {
         return new Library();
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link BadCredentialsFault }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://LibraryService/", name = "BadCredentialsFault")
+    public JAXBElement<BadCredentialsFault> createBadCredentialsFault(BadCredentialsFault value) {
+        return new JAXBElement<BadCredentialsFault>(_BadCredentialsFault_QNAME, BadCredentialsFault.class, null, value);
     }
 
 }

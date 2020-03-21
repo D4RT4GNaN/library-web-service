@@ -47,7 +47,7 @@ public class UserServiceImpl extends AbstractService implements UserService {
     }
 
     @Override
-    public Usager login(String username, String password) {
+    public Usager login(String username, String password) throws Exception {
         UserDetails userDetails = userDetailsService.loadUserByUsername(username);
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
                 = new UsernamePasswordAuthenticationToken(userDetails, password, userDetails.getAuthorities());
@@ -56,9 +56,9 @@ public class UserServiceImpl extends AbstractService implements UserService {
 
         if (usernamePasswordAuthenticationToken.isAuthenticated()) {
             return getDaoFactory().getUsagerRepository().findByEmail(username);
+        } else {
+            throw new Exception("Incorrect username or password !");
         }
-
-        return null;
     }
 
     @Override

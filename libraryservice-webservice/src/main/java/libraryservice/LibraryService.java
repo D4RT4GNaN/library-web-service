@@ -1,5 +1,7 @@
 package libraryservice;
 
+import generated.libraryservice.BadCredentialsException;
+import generated.libraryservice.BadCredentialsFault;
 import generated.libraryservice.Library;
 import org.openclassroom.projet.model.database.library.Book;
 import org.openclassroom.projet.model.database.library.Stock;
@@ -90,8 +92,13 @@ public class LibraryService extends AbstractWebInterface implements generated.li
     }
 
     @WebMethod
-    public generated.libraryservice.Usager connectUser(String identifier, String password) {
-        Usager usager = getServiceFactory().getUserService().login(identifier, password);
+    public generated.libraryservice.Usager connectUser(String identifier, String password) throws BadCredentialsException {
+        Usager usager;
+        try {
+            usager = getServiceFactory().getUserService().login(identifier, password);
+        } catch (Exception e) {
+            throw new BadCredentialsException(e.getMessage(), new BadCredentialsFault());
+        }
         return UsagerConverter.fromDatabase(usager);
     }
 

@@ -7,7 +7,7 @@ import org.openclassroom.projet.model.database.usager.VerificationToken;
 public interface UserService {
 
     void save(UsagerDto usager);
-    Usager login(String username, String password);
+    Usager login(String username, String password) throws Exception;
     VerificationToken verifyEmailFrom(String token);
     void validAccountFor(VerificationToken vToken);
     void resendVerificationEmail(String email);

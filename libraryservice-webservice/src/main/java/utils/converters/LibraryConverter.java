@@ -3,6 +3,9 @@ package utils.converters;
 import org.openclassroom.projet.model.database.library.Library;
 import org.openclassroom.projet.model.database.library.Stock;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class LibraryConverter {
 
     public static generated.libraryservice.Library fromDatabase(Library library) {
@@ -15,14 +18,14 @@ public class LibraryConverter {
         return generatedLibrary;
     }
 
-//    public static List<generated.libraryservice.Book> fromDatabase(List<Book> books) {
-//        List<generated.libraryservice.Book> generatedBooks = new ArrayList<>();
-//
-//        for (Book book : books) {
-//            generatedBooks.add(fromDatabase(book));
-//        }
-//
-//        return generatedBooks;
-//    }
+    public static List<generated.libraryservice.Library> fromDatabase(List<Library> libraries) {
+        List<generated.libraryservice.Library> generatedLibraries = new ArrayList<>();
+
+        for (Library library : libraries) {
+            generatedLibraries.add(fromDatabase(library));
+        }
+
+        return generatedLibraries;
+    }
 
 }

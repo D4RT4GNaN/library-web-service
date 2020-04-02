@@ -37,10 +37,10 @@ public class UserServiceImpl extends AbstractService implements UserService {
 
     // ==================== Public Methods ====================
     @Override
-    public void save(UsagerDto usager) {
+    public void save(UsagerDto usager) throws Exception {
         validUsagerConstraints(usager);
         if (!emailExist(usager.getEmail())) {
-            throw new RuntimeException("There is already user with this email!");
+            throw new Exception("There is already user with this email!");
         } else {
             createNewAccount(usager);
         }
@@ -92,24 +92,24 @@ public class UserServiceImpl extends AbstractService implements UserService {
     }
 
     @Override
-    public void resendVerificationEmail(String email) {
+    public void resendVerificationEmail(String email) throws Exception {
         Usager usager = (Usager)userDetailsService.loadUserByUsername(email);
         if (!usager.isEnabled()) {
             String newToken = createVerificationToken(usager, TokenTypeEnum.EMAIL);
             getMailService().resendConfirmationEmail(usager, newToken);
         } else {
-            throw new RuntimeException("This account is already activated !");
+            throw new Exception("This account is already activated !");
         }
     }
 
     @Override
-    public void sendEmailToResetPasswordFor(String email) {
+    public void sendEmailToResetPasswordFor(String email) throws Exception {
         Usager usager = (Usager)userDetailsService.loadUserByUsername(email);
         if (usager.isEnabled()) {
             String token = createVerificationToken(usager, TokenTypeEnum.PASSWORD);
             getMailService().sendResetPasswordEmail(usager, token);
         } else {
-            throw new RuntimeException("This account is not already activated ! First check your email !");
+            throw new Exception("This account is not already activated ! First check your email !");
         }
     }
 
@@ -144,7 +144,7 @@ public class UserServiceImpl extends AbstractService implements UserService {
     }
 
     @Override
-    public void updateUsagerInfos(String email, Usager usager) {
+    public void updateUsagerInfos(String email, Usager usager) throws Exception {
         Usager dbUsager = (Usager)userDetailsService.loadUserByUsername(email);
 
         dbUsager.setFirstName(usager.getFirstName());

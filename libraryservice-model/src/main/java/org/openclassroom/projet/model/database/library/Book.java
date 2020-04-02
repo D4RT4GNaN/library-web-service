@@ -43,13 +43,15 @@ public class Book {
     @NotEmpty
     private String language;
 
+    private int mark;
+
 
     // ==================== Constructors ====================
     /**/
     public Book() {
     }
 
-    public Book(String reference, String imageUrl, String title, String author, String synopsis, String category, String publisher, String language) {
+    public Book(String reference, String imageUrl, String title, String author, String synopsis, String category, String publisher, String language, int mark) {
         this.reference = reference;
         this.imageUrl = imageUrl;
         this.title = title;
@@ -58,6 +60,7 @@ public class Book {
         this.category = category;
         this.publisher = publisher;
         this.language = language;
+        this.mark = mark;
     }
 
 
@@ -118,6 +121,12 @@ public class Book {
         this.language = language;
     }
 
+    public int getMark() {
+        return mark;
+    }
+    public void setMark(int mark) {
+        this.mark = mark;
+    }
 
     // ==================== Methods ====================
 

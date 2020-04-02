@@ -18,6 +18,7 @@ public class BookConverter {
         generatedBook.setCategory(book.getCategory());
         generatedBook.setPublisher(book.getPublisher());
         generatedBook.setLanguage(book.getLanguage());
+        generatedBook.setMark(book.getMark());
 
         return generatedBook;
     }

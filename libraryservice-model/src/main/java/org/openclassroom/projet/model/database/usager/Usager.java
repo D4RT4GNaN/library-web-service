@@ -37,7 +37,7 @@ public class Usager implements Serializable, UserDetails {
 
     public Usager(UsagerDto usagerDto) {
         this.email = usagerDto.getEmail();
-        this.password = encodePassword(usagerDto.getPassword());
+        this.password = usagerDto.getPassword() != null ? encodePassword(usagerDto.getPassword()) : null;
         this.firstName = usagerDto.getFirstName();
         this.lastName = usagerDto.getLastName();
         this.address = usagerDto.getAddress();

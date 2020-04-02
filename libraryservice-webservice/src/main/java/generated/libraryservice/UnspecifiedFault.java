@@ -4,21 +4,20 @@ package generated.libraryservice;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for anonymous complex type.
+ * <p>Java class for unspecifiedFault complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType>
+ * &lt;complexType name="unspecifiedFault">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="bookReference" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="message" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -28,37 +27,36 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "", propOrder = {
-    "bookReference"
+@XmlType(name = "unspecifiedFault", propOrder = {
+    "message"
 })
-@XmlRootElement(name = "getBookAvailability")
-public class GetBookAvailability {
+public class UnspecifiedFault {
 
     @XmlElement(required = true)
-    protected String bookReference;
+    protected String message;
 
     /**
-     * Gets the value of the bookReference property.
+     * Gets the value of the message property.
      * 
      * @return
      *     possible object is
      *     {@link String }
      *     
      */
-    public String getBookReference() {
-        return bookReference;
+    public String getMessage() {
+        return message;
     }
 
     /**
-     * Sets the value of the bookReference property.
+     * Sets the value of the message property.
      * 
      * @param value
      *     allowed object is
      *     {@link String }
      *     
      */
-    public void setBookReference(String value) {
-        this.bookReference = value;
+    public void setMessage(String value) {
+        this.message = value;
     }
 
 }

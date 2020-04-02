@@ -10,8 +10,8 @@ import javax.xml.ws.WebFault;
  * Generated source version: 2.2
  * 
  */
-@WebFault(name = "BadCredentialsFault", targetNamespace = "http://LibraryService/")
-public class BadCredentialsException
+@WebFault(name = "UpdateUserFault", targetNamespace = "http://LibraryService/")
+public class UpdateUserException
     extends Exception
 {
 
@@ -19,14 +19,14 @@ public class BadCredentialsException
      * Java type that goes as soapenv:Fault detail element.
      * 
      */
-    private BadCredentialsFault faultInfo;
+    private UnspecifiedFault faultInfo;
 
     /**
      * 
      * @param faultInfo
      * @param message
      */
-    public BadCredentialsException(String message, BadCredentialsFault faultInfo) {
+    public UpdateUserException(String message, UnspecifiedFault faultInfo) {
         super(message);
         this.faultInfo = faultInfo;
     }
@@ -37,7 +37,7 @@ public class BadCredentialsException
      * @param cause
      * @param message
      */
-    public BadCredentialsException(String message, BadCredentialsFault faultInfo, Throwable cause) {
+    public UpdateUserException(String message, UnspecifiedFault faultInfo, Throwable cause) {
         super(message, cause);
         this.faultInfo = faultInfo;
     }
@@ -45,9 +45,9 @@ public class BadCredentialsException
     /**
      * 
      * @return
-     *     returns fault bean: generated.libraryservice.BadCredentialsFault
+     *     returns fault bean: generated.libraryservice.UnspecifiedFault
      */
-    public BadCredentialsFault getFaultInfo() {
+    public UnspecifiedFault getFaultInfo() {
         return faultInfo;
     }
 

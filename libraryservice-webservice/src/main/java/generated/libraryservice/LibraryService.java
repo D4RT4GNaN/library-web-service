@@ -26,7 +26,6 @@ public interface LibraryService {
 
     /**
      * 
-     * @param libraryIds
      * @param bookReference
      * @return
      *     returns java.util.List<generated.libraryservice.Stock>
@@ -36,8 +35,6 @@ public interface LibraryService {
     @RequestWrapper(localName = "getBookAvailability", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.GetBookAvailability")
     @ResponseWrapper(localName = "getBookAvailabilityResponse", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.GetBookAvailabilityResponse")
     public List<Stock> getBookAvailability(
-        @WebParam(name = "libraryIds", targetNamespace = "")
-        List<Integer> libraryIds,
         @WebParam(name = "bookReference", targetNamespace = "")
         String bookReference);
 
@@ -119,6 +116,7 @@ public interface LibraryService {
      * @param generatedUsager
      * @return
      *     returns java.lang.String
+     * @throws RegisterException
      */
     @WebMethod(action = "http://LibraryService/addUser")
     @WebResult(name = "status", targetNamespace = "")
@@ -126,7 +124,9 @@ public interface LibraryService {
     @ResponseWrapper(localName = "addUserResponse", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.AddUserResponse")
     public String addUser(
         @WebParam(name = "generatedUsager", targetNamespace = "")
-        Usager generatedUsager);
+        Usager generatedUsager)
+        throws RegisterException
+    ;
 
     /**
      * 
@@ -134,7 +134,7 @@ public interface LibraryService {
      * @param password
      * @return
      *     returns generated.libraryservice.Usager
-     * @throws BadCredentialsException
+     * @throws LoginException
      */
     @WebMethod(action = "http://LibraryService/connectUser")
     @WebResult(name = "user", targetNamespace = "")
@@ -145,7 +145,7 @@ public interface LibraryService {
         String identifier,
         @WebParam(name = "password", targetNamespace = "")
         String password)
-        throws BadCredentialsException
+        throws LoginException
     ;
 
     /**
@@ -167,6 +167,7 @@ public interface LibraryService {
      * @param email
      * @return
      *     returns java.lang.String
+     * @throws EmailSendingException
      */
     @WebMethod(action = "http://LibraryService/resendVerificationEmail")
     @WebResult(name = "status", targetNamespace = "")
@@ -174,13 +175,16 @@ public interface LibraryService {
     @ResponseWrapper(localName = "resendVerificationEmailResponse", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.ResendVerificationEmailResponse")
     public String resendVerificationEmail(
         @WebParam(name = "email", targetNamespace = "")
-        String email);
+        String email)
+        throws EmailSendingException
+    ;
 
     /**
      * 
      * @param email
      * @return
      *     returns java.lang.String
+     * @throws ForgotPasswordException
      */
     @WebMethod(action = "http://LibraryService/requestPasswordReset")
     @WebResult(name = "status", targetNamespace = "")
@@ -188,7 +192,9 @@ public interface LibraryService {
     @ResponseWrapper(localName = "requestPasswordResetResponse", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.RequestPasswordResetResponse")
     public String requestPasswordReset(
         @WebParam(name = "email", targetNamespace = "")
-        String email);
+        String email)
+        throws ForgotPasswordException
+    ;
 
     /**
      * 
@@ -236,6 +242,7 @@ public interface LibraryService {
      * @param email
      * @return
      *     returns java.lang.String
+     * @throws UpdateUserException
      */
     @WebMethod(action = "http://LibraryService/updateUserInfos")
     @WebResult(name = "status", targetNamespace = "")
@@ -245,7 +252,9 @@ public interface LibraryService {
         @WebParam(name = "email", targetNamespace = "")
         String email,
         @WebParam(name = "usager", targetNamespace = "")
-        Usager usager);
+        Usager usager)
+        throws UpdateUserException
+    ;
 
     /**
      * 

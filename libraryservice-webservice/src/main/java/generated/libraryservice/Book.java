@@ -25,6 +25,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="category" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="publisher" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="language" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="mark" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -42,7 +43,8 @@ import javax.xml.bind.annotation.XmlType;
     "synopsis",
     "category",
     "publisher",
-    "language"
+    "language",
+    "mark"
 })
 public class Book {
 
@@ -62,6 +64,7 @@ public class Book {
     protected String publisher;
     @XmlElement(required = true)
     protected String language;
+    protected int mark;
 
     /**
      * Gets the value of the reference property.
@@ -253,6 +256,22 @@ public class Book {
      */
     public void setLanguage(String value) {
         this.language = value;
+    }
+
+    /**
+     * Gets the value of the mark property.
+     * 
+     */
+    public int getMark() {
+        return mark;
+    }
+
+    /**
+     * Sets the value of the mark property.
+     * 
+     */
+    public void setMark(int value) {
+        this.mark = value;
     }
 
 }

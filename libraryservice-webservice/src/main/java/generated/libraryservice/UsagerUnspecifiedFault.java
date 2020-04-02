@@ -8,17 +8,16 @@ import javax.xml.bind.annotation.XmlType;
 
 
 /**
- * <p>Java class for BadCredentialsFault complex type.
+ * <p>Java class for usagerUnspecifiedFault complex type.
  * 
  * <p>The following schema fragment specifies the expected content contained within this class.
  * 
  * <pre>
- * &lt;complexType name="BadCredentialsFault">
+ * &lt;complexType name="usagerUnspecifiedFault">
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="additionalInfo" type="{http://www.w3.org/2001/XMLSchema}int"/>
- *         &lt;element name="detail" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="usager" type="{http://LibraryService/}usager"/>
  *         &lt;element name="message" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -29,57 +28,39 @@ import javax.xml.bind.annotation.XmlType;
  * 
  */
 @XmlAccessorType(XmlAccessType.FIELD)
-@XmlType(name = "BadCredentialsFault", propOrder = {
-    "additionalInfo",
-    "detail",
+@XmlType(name = "usagerUnspecifiedFault", propOrder = {
+    "usager",
     "message"
 })
-public class BadCredentialsFault {
+public class UsagerUnspecifiedFault {
 
-    protected int additionalInfo;
     @XmlElement(required = true)
-    protected String detail;
+    protected Usager usager;
     @XmlElement(required = true)
     protected String message;
 
     /**
-     * Gets the value of the additionalInfo property.
-     * 
-     */
-    public int getAdditionalInfo() {
-        return additionalInfo;
-    }
-
-    /**
-     * Sets the value of the additionalInfo property.
-     * 
-     */
-    public void setAdditionalInfo(int value) {
-        this.additionalInfo = value;
-    }
-
-    /**
-     * Gets the value of the detail property.
+     * Gets the value of the usager property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Usager }
      *     
      */
-    public String getDetail() {
-        return detail;
+    public Usager getUsager() {
+        return usager;
     }
 
     /**
-     * Sets the value of the detail property.
+     * Sets the value of the usager property.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Usager }
      *     
      */
-    public void setDetail(String value) {
-        this.detail = value;
+    public void setUsager(Usager value) {
+        this.usager = value;
     }
 
     /**

@@ -1,8 +1,6 @@
 package libraryservice;
 
-import generated.libraryservice.BadCredentialsException;
-import generated.libraryservice.BadCredentialsFault;
-import generated.libraryservice.Library;
+import generated.libraryservice.*;
 import org.openclassroom.projet.model.database.library.Book;
 import org.openclassroom.projet.model.database.library.Stock;
 import org.openclassroom.projet.model.database.service.Loan;
@@ -13,6 +11,7 @@ import utils.converters.*;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
+import javax.validation.constraints.Email;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -63,13 +62,13 @@ public class LibraryService extends AbstractWebInterface implements generated.li
 
     // ---------------------- Book ------------------------
     @WebMethod
-    public List<generated.libraryservice.Stock> getBookAvailability(List<Integer> libraryIds, String bookReference) {
+    public List<generated.libraryservice.Stock> getBookAvailability(String bookReference) {
         List<generated.libraryservice.Stock> generatedStocks = new ArrayList<>();
 
-        for (int libraryId : libraryIds) {
-            Library library = LibraryConverter.fromDatabase(getServiceFactory().getLibraryService().getLibrary(libraryId));
-            Stock stockBook = getServiceFactory().getBookFactory().getStockForBook(libraryId, bookReference);
-            generatedStocks.add(StockConverter.fromDatabase(stockBook, library));
+        List<Library> libraries = LibraryConverter.fromDatabase(getServiceFactory().getLibraryService().getLibraries());
+        for (Library library : libraries) {
+            Stock stockBook = getServiceFactory().getBookFactory().getStockForBook(library.getNumberRef(), bookReference);
+            if ((stockBook.getQuantity() - stockBook.getQuantityLoaned()) > 0) { generatedStocks.add(StockConverter.fromDatabase(stockBook, library)); }
         }
 
         return generatedStocks;
@@ -85,19 +84,25 @@ public class LibraryService extends AbstractWebInterface implements generated.li
 
     // ---------------------- Usager ------------------------
     @WebMethod
-    public String addUser(generated.libraryservice.Usager generatedUsager) {
+    public String addUser(generated.libraryservice.Usager generatedUsager) throws RegisterException {
         UsagerDto usagerDto = UsagerConverter.fromClient(generatedUsager);
-        getServiceFactory().getUserService().save(usagerDto);
+        try {
+            getServiceFactory().getUserService().save(usagerDto);
+        } catch (Exception ex) {
+            UsagerUnspecifiedFault fault = new UsagerUnspecifiedFault();
+            fault.setUsager(generatedUsager);
+            throw new RegisterException(ex.getMessage(), fault);
+        }
         return "SUCCESS";
     }
 
     @WebMethod
-    public generated.libraryservice.Usager connectUser(String identifier, String password) throws BadCredentialsException {
+    public generated.libraryservice.Usager connectUser(String identifier, String password) throws LoginException {
         Usager usager;
         try {
             usager = getServiceFactory().getUserService().login(identifier, password);
-        } catch (Exception e) {
-            throw new BadCredentialsException(e.getMessage(), new BadCredentialsFault());
+        } catch (Exception ex) {
+            throw new LoginException(ex.getMessage(), new UnspecifiedFault());
         }
         return UsagerConverter.fromDatabase(usager);
     }
@@ -110,36 +115,46 @@ public class LibraryService extends AbstractWebInterface implements generated.li
     }
 
     @WebMethod
-    public String resendVerificationEmail(String email) {
-        getServiceFactory().getUserService().resendVerificationEmail(email);
+    public String resendVerificationEmail(String email) throws EmailSendingException {
+        try {
+            getServiceFactory().getUserService().resendVerificationEmail(email);
+        } catch (Exception ex) {
+            throw new EmailSendingException(ex.getMessage(), new UnspecifiedFault());
+        }
         return "SUCCESS";
     }
 
     @WebMethod
-    public String requestPasswordReset(String email) {
-        getServiceFactory().getUserService().sendEmailToResetPasswordFor(email);
+    public String requestPasswordReset(String email) throws ForgotPasswordException {
+        try {
+            getServiceFactory().getUserService().sendEmailToResetPasswordFor(email);
+        } catch (Exception e) {
+            throw new ForgotPasswordException(e.getMessage(), new UnspecifiedFault());
+        }
         return "SUCCESS";
     }
 
     @WebMethod
     public String resetPassword(String token, String newPassword, String confirmNewPassword) {
-        //getServiceFactory().getUserService().validatePassword(newPassword, confirmNewPassword);
         getServiceFactory().getUserService().createNewPasswordForUsagerWith(token, newPassword, confirmNewPassword);
         return "SUCCESS";
     }
 
     @WebMethod
     public String updatePassword(String email, String newPassword, String confirmNewPassword) {
-        //getServiceFactory().getUserService().validatePassword(newPassword, confirmNewPassword);
         getServiceFactory().getUserService().changeUserPassword(email, newPassword, confirmNewPassword);
         return "SUCCESS";
     }
 
     @WebMethod
-    public String updateUserInfos(String email, generated.libraryservice.Usager usager) {
+    public String updateUserInfos(String email, generated.libraryservice.Usager usager) throws UpdateUserException {
         UsagerDto usagerDto = UsagerConverter.fromClient(usager);
         Usager convertedUsager = new Usager(usagerDto);
-        getServiceFactory().getUserService().updateUsagerInfos(email, convertedUsager);
+        try {
+            getServiceFactory().getUserService().updateUsagerInfos(email, convertedUsager);
+        } catch (Exception ex) {
+            throw new UpdateUserException(ex.getMessage(), new UnspecifiedFault());
+        }
         return "SUCCESS";
     }
 

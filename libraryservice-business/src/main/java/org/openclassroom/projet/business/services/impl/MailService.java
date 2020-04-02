@@ -25,8 +25,14 @@ public class MailService {
     @Qualifier("customProperties")
     private Properties customMailProperties;
 
-    @Value("${service.address}")
-    private String serverAddress;
+    @Value("${client.url}")
+    private String clientUrl;
+
+    @Value("${client.newpassword.url}")
+    private String newPasswordUrl;
+
+    @Value("${client.confirmemail.url}")
+    private String confirmEmailUrl;
 
 
 
@@ -95,7 +101,7 @@ public class MailService {
         String after = "Have fun, and don't hesitate to contact us with your feedback." + lineBreak
                 + "The Library Team";
 
-        return before + lineBreak + serverAddress + "?token=" + token + lineBreak + after;
+        return before + lineBreak + clientUrl + confirmEmailUrl + "?token=" + token + lineBreak + after;
     }
 
     private String createResetPasswordEmailContent(String token) {
@@ -104,7 +110,7 @@ public class MailService {
         String after = "Have fun, and don't hesitate to contact us with your feedback." + lineBreak
                 + "The Library Team";
 
-        return before + lineBreak + serverAddress + "?token=" + token + lineBreak + after;
+        return before + lineBreak + clientUrl + newPasswordUrl + "?token=" + token + lineBreak + after;
     }
 
 }

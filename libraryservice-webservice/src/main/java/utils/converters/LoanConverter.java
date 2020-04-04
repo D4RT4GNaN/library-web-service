@@ -19,7 +19,7 @@ public class LoanConverter {
         try {
             generatedLoan.setBorrowingDate(toXMLGregorianCalendar(loan.getLoanId().getBorrowingDate()));
             generatedLoan.setBookReference(loan.getLoanId().getReferenceBook());
-            generatedLoan.setUserID(loan.getLoanId().getUsagerId());
+            generatedLoan.setUserId(loan.getLoanId().getUsagerId());
             generatedLoan.setExpiryDate(toXMLGregorianCalendar(loan.getExpiryDate()));
             generatedLoan.setExtended(loan.getExtended());
             generatedLoan.setStatus(loan.getStatus());
@@ -45,10 +45,12 @@ public class LoanConverter {
 
         if (generatedLoan.getBorrowingDate() != null) {
             loanId.setBorrowingDate(generatedLoan.getBorrowingDate().toGregorianCalendar().getTime());
+        } else {
+            loanId.setBorrowingDate(new Date());
         }
 
         loanId.setReferenceBook(generatedLoan.getBookReference());
-        loanId.setUsagerId(generatedLoan.getUserID());
+        loanId.setUsagerId(generatedLoan.getUserId());
 
         return new Loan(loanId);
     }

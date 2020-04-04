@@ -21,7 +21,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *       &lt;sequence>
  *         &lt;element name="borrowingDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
  *         &lt;element name="bookReference" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="userID" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="userId" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="expiryDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
  *         &lt;element name="extended" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         &lt;element name="status" type="{http://www.w3.org/2001/XMLSchema}string"/>
@@ -37,7 +37,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlType(name = "loan", propOrder = {
     "borrowingDate",
     "bookReference",
-    "userID",
+    "userId",
     "expiryDate",
     "extended",
     "status"
@@ -49,7 +49,7 @@ public class Loan {
     protected XMLGregorianCalendar borrowingDate;
     @XmlElement(required = true)
     protected String bookReference;
-    protected int userID;
+    protected int userId;
     @XmlElement(required = true)
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar expiryDate;
@@ -106,19 +106,19 @@ public class Loan {
     }
 
     /**
-     * Gets the value of the userID property.
+     * Gets the value of the userId property.
      * 
      */
-    public int getUserID() {
-        return userID;
+    public int getUserId() {
+        return userId;
     }
 
     /**
-     * Sets the value of the userID property.
+     * Sets the value of the userId property.
      * 
      */
-    public void setUserID(int value) {
-        this.userID = value;
+    public void setUserId(int value) {
+        this.userId = value;
     }
 
     /**

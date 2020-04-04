@@ -8,6 +8,7 @@ public class UsagerConverter {
     public static generated.libraryservice.Usager fromDatabase(Usager usager) {
         generated.libraryservice.Usager generatedUsager = new generated.libraryservice.Usager();
 
+        generatedUsager.setId(usager.getId());
         generatedUsager.setEmail(usager.getEmail());
         generatedUsager.setPassword(usager.getPassword());
         generatedUsager.setFirstname(usager.getFirstName());

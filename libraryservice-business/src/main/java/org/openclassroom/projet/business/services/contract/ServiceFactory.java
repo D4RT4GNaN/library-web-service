@@ -6,5 +6,6 @@ public interface ServiceFactory {
     BookService getBookFactory();
     LibraryService getLibraryService();
     LoanService getLoanService();
+    StockService getStockService();
 
 }

@@ -19,6 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="newLoan" type="{http://LibraryService/}loan"/>
+ *         &lt;element name="libraryId" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -29,13 +30,15 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "newLoan"
+    "newLoan",
+    "libraryId"
 })
 @XmlRootElement(name = "addNewLoan")
 public class AddNewLoan {
 
     @XmlElement(required = true)
     protected Loan newLoan;
+    protected int libraryId;
 
     /**
      * Gets the value of the newLoan property.
@@ -59,6 +62,22 @@ public class AddNewLoan {
      */
     public void setNewLoan(Loan value) {
         this.newLoan = value;
+    }
+
+    /**
+     * Gets the value of the libraryId property.
+     * 
+     */
+    public int getLibraryId() {
+        return libraryId;
+    }
+
+    /**
+     * Sets the value of the libraryId property.
+     * 
+     */
+    public void setLibraryId(int value) {
+        this.libraryId = value;
     }
 
 }

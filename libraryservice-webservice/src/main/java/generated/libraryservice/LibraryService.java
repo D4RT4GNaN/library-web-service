@@ -40,6 +40,7 @@ public interface LibraryService {
 
     /**
      * 
+     * @param libraryId
      * @param newLoan
      * @return
      *     returns java.lang.String
@@ -50,7 +51,9 @@ public interface LibraryService {
     @ResponseWrapper(localName = "addNewLoanResponse", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.AddNewLoanResponse")
     public String addNewLoan(
         @WebParam(name = "newLoan", targetNamespace = "")
-        Loan newLoan);
+        Loan newLoan,
+        @WebParam(name = "libraryId", targetNamespace = "")
+        int libraryId);
 
     /**
      * 

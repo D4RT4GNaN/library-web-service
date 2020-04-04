@@ -19,6 +19,9 @@ public class ServiceFactoryImpl implements ServiceFactory {
     @Autowired
     private LoanService loanService;
 
+    @Autowired
+    private StockService stockService;
+
     @Override
     public UserService getUserService() {
         return userService;
@@ -33,5 +36,10 @@ public class ServiceFactoryImpl implements ServiceFactory {
     public LibraryService getLibraryService() { return libraryService; }
 
     @Override
-    public  LoanService getLoanService() { return loanService; }
+    public LoanService getLoanService() { return loanService; }
+
+    @Override
+    public StockService getStockService() {
+        return stockService;
+    }
 }

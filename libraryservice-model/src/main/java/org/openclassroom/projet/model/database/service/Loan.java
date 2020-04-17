@@ -33,6 +33,11 @@ public class Loan {
     private String status;
 
 
+    @NotNull
+    @NotEmpty
+    private int quantity;
+
+
 
     // ==================== Constructors ====================
     /**/
@@ -44,14 +49,17 @@ public class Loan {
         this.expiryDate = calculateExpiryDate();
         this.extended = false;
         this.status = LoanStatusEnum.OUTSTANDING.name();
+        this.quantity = 1;
     }
 
-    public Loan(LoanId loanId, Date expiryDate, Boolean extended, String status) {
+    public Loan(LoanId loanId, Date expiryDate, Boolean extended, String status, int quantity) {
         this.loanId = loanId;
         this.expiryDate = expiryDate;
         this.extended = extended;
         this.status = status;
+        this.quantity = quantity;
     }
+
 
 
     // ==================== Getters/Setters ====================
@@ -82,6 +90,14 @@ public class Loan {
     public void setStatus(String status) {
         this.status = status;
     }
+
+    public int getQuantity() {
+        return quantity;
+    }
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
+    }
+
 
 
     // ==================== Methods ====================

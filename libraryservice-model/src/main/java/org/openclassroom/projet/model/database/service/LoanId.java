@@ -1,7 +1,10 @@
 package org.openclassroom.projet.model.database.service;
 
-import javax.persistence.Column;
-import javax.persistence.Embeddable;
+import org.openclassroom.projet.model.database.library.Book;
+import org.openclassroom.projet.model.database.library.Library;
+import org.openclassroom.projet.model.database.usager.Usager;
+
+import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
 import java.util.Objects;
@@ -13,21 +16,30 @@ public class LoanId implements Serializable {
     @Column(name = "borrowing_date")
     private Date borrowingDate;
 
-    @Column(name = "reference_book")
-    private String referenceBook;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "reference_book")
+    private Book book;
 
-    @Column(name = "usager_id")
-    private int usagerId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "number_ref_library")
+    private Library library;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "usager_id")
+    private Usager usager;
+
 
 
     // ==================== Constructors ====================
     public LoanId() {}
 
-    public LoanId(Date borrowingDate, String referenceBook, int usagerId) {
-        this.borrowingDate = borrowingDate;
-        this.referenceBook = referenceBook;
-        this.usagerId = usagerId;
+    public LoanId(Book book, Library library, Usager usager) {
+        this.borrowingDate = new Date();
+        this.book = book;
+        this.library = library;
+        this.usager = usager;
     }
+
 
 
     // ==================== Getters/Setters ====================
@@ -38,19 +50,27 @@ public class LoanId implements Serializable {
         this.borrowingDate = borrowingDate;
     }
 
-    public String getReferenceBook() {
-        return referenceBook;
+    public Book getBook() {
+        return book;
     }
-    public void setReferenceBook(String referenceBook) {
-        this.referenceBook = referenceBook;
+    public void setBook(Book book) {
+        this.book = book;
     }
 
-    public int getUsagerId() {
-        return usagerId;
+    public Library getLibrary() {
+        return library;
     }
-    public void setUsagerId(int usagerId) {
-        this.usagerId = usagerId;
+    public void setLibrary(Library library) {
+        this.library = library;
     }
+
+    public Usager getUsager() {
+        return usager;
+    }
+    public void setUsager(Usager usager) {
+        this.usager = usager;
+    }
+
 
 
     // ==================== Methods ====================
@@ -59,13 +79,14 @@ public class LoanId implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         LoanId loanId = (LoanId) o;
-        return usagerId == loanId.usagerId &&
-                Objects.equals(borrowingDate, loanId.borrowingDate) &&
-                Objects.equals(referenceBook, loanId.referenceBook);
+        return Objects.equals(borrowingDate, loanId.borrowingDate) &&
+                Objects.equals(book, loanId.book) &&
+                Objects.equals(library, loanId.library) &&
+                Objects.equals(usager, loanId.usager);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(borrowingDate, referenceBook, usagerId);
+        return Objects.hash(borrowingDate, book, library, usager);
     }
 }

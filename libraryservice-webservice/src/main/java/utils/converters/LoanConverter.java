@@ -1,7 +1,11 @@
 package utils.converters;
 
+import generated.libraryservice.Book;
+import generated.libraryservice.Library;
+import generated.libraryservice.Usager;
 import org.openclassroom.projet.model.database.service.Loan;
 import org.openclassroom.projet.model.database.service.LoanId;
+import org.openclassroom.projet.model.database.usager.UsagerDto;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.DatatypeFactory;
@@ -17,12 +21,18 @@ public class LoanConverter {
         generated.libraryservice.Loan generatedLoan = new generated.libraryservice.Loan();
 
         try {
+            Book generatedBook = BookConverter.fromDatabase(loan.getLoanId().getBook());
+            Usager generatedUsager = UsagerConverter.fromDatabase(loan.getLoanId().getUsager());
+            Library generatedLibrary = LibraryConverter.fromDatabase(loan.getLoanId().getLibrary());
+
             generatedLoan.setBorrowingDate(toXMLGregorianCalendar(loan.getLoanId().getBorrowingDate()));
-            generatedLoan.setBookReference(loan.getLoanId().getReferenceBook());
-            generatedLoan.setUserId(loan.getLoanId().getUsagerId());
+            generatedLoan.setBook(generatedBook);
+            generatedLoan.setUsager(generatedUsager);
+            generatedLoan.setLibrary(generatedLibrary);
             generatedLoan.setExpiryDate(toXMLGregorianCalendar(loan.getExpiryDate()));
             generatedLoan.setExtended(loan.getExtended());
             generatedLoan.setStatus(loan.getStatus());
+            generatedLoan.setQuantity(loan.getQuantity());
         } catch (DatatypeConfigurationException e) {
             e.printStackTrace();
         }
@@ -49,8 +59,10 @@ public class LoanConverter {
             loanId.setBorrowingDate(new Date());
         }
 
-        loanId.setReferenceBook(generatedLoan.getBookReference());
-        loanId.setUsagerId(generatedLoan.getUserId());
+        loanId.setBook(BookConverter.fromClient(generatedLoan.getBook()));
+
+        UsagerDto usagerDto = UsagerConverter.fromClient(generatedLoan.getUsager());
+        loanId.setUsager(new org.openclassroom.projet.model.database.usager.Usager(usagerDto));
 
         return new Loan(loanId);
     }

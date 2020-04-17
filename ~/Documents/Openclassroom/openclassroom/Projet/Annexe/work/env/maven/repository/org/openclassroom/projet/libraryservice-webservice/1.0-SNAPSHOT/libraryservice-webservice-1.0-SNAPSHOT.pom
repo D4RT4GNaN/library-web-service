@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <!-- =============================================================== -->
+  <!-- Informations du projet -->
+  <!-- =============================================================== -->
+  <!-- ===== Informations Parent ===== -->
+  <parent>
+    <artifactId>libraryservice</artifactId>
+    <groupId>org.openclassroom.projet</groupId>
+    <version>1.0-SNAPSHOT</version>
+  </parent>
+
+  <!-- ===== Informations Maven ===== -->
+  <groupId>org.openclassroom.projet</groupId>
+  <artifactId>libraryservice-webservice</artifactId>
+  <packaging>war</packaging>
+
+  <!-- ===== Informations générales ===== -->
+  <name>libraryservice-webservice Maven Webapp</name>
+
+  <!-- =============================================================== -->
+  <!-- Properties -->
+  <!-- =============================================================== -->
+  <properties>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+    <maven.compiler.target>1.8</maven.compiler.target>
+    <java.version>1.8</java.version>
+  </properties>
+
+  <!-- =============================================================== -->
+  <!-- Dependencies -->
+  <!-- =============================================================== -->
+  <dependencies>
+    <!-- ===== Modules ===== -->
+    <dependency>
+      <groupId>org.openclassroom.projet</groupId>
+      <artifactId>libraryservice-model</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.openclassroom.projet</groupId>
+      <artifactId>libraryservice-business</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.openclassroom.projet</groupId>
+      <artifactId>libraryservice-technical</artifactId>
+    </dependency>
+
+    <!-- ===== Bibliothèques tierces ===== -->
+    <!-- JaxWS for WSDL with Tomcat -->
+    <dependency>
+        <groupId>com.sun.xml.ws</groupId>
+        <artifactId>jaxws-rt</artifactId>
+    </dependency>
+
+    <!-- JaxWS compatibility with Spring -->
+    <dependency>
+      <groupId>org.jvnet.jax-ws-commons.spring</groupId>
+      <artifactId>jaxws-spring</artifactId>
+    </dependency>
+
+    <!-- Spring -->
+    <dependency>
+      <groupId>org.springframework</groupId>
+      <artifactId>spring-web</artifactId>
+    </dependency>
+
+    <!-- JSR-330 -->
+    <dependency>
+      <groupId>javax.inject</groupId>
+      <artifactId>javax.inject</artifactId>
+    </dependency>
+
+    <!-- JUnit -->
+    <dependency>
+      <groupId>junit</groupId>
+      <artifactId>junit</artifactId>
+      <version>4.11</version>
+      <scope>test</scope>
+    </dependency>
+  </dependencies>
+
+  <!-- =============================================================== -->
+  <!-- Build and Plugins -->
+  <!-- =============================================================== -->
+  <build>
+    <finalName>libraryservice-webservice</finalName>
+
+    <plugins>
+      <plugin>
+        <artifactId>maven-war-plugin</artifactId>
+        <configuration>
+          <failOnMissingWebXml>false</failOnMissingWebXml>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-compiler-plugin</artifactId>
+        <version>3.7.0</version>
+        <configuration>
+          <source>1.8</source>
+          <target>1.8</target>
+        </configuration>
+      </plugin>
+
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>jaxws-maven-plugin</artifactId>
+        <version>2.5</version>
+      </plugin>
+    </plugins>
+  </build>
+</project>

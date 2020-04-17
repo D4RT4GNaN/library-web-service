@@ -33,4 +33,20 @@ public class BookConverter {
         return generatedBooks;
     }
 
+    public static Book fromClient(generated.libraryservice.Book generatedBook) {
+        Book book = new Book();
+
+        book.setReference(generatedBook.getReference());
+        book.setImageUrl(generatedBook.getImageUrl());
+        book.setTitle(generatedBook.getTitle());
+        book.setAuthor(generatedBook.getAuthor());
+        book.setSynopsis(generatedBook.getSynopsis());
+        book.setPublisher(generatedBook.getPublisher());
+        book.setCategory(generatedBook.getCategory());
+        book.setLanguage(generatedBook.getLanguage());
+        book.setMark(generatedBook.getMark());
+
+        return book;
+    }
+
 }

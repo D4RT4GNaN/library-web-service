@@ -7,6 +7,7 @@ import javax.jws.WebParam;
 import javax.jws.WebResult;
 import javax.jws.WebService;
 import javax.xml.bind.annotation.XmlSeeAlso;
+import javax.xml.datatype.XMLGregorianCalendar;
 import javax.xml.ws.RequestWrapper;
 import javax.xml.ws.ResponseWrapper;
 
@@ -41,7 +42,8 @@ public interface LibraryService {
     /**
      * 
      * @param libraryId
-     * @param newLoan
+     * @param usager
+     * @param bookReference
      * @return
      *     returns java.lang.String
      */
@@ -50,10 +52,12 @@ public interface LibraryService {
     @RequestWrapper(localName = "addNewLoan", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.AddNewLoan")
     @ResponseWrapper(localName = "addNewLoanResponse", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.AddNewLoanResponse")
     public String addNewLoan(
-        @WebParam(name = "newLoan", targetNamespace = "")
-        Loan newLoan,
         @WebParam(name = "libraryId", targetNamespace = "")
-        int libraryId);
+        int libraryId,
+        @WebParam(name = "bookReference", targetNamespace = "")
+        String bookReference,
+        @WebParam(name = "usager", targetNamespace = "")
+        Usager usager);
 
     /**
      * 
@@ -71,7 +75,10 @@ public interface LibraryService {
 
     /**
      * 
-     * @param loan
+     * @param libraryId
+     * @param usager
+     * @param borrowingDate
+     * @param bookReference
      * @return
      *     returns java.lang.String
      */
@@ -80,8 +87,14 @@ public interface LibraryService {
     @RequestWrapper(localName = "returnBook", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.ReturnBook")
     @ResponseWrapper(localName = "returnBookResponse", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.ReturnBookResponse")
     public String returnBook(
-        @WebParam(name = "loan", targetNamespace = "")
-        Loan loan);
+        @WebParam(name = "borrowingDate", targetNamespace = "")
+        XMLGregorianCalendar borrowingDate,
+        @WebParam(name = "libraryId", targetNamespace = "")
+        int libraryId,
+        @WebParam(name = "bookReference", targetNamespace = "")
+        String bookReference,
+        @WebParam(name = "usager", targetNamespace = "")
+        Usager usager);
 
     /**
      * 

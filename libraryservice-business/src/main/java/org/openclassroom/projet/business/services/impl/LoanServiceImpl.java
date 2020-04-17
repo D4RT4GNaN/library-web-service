@@ -17,10 +17,27 @@ public class LoanServiceImpl extends AbstractService implements LoanService {
 
     @Override
     public void addNewLoan(Loan newLoan) {
+        Usager usager = getDaoFactory().getUsagerRepository().findByEmail(
+                newLoan.getLoanId().getUsager().getEmail()
+        );
+        Loan dbLoan = getDaoFactory().getLoanRepository()
+                .findByLoanId_BorrowingDateAndLoanId_Library_NumberRefAndLoanId_Usager_IdAndLoanId_Book_ReferenceAndStatusNot(
+                        newLoan.getLoanId().getBorrowingDate(),
+                        newLoan.getLoanId().getLibrary().getNumberRef(),
+                        usager.getId(),
+                        newLoan.getLoanId().getBook().getReference(),
+                        RETURNED);
+
+        newLoan.getLoanId().setUsager(usager);
+
+        if (dbLoan != null) {
+            newLoan.setQuantity(dbLoan.getQuantity() + 1);
+        }
+
         getDaoFactory().getLoanRepository().save(newLoan);
     }
 
-    @Override
+    /*@Override
     public String getStatusLoan(String bookReference, int userID) {
         Loan loan = getDaoFactory().getLoanRepository().findByLoanId_ReferenceBookAndLoanId_UsagerIdAndStatusNot(bookReference, userID, RETURNED);
         if (loan != null) {
@@ -37,8 +54,8 @@ public class LoanServiceImpl extends AbstractService implements LoanService {
 
     @Override
     public boolean extendLoan(Loan loan) {
-        String bookReference = loan.getLoanId().getReferenceBook();
-        int userID = loan.getLoanId().getUsagerId();
+        String bookReference = loan.getLoanId().getBook().getReference();
+        int userID = loan.getLoanId().getUsager().getId();
         Loan dbLoan = getDaoFactory().getLoanRepository().findByLoanId_ReferenceBookAndLoanId_UsagerIdAndStatusNot(bookReference, userID, RETURNED);
 
         if (dbLoan.getExtended()) { throw new RuntimeException("This loan is already extended !"); }
@@ -52,15 +69,15 @@ public class LoanServiceImpl extends AbstractService implements LoanService {
 
     @Override
     public String closeLoan(Loan loan) {
-        String bookReference = loan.getLoanId().getReferenceBook();
-        int userID = loan.getLoanId().getUsagerId();
+        String bookReference = loan.getLoanId().getBook().getReference();
+        int userID = loan.getLoanId().getUsager().getId();
         Loan dbLoan = getDaoFactory().getLoanRepository().findByLoanId_ReferenceBookAndLoanId_UsagerIdAndStatusNot(bookReference, userID, RETURNED);
 
         dbLoan.setStatus(RETURNED);
         getDaoFactory().getLoanRepository().save(dbLoan);
 
         return "SUCCESS";
-    }
+    }*/
 
     @Override
     public List<Loan> checkExpiration() {
@@ -69,7 +86,7 @@ public class LoanServiceImpl extends AbstractService implements LoanService {
 
         for (Loan loan : loans) {
             if (!loan.isValid()) {
-                int usagerID = loan.getLoanId().getUsagerId();
+                int usagerID = loan.getLoanId().getUsager().getId();
                 Usager usager = getDaoFactory().getUsagerRepository().findById(usagerID);
                 getMailService().sendReminderEmail(usager);
                 loansOverdue.add(loan);

@@ -20,11 +20,13 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="borrowingDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
- *         &lt;element name="bookReference" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="userId" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="book" type="{http://LibraryService/}book"/>
+ *         &lt;element name="usager" type="{http://LibraryService/}usager"/>
+ *         &lt;element name="library" type="{http://LibraryService/}library"/>
  *         &lt;element name="expiryDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
  *         &lt;element name="extended" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *         &lt;element name="status" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="quantity" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -36,11 +38,13 @@ import javax.xml.datatype.XMLGregorianCalendar;
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "loan", propOrder = {
     "borrowingDate",
-    "bookReference",
-    "userId",
+    "book",
+    "usager",
+    "library",
     "expiryDate",
     "extended",
-    "status"
+    "status",
+    "quantity"
 })
 public class Loan {
 
@@ -48,14 +52,18 @@ public class Loan {
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar borrowingDate;
     @XmlElement(required = true)
-    protected String bookReference;
-    protected int userId;
+    protected Book book;
+    @XmlElement(required = true)
+    protected Usager usager;
+    @XmlElement(required = true)
+    protected Library library;
     @XmlElement(required = true)
     @XmlSchemaType(name = "date")
     protected XMLGregorianCalendar expiryDate;
     protected boolean extended;
     @XmlElement(required = true)
     protected String status;
+    protected int quantity;
 
     /**
      * Gets the value of the borrowingDate property.
@@ -82,43 +90,75 @@ public class Loan {
     }
 
     /**
-     * Gets the value of the bookReference property.
+     * Gets the value of the book property.
      * 
      * @return
      *     possible object is
-     *     {@link String }
+     *     {@link Book }
      *     
      */
-    public String getBookReference() {
-        return bookReference;
+    public Book getBook() {
+        return book;
     }
 
     /**
-     * Sets the value of the bookReference property.
+     * Sets the value of the book property.
      * 
      * @param value
      *     allowed object is
-     *     {@link String }
+     *     {@link Book }
      *     
      */
-    public void setBookReference(String value) {
-        this.bookReference = value;
+    public void setBook(Book value) {
+        this.book = value;
     }
 
     /**
-     * Gets the value of the userId property.
+     * Gets the value of the usager property.
      * 
+     * @return
+     *     possible object is
+     *     {@link Usager }
+     *     
      */
-    public int getUserId() {
-        return userId;
+    public Usager getUsager() {
+        return usager;
     }
 
     /**
-     * Sets the value of the userId property.
+     * Sets the value of the usager property.
      * 
+     * @param value
+     *     allowed object is
+     *     {@link Usager }
+     *     
      */
-    public void setUserId(int value) {
-        this.userId = value;
+    public void setUsager(Usager value) {
+        this.usager = value;
+    }
+
+    /**
+     * Gets the value of the library property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link Library }
+     *     
+     */
+    public Library getLibrary() {
+        return library;
+    }
+
+    /**
+     * Sets the value of the library property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link Library }
+     *     
+     */
+    public void setLibrary(Library value) {
+        this.library = value;
     }
 
     /**
@@ -183,6 +223,22 @@ public class Loan {
      */
     public void setStatus(String value) {
         this.status = value;
+    }
+
+    /**
+     * Gets the value of the quantity property.
+     * 
+     */
+    public int getQuantity() {
+        return quantity;
+    }
+
+    /**
+     * Sets the value of the quantity property.
+     * 
+     */
+    public void setQuantity(int value) {
+        this.quantity = value;
     }
 
 }

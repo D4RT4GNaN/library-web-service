@@ -4,6 +4,7 @@ import generated.libraryservice.*;
 import org.openclassroom.projet.model.database.library.Book;
 import org.openclassroom.projet.model.database.library.Stock;
 import org.openclassroom.projet.model.database.service.Loan;
+import org.openclassroom.projet.model.database.service.LoanId;
 import org.openclassroom.projet.model.database.usager.Usager;
 import org.openclassroom.projet.model.database.usager.UsagerDto;
 import org.openclassroom.projet.model.database.usager.VerificationToken;
@@ -11,7 +12,7 @@ import utils.converters.*;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
-import javax.validation.constraints.Email;
+import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,34 +30,43 @@ public class LibraryService extends AbstractWebInterface implements generated.li
 
     // ---------------------- Loan ------------------------
     @WebMethod
-    public String addNewLoan(generated.libraryservice.Loan generatedLoan, int libraryId) {
-        Loan loan = LoanConverter.fromClient(generatedLoan);
+    public String addNewLoan(int libraryId, String bookReference, generated.libraryservice.Usager generatedUsager) {
+        Book book = getServiceFactory().getBookFactory().getBooks(bookReference).get(0);
+        org.openclassroom.projet.model.database.library.Library library = getServiceFactory().getLibraryService().getLibrary(libraryId);
+        UsagerDto usagerDto = UsagerConverter.fromClient(generatedUsager);
+
+        LoanId loanId = new LoanId(book, library, new Usager(usagerDto));
+
+        Loan loan = new Loan(loanId);
+
         getServiceFactory().getLoanService().addNewLoan(loan);
-        getServiceFactory().getStockService().updateStock(libraryId, loan.getLoanId().getReferenceBook(), 1);
+        getServiceFactory().getStockService().updateStock(libraryId, bookReference, 1);
+
         return "SUCCESS";
     }
 
     @WebMethod
     public boolean extendLoan(generated.libraryservice.Loan generatedLoan) {
-        Loan loan = LoanConverter.fromClient(generatedLoan);
-        return getServiceFactory().getLoanService().extendLoan(loan);
+        //Loan loan = LoanConverter.fromClient(generatedLoan);
+        return true;//getServiceFactory().getLoanService().extendLoan(loan);
     }
 
     @WebMethod
-    public String returnBook(generated.libraryservice.Loan generatedLoan) {
-        Loan loan = LoanConverter.fromClient(generatedLoan);
-        return getServiceFactory().getLoanService().closeLoan(loan);
+    public String returnBook(XMLGregorianCalendar borrowingDate, int libraryId, String bookReference, generated.libraryservice.Usager generatedUsager) {
+        //Loan loan = LoanConverter.fromClient(generatedLoan);
+        return "SUCCESS"; //getServiceFactory().getLoanService().closeLoan(loan);
     }
 
     @WebMethod
     public String getStatusLoan(String bookReference, int userID) {
-        return getServiceFactory().getLoanService().getStatusLoan(bookReference, userID);
+        return "SUCCESS"; //getServiceFactory().getLoanService().getStatusLoan(bookReference, userID);
     }
 
     @WebMethod
     public List<generated.libraryservice.Loan> getLoansFor(int userID) {
-        List<Loan> loans = getServiceFactory().getLoanService().getLoansFor(userID);
-        return LoanConverter.fromDatabase(loans);
+        /**List<Loan> loans = getServiceFactory().getLoanService().getLoansFor(userID);
+        return LoanConverter.fromDatabase(loans);**/
+        return new ArrayList<>();
     }
 
 

@@ -8,6 +8,7 @@ import org.openclassroom.projet.model.enums.LoanStatusEnum;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @Service
@@ -26,7 +27,8 @@ public class LoanServiceImpl extends AbstractService implements LoanService {
                         newLoan.getLoanId().getLibrary().getNumberRef(),
                         usager.getId(),
                         newLoan.getLoanId().getBook().getReference(),
-                        RETURNED);
+                        RETURNED
+                );
 
         newLoan.getLoanId().setUsager(usager);
 
@@ -65,19 +67,23 @@ public class LoanServiceImpl extends AbstractService implements LoanService {
         getDaoFactory().getLoanRepository().save(dbLoan);
 
         return true;
-    }
+    }*/
 
     @Override
-    public String closeLoan(Loan loan) {
-        String bookReference = loan.getLoanId().getBook().getReference();
-        int userID = loan.getLoanId().getUsager().getId();
-        Loan dbLoan = getDaoFactory().getLoanRepository().findByLoanId_ReferenceBookAndLoanId_UsagerIdAndStatusNot(bookReference, userID, RETURNED);
+    public void closeLoan(Date borrowingDate, int libraryId, String bookReference, int usagerId) {
+        Loan dbLoan = getDaoFactory().getLoanRepository()
+                .findByLoanId_BorrowingDateAndLoanId_Library_NumberRefAndLoanId_Usager_IdAndLoanId_Book_ReferenceAndStatusNot(
+                        borrowingDate,
+                        libraryId,
+                        usagerId,
+                        bookReference,
+                        RETURNED
+                );
 
         dbLoan.setStatus(RETURNED);
         getDaoFactory().getLoanRepository().save(dbLoan);
 
-        return "SUCCESS";
-    }*/
+    }
 
     @Override
     public List<Loan> checkExpiration() {

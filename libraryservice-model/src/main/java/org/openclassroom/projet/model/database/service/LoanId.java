@@ -16,7 +16,6 @@ public class LoanId implements Serializable {
     @Column(name = "borrowing_date")
     private Date borrowingDate;
 
-    //@OneToOne(fetch = FetchType.LAZY)
     @OneToOne
     @JoinColumn(name = "reference_book")
     private Book book;
@@ -36,6 +35,13 @@ public class LoanId implements Serializable {
 
     public LoanId(Book book, Library library, Usager usager) {
         this.borrowingDate = new Date();
+        this.book = book;
+        this.library = library;
+        this.usager = usager;
+    }
+
+    public LoanId(Date borrowingDate, Book book, Library library, Usager usager) {
+        this.borrowingDate = borrowingDate;
         this.book = book;
         this.library = library;
         this.usager = usager;

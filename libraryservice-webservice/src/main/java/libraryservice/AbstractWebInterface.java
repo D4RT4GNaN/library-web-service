@@ -3,6 +3,8 @@ package libraryservice;
 import org.openclassroom.projet.business.services.contract.ServiceFactory;
 
 import javax.inject.Inject;
+import javax.xml.datatype.XMLGregorianCalendar;
+import java.util.Date;
 
 public abstract class AbstractWebInterface {
 
@@ -11,6 +13,10 @@ public abstract class AbstractWebInterface {
 
     protected ServiceFactory getServiceFactory() {
         return serviceFactory;
+    }
+
+    protected Date XMLGregorianCalendarToDate(XMLGregorianCalendar calendar) {
+        return calendar.toGregorianCalendar().getTime();
     }
 
 }

@@ -14,6 +14,7 @@ import javax.jws.WebMethod;
 import javax.jws.WebService;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 @WebService(endpointInterface = "generated.libraryservice.LibraryService")
@@ -53,8 +54,13 @@ public class LibraryService extends AbstractWebInterface implements generated.li
 
     @WebMethod
     public String returnBook(XMLGregorianCalendar borrowingDate, int libraryId, String bookReference, generated.libraryservice.Usager generatedUsager) {
-        //Loan loan = LoanConverter.fromClient(generatedLoan);
-        return "SUCCESS"; //getServiceFactory().getLoanService().closeLoan(loan);
+        Date borrowingUtilDate = this.XMLGregorianCalendarToDate(borrowingDate);
+        int usagerId = generatedUsager.getId();
+
+        getServiceFactory().getLoanService().closeLoan(borrowingUtilDate, libraryId, bookReference, usagerId);
+        getServiceFactory().getStockService().updateStock(libraryId, bookReference, -1);
+
+        return "SUCCESS";
     }
 
     @WebMethod

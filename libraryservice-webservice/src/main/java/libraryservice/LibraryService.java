@@ -57,8 +57,8 @@ public class LibraryService extends AbstractWebInterface implements generated.li
         Date borrowingUtilDate = this.XMLGregorianCalendarToDate(borrowingDate);
         int usagerId = generatedUsager.getId();
 
-        getServiceFactory().getLoanService().closeLoan(borrowingUtilDate, libraryId, bookReference, usagerId);
-        getServiceFactory().getStockService().updateStock(libraryId, bookReference, -1);
+        int quantity = getServiceFactory().getLoanService().closeLoan(borrowingUtilDate, libraryId, bookReference, usagerId);
+        getServiceFactory().getStockService().updateStock(libraryId, bookReference, -quantity);
 
         return "SUCCESS";
     }

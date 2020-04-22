@@ -11,7 +11,7 @@ public interface LoanService {
     //String getStatusLoan(String bookReference, int userID);
     List<Loan> getLoansFor(int userID);
     //boolean extendLoan(Loan loan);
-    void closeLoan(Date borrowingDate, int libraryId, String bookReference, int usagerId);
+    int closeLoan(Date borrowingDate, int libraryId, String bookReference, int usagerId);
     List<Loan> checkExpiration();
 
 }

@@ -70,7 +70,7 @@ public class LoanServiceImpl extends AbstractService implements LoanService {
     }*/
 
     @Override
-    public void closeLoan(Date borrowingDate, int libraryId, String bookReference, int usagerId) {
+    public int closeLoan(Date borrowingDate, int libraryId, String bookReference, int usagerId) {
         Loan dbLoan = getDaoFactory().getLoanRepository()
                 .findByLoanId_BorrowingDateAndLoanId_Library_NumberRefAndLoanId_Usager_IdAndLoanId_Book_ReferenceAndStatusNot(
                         borrowingDate,
@@ -83,6 +83,7 @@ public class LoanServiceImpl extends AbstractService implements LoanService {
         dbLoan.setStatus(RETURNED);
         getDaoFactory().getLoanRepository().save(dbLoan);
 
+        return dbLoan.getQuantity();
     }
 
     @Override

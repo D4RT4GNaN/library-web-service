@@ -40,13 +40,6 @@ public class LoanId implements Serializable {
         this.usager = usager;
     }
 
-    public LoanId(Date borrowingDate, Book book, Library library, Usager usager) {
-        this.borrowingDate = borrowingDate;
-        this.book = book;
-        this.library = library;
-        this.usager = usager;
-    }
-
 
 
     // ==================== Getters/Setters ====================

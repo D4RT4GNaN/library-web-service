@@ -8,9 +8,8 @@ import java.util.List;
 public interface LoanService {
 
     void addNewLoan(Loan newLoan);
-    //String getStatusLoan(String bookReference, int userID);
     List<Loan> getLoansFor(int userID);
-    //boolean extendLoan(Loan loan);
+    void extendLoan(Date borrowingDate, int libraryId, String bookReference, int usagerId) throws Exception;
     int closeLoan(Date borrowingDate, int libraryId, String bookReference, int usagerId);
     List<Loan> checkExpiration();
 

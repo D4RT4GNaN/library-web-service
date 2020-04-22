@@ -61,17 +61,29 @@ public interface LibraryService {
 
     /**
      * 
-     * @param loan
+     * @param libraryId
+     * @param usager
+     * @param borrowingDate
+     * @param bookReference
      * @return
      *     returns boolean
+     * @throws LoanExtensionException
      */
     @WebMethod(action = "http://LibraryService/extendLoan")
     @WebResult(name = "extended", targetNamespace = "")
     @RequestWrapper(localName = "extendLoan", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.ExtendLoan")
     @ResponseWrapper(localName = "extendLoanResponse", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.ExtendLoanResponse")
     public boolean extendLoan(
-        @WebParam(name = "loan", targetNamespace = "")
-        Loan loan);
+        @WebParam(name = "borrowingDate", targetNamespace = "")
+        XMLGregorianCalendar borrowingDate,
+        @WebParam(name = "libraryId", targetNamespace = "")
+        int libraryId,
+        @WebParam(name = "bookReference", targetNamespace = "")
+        String bookReference,
+        @WebParam(name = "usager", targetNamespace = "")
+        Usager usager)
+        throws LoanExtensionException
+    ;
 
     /**
      * 
@@ -95,23 +107,6 @@ public interface LibraryService {
         String bookReference,
         @WebParam(name = "usager", targetNamespace = "")
         Usager usager);
-
-    /**
-     * 
-     * @param bookReference
-     * @param userID
-     * @return
-     *     returns java.lang.String
-     */
-    @WebMethod(action = "http://LibraryService/getStatusLoan")
-    @WebResult(name = "status", targetNamespace = "")
-    @RequestWrapper(localName = "getStatusLoan", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.GetStatusLoan")
-    @ResponseWrapper(localName = "getStatusLoanResponse", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.GetStatusLoanResponse")
-    public String getStatusLoan(
-        @WebParam(name = "bookReference", targetNamespace = "")
-        String bookReference,
-        @WebParam(name = "userID", targetNamespace = "")
-        int userID);
 
     /**
      * 

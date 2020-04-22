@@ -39,35 +39,27 @@ public class LoanServiceImpl extends AbstractService implements LoanService {
         getDaoFactory().getLoanRepository().save(newLoan);
     }
 
-    /*@Override
-    public String getStatusLoan(String bookReference, int userID) {
-        Loan loan = getDaoFactory().getLoanRepository().findByLoanId_ReferenceBookAndLoanId_UsagerIdAndStatusNot(bookReference, userID, RETURNED);
-        if (loan != null) {
-            return loan.getStatus();
-        } else {
-            throw new RuntimeException("There is no loan for this reference : " + bookReference);
-        }
-    }*/
-
     @Override
     public List<Loan> getLoansFor(int userID) {
         return getDaoFactory().getLoanRepository().findByLoanId_UsagerId(userID);
     }
 
-    /*@Override
-    public boolean extendLoan(Loan loan) {
-        String bookReference = loan.getLoanId().getBook().getReference();
-        int userID = loan.getLoanId().getUsager().getId();
-        Loan dbLoan = getDaoFactory().getLoanRepository().findByLoanId_ReferenceBookAndLoanId_UsagerIdAndStatusNot(bookReference, userID, RETURNED);
+    @Override
+    public void extendLoan(Date borrowingDate, int libraryId, String bookReference, int usagerId) throws Exception {
+        Loan dbLoan = getDaoFactory().getLoanRepository().findByLoanId_BorrowingDateAndLoanId_Library_NumberRefAndLoanId_Usager_IdAndLoanId_Book_ReferenceAndStatusNot(
+                borrowingDate,
+                libraryId,
+                usagerId,
+                bookReference,
+                RETURNED
+        );
 
-        if (dbLoan.getExtended()) { throw new RuntimeException("This loan is already extended !"); }
-        if (dbLoan.isValid()) { throw new RuntimeException("This loan does not need to be extended."); }
+        if (dbLoan.getExtended()) { throw new Exception("This loan is already extended !"); }
+        if (dbLoan.isValid()) { throw new Exception("This loan does not need to be extended."); }
 
         dbLoan.extendLoan();
         getDaoFactory().getLoanRepository().save(dbLoan);
-
-        return true;
-    }*/
+    }
 
     @Override
     public int closeLoan(Date borrowingDate, int libraryId, String bookReference, int usagerId) {

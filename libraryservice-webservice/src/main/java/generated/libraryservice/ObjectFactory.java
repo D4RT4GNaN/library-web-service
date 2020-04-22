@@ -28,6 +28,7 @@ public class ObjectFactory {
     private final static QName _RegisterFault_QNAME = new QName("http://LibraryService/", "RegisterFault");
     private final static QName _EmailSendingFault_QNAME = new QName("http://LibraryService/", "EmailSendingFault");
     private final static QName _ForgotPasswordFault_QNAME = new QName("http://LibraryService/", "ForgotPasswordFault");
+    private final static QName _LoanExtensionFault_QNAME = new QName("http://LibraryService/", "LoanExtensionFault");
     private final static QName _LoginFault_QNAME = new QName("http://LibraryService/", "LoginFault");
 
     /**
@@ -230,14 +231,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetStatusLoanResponse }
-     * 
-     */
-    public GetStatusLoanResponse createGetStatusLoanResponse() {
-        return new GetStatusLoanResponse();
-    }
-
-    /**
      * Create an instance of {@link UpdatePassword }
      * 
      */
@@ -326,14 +319,6 @@ public class ObjectFactory {
     }
 
     /**
-     * Create an instance of {@link GetStatusLoan }
-     * 
-     */
-    public GetStatusLoan createGetStatusLoan() {
-        return new GetStatusLoan();
-    }
-
-    /**
      * Create an instance of {@link GetBooksWithKeyword }
      * 
      */
@@ -383,6 +368,15 @@ public class ObjectFactory {
     @XmlElementDecl(namespace = "http://LibraryService/", name = "ForgotPasswordFault")
     public JAXBElement<UnspecifiedFault> createForgotPasswordFault(UnspecifiedFault value) {
         return new JAXBElement<UnspecifiedFault>(_ForgotPasswordFault_QNAME, UnspecifiedFault.class, null, value);
+    }
+
+    /**
+     * Create an instance of {@link JAXBElement }{@code <}{@link UnspecifiedFault }{@code >}}
+     * 
+     */
+    @XmlElementDecl(namespace = "http://LibraryService/", name = "LoanExtensionFault")
+    public JAXBElement<UnspecifiedFault> createLoanExtensionFault(UnspecifiedFault value) {
+        return new JAXBElement<UnspecifiedFault>(_LoanExtensionFault_QNAME, UnspecifiedFault.class, null, value);
     }
 
     /**

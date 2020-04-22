@@ -47,9 +47,17 @@ public class LibraryService extends AbstractWebInterface implements generated.li
     }
 
     @WebMethod
-    public boolean extendLoan(generated.libraryservice.Loan generatedLoan) {
-        //Loan loan = LoanConverter.fromClient(generatedLoan);
-        return true;//getServiceFactory().getLoanService().extendLoan(loan);
+    public boolean extendLoan(XMLGregorianCalendar borrowingDate, int libraryId, String bookReference, generated.libraryservice.Usager generatedUsager) throws LoanExtensionException {
+        Date borrowingUtilDate = this.XMLGregorianCalendarToDate(borrowingDate);
+        int usagerId = generatedUsager.getId();
+
+        try {
+            getServiceFactory().getLoanService().extendLoan(borrowingUtilDate, libraryId, bookReference, usagerId);
+        } catch (Exception e) {
+            throw new LoanExtensionException(e.getMessage(), new UnspecifiedFault());
+        }
+
+        return true;
     }
 
     @WebMethod
@@ -61,11 +69,6 @@ public class LibraryService extends AbstractWebInterface implements generated.li
         getServiceFactory().getStockService().updateStock(libraryId, bookReference, -quantity);
 
         return "SUCCESS";
-    }
-
-    @WebMethod
-    public String getStatusLoan(String bookReference, int userID) {
-        return "SUCCESS"; //getServiceFactory().getLoanService().getStatusLoan(bookReference, userID);
     }
 
     @WebMethod

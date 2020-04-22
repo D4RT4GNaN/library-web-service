@@ -1,6 +1,5 @@
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-webservice/src/main/java/generated/libraryservice/CheckExpirationResponse.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-webservice/src/main/java/generated/libraryservice/ResetPassword.java
-/Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-webservice/src/main/java/generated/libraryservice/GetStatusLoan.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-webservice/src/main/java/generated/libraryservice/UpdateUserException.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-webservice/src/main/java/generated/libraryservice/ConnectUser.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-webservice/src/main/java/generated/libraryservice/RequestPasswordResetResponse.java
@@ -29,7 +28,6 @@
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-webservice/src/main/java/generated/libraryservice/ResendVerificationEmailResponse.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-webservice/src/main/java/libraryservice/LibraryService.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-webservice/src/main/java/utils/converters/StockConverter.java
-/Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-webservice/src/main/java/generated/libraryservice/GetStatusLoanResponse.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-webservice/src/main/java/generated/libraryservice/UnspecifiedFault.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-webservice/src/main/java/generated/libraryservice/Book.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-webservice/src/main/java/libraryservice/AbstractWebInterface.java
@@ -46,6 +44,7 @@
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-webservice/src/main/java/generated/libraryservice/UpdatePassword.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-webservice/src/main/java/generated/libraryservice/UpdateUserInfosResponse.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-webservice/src/main/java/generated/libraryservice/GetBooksWithKeywordResponse.java
+/Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-webservice/src/main/java/generated/libraryservice/LoanExtensionException.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-webservice/src/main/java/generated/libraryservice/ObjectFactory.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-webservice/src/main/java/generated/libraryservice/GetBooksWithKeyword.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-webservice/src/main/java/generated/libraryservice/Stock.java

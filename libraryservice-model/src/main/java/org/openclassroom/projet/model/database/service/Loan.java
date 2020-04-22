@@ -121,6 +121,8 @@ public class Loan {
     }
 
     public boolean isValid() {
-        return this.expiryDate.after(new Date());
+        boolean isValid = this.expiryDate.after(new Date());
+        if (!isValid) { this.setStatus(LoanStatusEnum.OVERDUE.name()); }
+        return isValid;
     }
 }

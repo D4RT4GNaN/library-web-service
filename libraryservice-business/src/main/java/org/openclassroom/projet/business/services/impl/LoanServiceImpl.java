@@ -41,7 +41,9 @@ public class LoanServiceImpl extends AbstractService implements LoanService {
 
     @Override
     public List<Loan> getLoansFor(int userID) {
-        return getDaoFactory().getLoanRepository().findByLoanId_UsagerId(userID);
+        List<Loan> loans = getDaoFactory().getLoanRepository().findByLoanId_UsagerId(userID);
+        for (Loan loan: loans) { loan.isValid(); }
+        return loans;
     }
 
     @Override

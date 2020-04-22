@@ -64,9 +64,8 @@ public class LibraryService extends AbstractWebInterface implements generated.li
 
     @WebMethod
     public List<generated.libraryservice.Loan> getLoansFor(int userID) {
-        /**List<Loan> loans = getServiceFactory().getLoanService().getLoansFor(userID);
-        return LoanConverter.fromDatabase(loans);**/
-        return new ArrayList<>();
+        List<Loan> loans = getServiceFactory().getLoanService().getLoansFor(userID);
+        return LoanConverter.fromDatabase(loans);
     }
 
 

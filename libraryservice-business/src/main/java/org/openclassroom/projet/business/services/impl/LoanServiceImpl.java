@@ -45,14 +45,14 @@ public class LoanServiceImpl extends AbstractService implements LoanService {
         } else {
             throw new RuntimeException("There is no loan for this reference : " + bookReference);
         }
-    }
+    }*/
 
     @Override
     public List<Loan> getLoansFor(int userID) {
         return getDaoFactory().getLoanRepository().findByLoanId_UsagerId(userID);
     }
 
-    @Override
+    /*@Override
     public boolean extendLoan(Loan loan) {
         String bookReference = loan.getLoanId().getBook().getReference();
         int userID = loan.getLoanId().getUsager().getId();

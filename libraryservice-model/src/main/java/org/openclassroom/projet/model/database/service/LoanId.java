@@ -16,15 +16,16 @@ public class LoanId implements Serializable {
     @Column(name = "borrowing_date")
     private Date borrowingDate;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    //@OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "reference_book")
     private Book book;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "number_ref_library")
     private Library library;
 
-    @OneToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "usager_id")
     private Usager usager;
 

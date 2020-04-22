@@ -32,7 +32,6 @@ public class Loan {
     @NotEmpty
     private String status;
 
-
     @NotNull
     @NotEmpty
     private int quantity;

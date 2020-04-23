@@ -26,6 +26,7 @@ generated/libraryservice/package-info.class
 generated/libraryservice/AddUserResponse.class
 generated/libraryservice/ReturnBookResponse.class
 generated/libraryservice/ExtendLoan.class
+generated/libraryservice/Comment.class
 generated/libraryservice/GetBookAvailabilityResponse.class
 generated/libraryservice/RequestPasswordResetResponse.class
 generated/libraryservice/ConnectUser.class
@@ -37,6 +38,7 @@ generated/libraryservice/Stock.class
 generated/libraryservice/GetBooksWithKeyword.class
 generated/libraryservice/EmailSendingException.class
 generated/libraryservice/LoanExtensionException.class
+utils/converters/CommentConverter.class
 generated/libraryservice/RegisterException.class
 generated/libraryservice/LibraryService_Service.class
 libraryservice/LibraryService.class
@@ -45,6 +47,7 @@ generated/libraryservice/UnspecifiedFault.class
 generated/libraryservice/Usager.class
 libraryservice/AbstractWebInterface.class
 generated/libraryservice/AddNewLoanResponse.class
+utils/converters/AbstractConverter.class
 utils/converters/BookConverter.class
 generated/libraryservice/ValidEmailWithResponse.class
 generated/libraryservice/ConnectUserResponse.class

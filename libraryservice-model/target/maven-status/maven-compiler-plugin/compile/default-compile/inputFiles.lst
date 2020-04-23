@@ -14,6 +14,7 @@
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-model/src/main/java/org/openclassroom/projet/model/enums/LoanStatusEnum.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-model/src/main/java/org/openclassroom/projet/model/database/library/Library.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-model/src/main/java/org/openclassroom/projet/model/database/library/Stock.java
+/Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-model/src/main/java/org/openclassroom/projet/model/database/service/Comment.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-model/src/main/java/org/openclassroom/projet/model/security/validators/EmailValidator.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-model/src/main/java/org/openclassroom/projet/model/database/usager/Usager.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-model/src/main/java/org/openclassroom/projet/model/database/library/StockId.java

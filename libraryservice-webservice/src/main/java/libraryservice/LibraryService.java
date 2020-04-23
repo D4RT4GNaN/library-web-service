@@ -12,6 +12,7 @@ import utils.converters.*;
 
 import javax.jws.WebMethod;
 import javax.jws.WebService;
+import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.ArrayList;
 import java.util.Date;
@@ -96,7 +97,16 @@ public class LibraryService extends AbstractWebInterface implements generated.li
     @WebMethod
     public List<generated.libraryservice.Book> getBooksWithKeyword(String keyword) {
         List<Book> result = getServiceFactory().getBookFactory().getBooks(keyword);
-        return BookConverter.fromDatabase(result);
+        List<generated.libraryservice.Book> generatedBooks = BookConverter.fromDatabase(result);
+
+        for (int i = 0; i <= generatedBooks.size() - 1; i++) {
+            String bookReference = generatedBooks.get(i).getReference();
+            List<org.openclassroom.projet.model.database.service.Comment> comments = getServiceFactory().getCommentService().getCommentsFor(bookReference);
+            List<Comment> generatedComments = CommentConverter.fromDatabase(comments);
+            generatedBooks.get(i).getComments().addAll(generatedComments);
+        }
+
+        return generatedBooks;
     }
 
 

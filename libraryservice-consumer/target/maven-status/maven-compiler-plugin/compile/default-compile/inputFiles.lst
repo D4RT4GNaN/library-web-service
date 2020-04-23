@@ -1,5 +1,6 @@
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-consumer/src/main/java/org/openclassroom/projet/consumer/repository/UsagerRepository.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-consumer/src/main/java/org/openclassroom/projet/consumer/impl/dao/DaoFactoryImpl.java
+/Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-consumer/src/main/java/org/openclassroom/projet/consumer/repository/CommentRepository.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-consumer/src/main/java/org/openclassroom/projet/consumer/repository/VerificationTokenRepository.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-consumer/src/main/java/org/openclassroom/projet/consumer/repository/StockRepository.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-consumer/src/main/java/org/openclassroom/projet/consumer/repository/BookRepository.java

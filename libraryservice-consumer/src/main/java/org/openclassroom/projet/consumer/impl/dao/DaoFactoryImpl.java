@@ -29,6 +29,9 @@ public class DaoFactoryImpl implements DaoFactory {
     @Autowired
     private LoanRepository loanRepository;
 
+    @Autowired
+    private CommentRepository commentRepository;
+
     @Override
     public UsagerRepository getUsagerRepository() {
         return usagerRepository;
@@ -51,6 +54,9 @@ public class DaoFactoryImpl implements DaoFactory {
     public LibraryRepository getLibraryRepository() { return libraryRepository; }
 
     @Override
-    public  LoanRepository getLoanRepository() { return loanRepository; }
+    public LoanRepository getLoanRepository() { return loanRepository; }
+
+    @Override
+    public CommentRepository getCommentRepository() { return commentRepository; }
 
 }

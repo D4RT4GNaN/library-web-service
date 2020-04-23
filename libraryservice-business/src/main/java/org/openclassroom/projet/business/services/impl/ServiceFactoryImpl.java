@@ -22,6 +22,9 @@ public class ServiceFactoryImpl implements ServiceFactory {
     @Autowired
     private StockService stockService;
 
+    @Autowired
+    private CommentService commentService;
+
     @Override
     public UserService getUserService() {
         return userService;
@@ -42,4 +45,7 @@ public class ServiceFactoryImpl implements ServiceFactory {
     public StockService getStockService() {
         return stockService;
     }
+
+    @Override
+    public CommentService getCommentService() { return commentService; }
 }

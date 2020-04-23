@@ -1,6 +1,8 @@
 
 package generated.libraryservice;
 
+import java.util.ArrayList;
+import java.util.List;
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
 import javax.xml.bind.annotation.XmlElement;
@@ -26,6 +28,7 @@ import javax.xml.bind.annotation.XmlType;
  *         &lt;element name="publisher" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="language" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="mark" type="{http://www.w3.org/2001/XMLSchema}int"/>
+ *         &lt;element name="comments" type="{http://LibraryService/}comment" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -44,7 +47,8 @@ import javax.xml.bind.annotation.XmlType;
     "category",
     "publisher",
     "language",
-    "mark"
+    "mark",
+    "comments"
 })
 public class Book {
 
@@ -65,6 +69,7 @@ public class Book {
     @XmlElement(required = true)
     protected String language;
     protected int mark;
+    protected List<Comment> comments;
 
     /**
      * Gets the value of the reference property.
@@ -272,6 +277,35 @@ public class Book {
      */
     public void setMark(int value) {
         this.mark = value;
+    }
+
+    /**
+     * Gets the value of the comments property.
+     * 
+     * <p>
+     * This accessor method returns a reference to the live list,
+     * not a snapshot. Therefore any modification you make to the
+     * returned list will be present inside the JAXB object.
+     * This is why there is not a <CODE>set</CODE> method for the comments property.
+     * 
+     * <p>
+     * For example, to add a new item, do as follows:
+     * <pre>
+     *    getComments().add(newItem);
+     * </pre>
+     * 
+     * 
+     * <p>
+     * Objects of the following type(s) are allowed in the list
+     * {@link Comment }
+     * 
+     * 
+     */
+    public List<Comment> getComments() {
+        if (comments == null) {
+            comments = new ArrayList<Comment>();
+        }
+        return this.comments;
     }
 
 }

@@ -10,5 +10,6 @@ public interface DaoFactory {
     StockRepository getStockRepository();
     LibraryRepository getLibraryRepository();
     LoanRepository getLoanRepository();
+    CommentRepository getCommentRepository();
 
 }

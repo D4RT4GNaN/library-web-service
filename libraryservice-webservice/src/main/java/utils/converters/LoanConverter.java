@@ -8,14 +8,11 @@ import org.openclassroom.projet.model.database.service.LoanId;
 import org.openclassroom.projet.model.database.usager.UsagerDto;
 
 import javax.xml.datatype.DatatypeConfigurationException;
-import javax.xml.datatype.DatatypeFactory;
-import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.ArrayList;
 import java.util.Date;
-import java.util.GregorianCalendar;
 import java.util.List;
 
-public class LoanConverter {
+public class LoanConverter extends AbstractConverter {
 
     public static generated.libraryservice.Loan fromDatabase(Loan loan) {
         generated.libraryservice.Loan generatedLoan = new generated.libraryservice.Loan();
@@ -65,12 +62,6 @@ public class LoanConverter {
         loanId.setUsager(new org.openclassroom.projet.model.database.usager.Usager(usagerDto));
 
         return new Loan(loanId);
-    }
-
-    private static XMLGregorianCalendar toXMLGregorianCalendar(Date date) throws DatatypeConfigurationException {
-        GregorianCalendar c = new GregorianCalendar();
-        c.setTime(date);
-        return DatatypeFactory.newInstance().newXMLGregorianCalendar(c);
     }
 
 }

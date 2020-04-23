@@ -4,11 +4,13 @@
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-business/src/main/java/org/openclassroom/projet/business/services/impl/ServiceFactoryImpl.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-business/src/main/java/org/openclassroom/projet/business/services/impl/UserServiceImpl.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-business/src/main/java/org/openclassroom/projet/business/services/impl/BookServiceImpl.java
+/Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-business/src/main/java/org/openclassroom/projet/business/services/contract/CommentService.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-business/src/main/java/org/openclassroom/projet/business/services/impl/UserDetailsServiceImpl.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-business/src/main/java/org/openclassroom/projet/business/services/impl/StockServiceImpl.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-business/src/main/java/org/openclassroom/projet/business/services/impl/MailService.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-business/src/main/java/org/openclassroom/projet/business/services/AbstractService.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-business/src/main/java/org/openclassroom/projet/business/services/contract/ServiceFactory.java
+/Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-business/src/main/java/org/openclassroom/projet/business/services/impl/CommentServiceImpl.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-business/src/main/java/org/openclassroom/projet/business/services/contract/BookService.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-business/src/main/java/org/openclassroom/projet/business/services/impl/LibraryServiceImpl.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-business/src/main/java/org/openclassroom/projet/business/services/contract/LoanService.java

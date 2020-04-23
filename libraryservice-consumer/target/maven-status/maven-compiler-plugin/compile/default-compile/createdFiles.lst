@@ -1,5 +1,6 @@
 org/openclassroom/projet/consumer/repository/LoanRepository.class
 org/openclassroom/projet/consumer/repository/StockRepository.class
+org/openclassroom/projet/consumer/repository/CommentRepository.class
 org/openclassroom/projet/consumer/repository/VerificationTokenRepository.class
 org/openclassroom/projet/consumer/repository/BookRepository.class
 org/openclassroom/projet/consumer/repository/LibraryRepository.class

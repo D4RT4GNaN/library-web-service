@@ -9,6 +9,7 @@ org/openclassroom/projet/model/enums/LoanStatusEnum.class
 org/openclassroom/projet/model/database/usager/UsagerDto.class
 org/openclassroom/projet/model/database/usager/VerificationToken.class
 org/openclassroom/projet/model/database/library/StockId.class
+org/openclassroom/projet/model/database/service/Comment.class
 org/openclassroom/projet/model/security/annotations/PasswordMatches.class
 org/openclassroom/projet/model/database/library/Stock.class
 org/openclassroom/projet/model/security/annotations/ValidPassword.class

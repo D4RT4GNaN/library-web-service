@@ -292,4 +292,15 @@ public interface LibraryService {
     @ResponseWrapper(localName = "CheckExpirationResponse", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.CheckExpirationResponse")
     public List<Loan> checkExpiration();
 
+    /**
+     * 
+     * @param comment
+     */
+    @WebMethod(operationName = "AddComment", action = "http://LibraryService/AddComment")
+    @RequestWrapper(localName = "AddComment", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.AddComment")
+    @ResponseWrapper(localName = "AddCommentResponse", targetNamespace = "http://LibraryService/", className = "generated.libraryservice.AddCommentResponse")
+    public void addComment(
+        @WebParam(name = "comment", targetNamespace = "")
+        Comment comment);
+
 }

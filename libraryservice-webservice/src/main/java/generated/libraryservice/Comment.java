@@ -23,6 +23,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element name="content" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *         &lt;element name="date" type="{http://www.w3.org/2001/XMLSchema}date"/>
  *         &lt;element name="author" type="{http://LibraryService/}usager"/>
+ *         &lt;element name="bookReference" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -36,7 +37,8 @@ import javax.xml.datatype.XMLGregorianCalendar;
     "title",
     "content",
     "date",
-    "author"
+    "author",
+    "bookReference"
 })
 public class Comment {
 
@@ -49,6 +51,8 @@ public class Comment {
     protected XMLGregorianCalendar date;
     @XmlElement(required = true)
     protected Usager author;
+    @XmlElement(required = true)
+    protected String bookReference;
 
     /**
      * Gets the value of the title property.
@@ -144,6 +148,30 @@ public class Comment {
      */
     public void setAuthor(Usager value) {
         this.author = value;
+    }
+
+    /**
+     * Gets the value of the bookReference property.
+     * 
+     * @return
+     *     possible object is
+     *     {@link String }
+     *     
+     */
+    public String getBookReference() {
+        return bookReference;
+    }
+
+    /**
+     * Sets the value of the bookReference property.
+     * 
+     * @param value
+     *     allowed object is
+     *     {@link String }
+     *     
+     */
+    public void setBookReference(String value) {
+        this.bookReference = value;
     }
 
 }

@@ -109,6 +109,11 @@ public class LibraryService extends AbstractWebInterface implements generated.li
         return generatedBooks;
     }
 
+    @WebMethod
+    public void addComment(Comment comment) {
+        getServiceFactory().getCommentService().addComment(CommentConverter.fromClient(comment));
+    }
+
 
 
     // ---------------------- Usager ------------------------

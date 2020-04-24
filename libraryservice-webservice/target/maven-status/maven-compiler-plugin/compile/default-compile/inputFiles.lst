@@ -51,6 +51,8 @@
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-webservice/src/main/java/generated/libraryservice/GetBooksWithKeyword.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-webservice/src/main/java/generated/libraryservice/Stock.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-webservice/src/main/java/utils/converters/LibraryConverter.java
+/Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-webservice/src/main/java/generated/libraryservice/AddComment.java
+/Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-webservice/src/main/java/generated/libraryservice/AddCommentResponse.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-webservice/src/main/java/generated/libraryservice/AddUser.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-webservice/src/main/java/generated/libraryservice/Comment.java
 /Users/d4rt4gn4n/Documents/projet_7_openclassroom/library-web-service/libraryservice-webservice/src/main/java/generated/libraryservice/GetBookAvailabilityResponse.java

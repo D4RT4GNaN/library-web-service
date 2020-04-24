@@ -271,6 +271,22 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link AddComment }
+     * 
+     */
+    public AddComment createAddComment() {
+        return new AddComment();
+    }
+
+    /**
+     * Create an instance of {@link Comment }
+     * 
+     */
+    public Comment createComment() {
+        return new Comment();
+    }
+
+    /**
      * Create an instance of {@link ResendVerificationEmailResponse }
      * 
      */
@@ -319,6 +335,14 @@ public class ObjectFactory {
     }
 
     /**
+     * Create an instance of {@link AddCommentResponse }
+     * 
+     */
+    public AddCommentResponse createAddCommentResponse() {
+        return new AddCommentResponse();
+    }
+
+    /**
      * Create an instance of {@link GetBooksWithKeyword }
      * 
      */
@@ -332,14 +356,6 @@ public class ObjectFactory {
      */
     public Library createLibrary() {
         return new Library();
-    }
-
-    /**
-     * Create an instance of {@link Comment }
-     * 
-     */
-    public Comment createComment() {
-        return new Comment();
     }
 
     /**

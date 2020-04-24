@@ -1,6 +1,7 @@
 generated/libraryservice/ForgotPasswordException.class
 utils/converters/UsagerConverter.class
 generated/libraryservice/Book.class
+generated/libraryservice/AddCommentResponse.class
 generated/libraryservice/LibraryService.class
 generated/libraryservice/UsagerUnspecifiedFault.class
 generated/libraryservice/Loan.class
@@ -26,6 +27,7 @@ generated/libraryservice/package-info.class
 generated/libraryservice/AddUserResponse.class
 generated/libraryservice/ReturnBookResponse.class
 generated/libraryservice/ExtendLoan.class
+generated/libraryservice/AddComment.class
 generated/libraryservice/Comment.class
 generated/libraryservice/GetBookAvailabilityResponse.class
 generated/libraryservice/RequestPasswordResetResponse.class

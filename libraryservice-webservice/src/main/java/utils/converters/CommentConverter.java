@@ -1,9 +1,11 @@
 package utils.converters;
 
 import org.openclassroom.projet.model.database.service.Comment;
+import org.openclassroom.projet.model.database.usager.Usager;
 
 import javax.xml.datatype.DatatypeConfigurationException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class CommentConverter extends AbstractConverter {
@@ -31,6 +33,18 @@ public class CommentConverter extends AbstractConverter {
         }
 
         return generatedComments;
+    }
+
+    public static Comment fromClient(generated.libraryservice.Comment generatedComment) {
+        Comment comment = new Comment();
+
+        comment.setDate(new Date());
+        comment.setBookReference(generatedComment.getBookReference());
+        comment.setTitle(generatedComment.getTitle());
+        comment.setContent(generatedComment.getContent());
+        comment.setUsager(new Usager(UsagerConverter.fromClient(generatedComment.getAuthor())));
+
+        return comment;
     }
 
 }

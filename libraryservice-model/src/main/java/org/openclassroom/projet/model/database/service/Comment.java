@@ -13,6 +13,7 @@ public class Comment {
 
     // ==================== Attributes ====================
     @Id
+    @GeneratedValue
     private int id;
 
     @OneToOne

@@ -15,6 +15,7 @@ import javax.jws.WebService;
 import javax.xml.datatype.DatatypeConfigurationException;
 import javax.xml.datatype.XMLGregorianCalendar;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Date;
 import java.util.List;
 
@@ -103,6 +104,7 @@ public class LibraryService extends AbstractWebInterface implements generated.li
             String bookReference = generatedBooks.get(i).getReference();
             List<org.openclassroom.projet.model.database.service.Comment> comments = getServiceFactory().getCommentService().getCommentsFor(bookReference);
             List<Comment> generatedComments = CommentConverter.fromDatabase(comments);
+            Collections.reverse(generatedComments);
             generatedBooks.get(i).getComments().addAll(generatedComments);
         }
 

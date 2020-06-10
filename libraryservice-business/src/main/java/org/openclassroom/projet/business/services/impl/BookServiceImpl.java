@@ -3,15 +3,20 @@ package org.openclassroom.projet.business.services.impl;
 import org.openclassroom.projet.business.services.AbstractService;
 import org.openclassroom.projet.business.services.contract.BookService;
 import org.openclassroom.projet.model.database.library.Book;
-import org.openclassroom.projet.model.database.library.Stock;
-import org.openclassroom.projet.model.database.library.StockId;
 import org.springframework.stereotype.Service;
 
-import java.util.*;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
+/**
+ * Service implementation of the business module for the object {@link Book}.
+ * */
 @Service
 public class BookServiceImpl extends AbstractService implements BookService {
 
+    // ==================== Public Methods ====================
     @Override
     public List<Book> getBooks(String keyword) {
         if (keyword.isEmpty())
@@ -32,12 +37,6 @@ public class BookServiceImpl extends AbstractService implements BookService {
         result.addAll(booksByLanguage);
 
         return new ArrayList<>(result);
-    }
-
-    @Override
-    public Stock getStockForBook(int libraryId, String bookReference) {
-        Optional<Stock> stockOptional = getDaoFactory().getStockRepository().findById(new StockId(libraryId, bookReference));
-        return stockOptional.isPresent() ? stockOptional.get() : null;
     }
 
 }

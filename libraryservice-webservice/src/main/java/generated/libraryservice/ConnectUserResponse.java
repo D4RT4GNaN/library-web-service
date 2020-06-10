@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="user" type="{http://LibraryService/}usager"/>
+ *         &lt;element name="user" type="{http://LibraryService/}generatedUsager"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,17 +35,17 @@ import javax.xml.bind.annotation.XmlType;
 public class ConnectUserResponse {
 
     @XmlElement(required = true)
-    protected Usager user;
+    protected GeneratedUsager user;
 
     /**
      * Gets the value of the user property.
      * 
      * @return
      *     possible object is
-     *     {@link Usager }
+     *     {@link GeneratedUsager }
      *     
      */
-    public Usager getUser() {
+    public GeneratedUsager getUser() {
         return user;
     }
 
@@ -54,10 +54,10 @@ public class ConnectUserResponse {
      * 
      * @param value
      *     allowed object is
-     *     {@link Usager }
+     *     {@link GeneratedUsager }
      *     
      */
-    public void setUser(Usager value) {
+    public void setUser(GeneratedUsager value) {
         this.user = value;
     }
 

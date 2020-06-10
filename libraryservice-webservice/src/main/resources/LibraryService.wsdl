@@ -1,0 +1,704 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://LibraryService/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" name="LibraryService" targetNamespace="http://LibraryService/">
+  <wsdl:types>
+    <xsd:schema targetNamespace="http://LibraryService/">
+
+      <!-- Web Methods -->
+      <xsd:element name="getBookAvailability">
+        <xsd:complexType>
+          <xsd:sequence>
+	          <xsd:element name="bookReference" type="xsd:string" />
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getBookAvailabilityResponse">
+        <xsd:complexType>
+          <xsd:sequence>
+            <xsd:element minOccurs="0" maxOccurs="unbounded" name="bookAvailability" type="tns:generatedStock"/>
+          </xsd:sequence>
+        </xsd:complexType>
+      </xsd:element>
+      <xsd:element name="borrowABook">
+      	<xsd:complexType>
+      		<xsd:sequence>
+				    <xsd:element name="libraryId" type="xsd:int"/>
+				    <xsd:element name="bookReference" type="xsd:string"/>
+      			<xsd:element name="usager" type="tns:generatedUsager"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="borrowABookResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+            <xsd:element name="borrowing" type="tns:generatedBorrowing"/>
+          </xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="extendBookBorrowing">
+      	<xsd:complexType>
+      		<xsd:sequence>
+				    <xsd:element name="borrowingDate" type="xsd:date"/>
+				    <xsd:element name="libraryId" type="xsd:int"/>
+				    <xsd:element name="bookReference" type="xsd:string"/>
+				    <xsd:element name="usager" type="tns:generatedUsager"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="extendBookBorrowingResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="extended" type="xsd:boolean"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="returnBook">
+      	<xsd:complexType>
+      		<xsd:sequence>
+				    <xsd:element name="borrowingDate" type="xsd:date"/>
+				    <xsd:element name="libraryId" type="xsd:int"/>
+				    <xsd:element name="bookReference" type="xsd:string"/>
+				    <xsd:element name="usager" type="tns:generatedUsager"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="returnBookResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="status" type="xsd:string"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getBooksWithKeyword">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="keyword" type="xsd:string"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getBooksWithKeywordResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element minOccurs="0" maxOccurs="unbounded" name="listBooks" type="tns:generatedBook"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="addUser">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="generatedUsager" type="tns:generatedUsager"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="addUserResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+            	<xsd:element name="token" type="xsd:string"/>
+			</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="connectUser">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="identifier" type="xsd:string"/>
+      			<xsd:element name="password" type="xsd:string"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="connectUserResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="user" type="tns:generatedUsager"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="validEmailWith">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="token" type="xsd:string"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="validEmailWithResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="valid" type="xsd:boolean"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="resendVerificationEmail">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="email" type="xsd:string"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="resendVerificationEmailResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="sent" type="xsd:boolean"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="requestPasswordReset">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="email" type="xsd:string"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="requestPasswordResetResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="token" type="xsd:string"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="resetPassword">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="token" type="xsd:string"/>
+      			<xsd:element name="newPassword" type="xsd:string"/>
+      			<xsd:element name="confirmNewPassword" type="xsd:string"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="resetPasswordResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="reset" type="xsd:boolean"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="updatePassword">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="email" type="xsd:string"/>
+      			<xsd:element name="newPassword" type="xsd:string"/>
+      			<xsd:element name="confirmNewPassword" type="xsd:string"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="updatePasswordResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="updated" type="xsd:boolean"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="updateUserInfos">
+      	<xsd:complexType>
+      		<xsd:sequence>
+	          <xsd:element name="email" type="xsd:string"/>
+	          <xsd:element name="usager" type="tns:generatedUsager"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="updateUserInfosResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="updated" type="xsd:boolean"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getBorrowingFor">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element name="userID" type="xsd:int"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="getBorrowingForResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+      			<xsd:element minOccurs="0" maxOccurs="unbounded" name="booksBorrowed" type="tns:generatedBorrowing"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="checkExpiration">
+      	<xsd:complexType>
+      		<xsd:sequence></xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="checkExpirationResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+				    <xsd:element minOccurs="0" maxOccurs="unbounded" name="overdueBorrowings" type="tns:generatedBorrowing"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="addComment">
+      	<xsd:complexType>
+      		<xsd:sequence>
+				    <xsd:element name="comment" type="tns:generatedComment"/>
+      		</xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+      <xsd:element name="addCommentResponse">
+      	<xsd:complexType>
+      		<xsd:sequence>
+            <xsd:element name="savedComment" type="tns:generatedComment"/>
+          </xsd:sequence>
+      	</xsd:complexType>
+      </xsd:element>
+
+      <!-- Custom Objects -->
+      <xsd:complexType name="generatedBook">
+      	<xsd:sequence>
+      		<xsd:element name="reference" type="xsd:string"/>
+      		<xsd:element name="imageUrl" type="xsd:string"/>
+      		<xsd:element name="title" type="xsd:string"/>
+      		<xsd:element name="author" type="xsd:string"/>
+      		<xsd:element name="synopsis" type="xsd:string"/>
+      		<xsd:element name="category" type="xsd:string"/>
+      		<xsd:element name="publisher" type="xsd:string"/>
+      		<xsd:element name="language" type="xsd:string"/>
+      		<xsd:element name="mark" type="xsd:int"/>
+      		<xsd:element name="comments" minOccurs="0" maxOccurs="unbounded" type="tns:generatedComment"/>
+      	</xsd:sequence>
+      </xsd:complexType>
+
+      <xsd:complexType name="generatedComment">
+      	<xsd:sequence>
+      		<xsd:element name="title" type="xsd:string"/>
+      		<xsd:element name="content" type="xsd:string"/>
+      		<xsd:element name="date" type="xsd:date"/>
+      		<xsd:element name="author" type="tns:generatedUsager"/>
+			    <xsd:element name="bookReference" type="xsd:string"/>
+      	</xsd:sequence>
+      </xsd:complexType>
+
+      <xsd:complexType name="generatedUsager">
+      	<xsd:sequence>
+      		<xsd:element name="id" type="xsd:int"/>
+   			  <xsd:element name="password" type="xsd:string"/>
+   			  <xsd:element name="confirmPassword" type="xsd:string"/>
+   			  <xsd:element name="firstname" type="xsd:string"/>
+   			  <xsd:element name="lastname" type="xsd:string"/>
+   			  <xsd:element name="email" type="xsd:string"/>
+   			  <xsd:element name="adress" type="xsd:string"/>
+      	</xsd:sequence>
+      </xsd:complexType>
+
+      <xsd:complexType name="generatedStock">
+      	<xsd:sequence>
+   			  <xsd:element name="library" type="tns:generatedLibrary"/>
+   			  <xsd:element name="referenceBook" type="xsd:string"/>
+   			  <xsd:element name="quantity" type="xsd:int"/>
+      	</xsd:sequence>
+      </xsd:complexType>
+
+      <xsd:complexType name="generatedLibrary">
+      	<xsd:sequence>
+   			  <xsd:element name="numberRef" type="xsd:int"/>
+   			  <xsd:element name="name" type="xsd:string"/>
+   			  <xsd:element name="address" type="xsd:string"/>
+      	</xsd:sequence>
+      </xsd:complexType>
+
+      <xsd:complexType name="generatedBorrowing">
+      	<xsd:sequence>
+      		<xsd:element name="borrowingDate" type="xsd:date"/>
+			    <xsd:element name="book" type="tns:generatedBook"/>
+    		  <xsd:element name="usager" type="tns:generatedUsager"/>
+    		  <xsd:element name="library" type="tns:generatedLibrary"/>
+    		  <xsd:element name="expiryDate" type="xsd:date"/>
+    		  <xsd:element name="extended" type="xsd:boolean"/>
+    	    <xsd:element name="status" type="xsd:string"/>
+    		  <xsd:element name="quantity" type="xsd:int"/>
+      	</xsd:sequence>
+      </xsd:complexType>
+
+      <!-- Custom Exceptions -->
+      <xsd:element name="LoginFault" type="tns:unspecifiedFault"/>
+      <xsd:element name="RegisterFault" type="tns:usagerUnspecifiedFault" />
+      <xsd:element name="ForgotPasswordFault" type="tns:unspecifiedFault" />
+      <xsd:element name="EmailSendingFault" type="tns:unspecifiedFault" />
+      <xsd:element name="UpdateUserFault" type="tns:unspecifiedFault" />
+      <xsd:element name="BookBorrowingExtensionFault" type="tns:unspecifiedFault" />
+
+
+      <xsd:complexType name="unspecifiedFault">
+        <xsd:sequence>
+          <xsd:element name="message" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+
+      <xsd:complexType name="usagerUnspecifiedFault">
+        <xsd:sequence>
+        	<xsd:element name="usager" type="tns:generatedUsager" />
+          <xsd:element name="message" type="xsd:string"/>
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+
+
+
+  <wsdl:message name="getBookAvailabilityRequest">
+    <wsdl:part element="tns:getBookAvailability" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="getBookAvailabilityResponse">
+    <wsdl:part element="tns:getBookAvailabilityResponse" name="parameters"/>
+  </wsdl:message>
+  <wsdl:message name="borrowABookRequest">
+  	<wsdl:part name="parameters" element="tns:borrowABook"/>
+  </wsdl:message>
+  <wsdl:message name="borrowABookResponse">
+  	<wsdl:part name="parameters" element="tns:borrowABookResponse"/>
+  </wsdl:message>
+  <wsdl:message name="extendBookBorrowingRequest">
+  	<wsdl:part name="parameters" element="tns:extendBookBorrowing"/>
+  </wsdl:message>
+  <wsdl:message name="extendBookBorrowingResponse">
+  	<wsdl:part name="parameters" element="tns:extendBookBorrowingResponse"/>
+  </wsdl:message>
+  <wsdl:message name="returnBookRequest">
+  	<wsdl:part name="parameters" element="tns:returnBook"/>
+  </wsdl:message>
+  <wsdl:message name="returnBookResponse">
+  	<wsdl:part name="parameters" element="tns:returnBookResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getBooksWithKeywordRequest">
+  	<wsdl:part name="parameters" element="tns:getBooksWithKeyword"/>
+  </wsdl:message>
+  <wsdl:message name="getBooksWithKeywordResponse">
+  	<wsdl:part name="parameters" element="tns:getBooksWithKeywordResponse"/>
+  </wsdl:message>
+  <wsdl:message name="addUserRequest">
+  	<wsdl:part name="parameters" element="tns:addUser"/>
+  </wsdl:message>
+  <wsdl:message name="addUserResponse">
+  	<wsdl:part name="parameters" element="tns:addUserResponse"/>
+  </wsdl:message>
+  <wsdl:message name="connectUserRequest">
+  	<wsdl:part name="parameters" element="tns:connectUser"/>
+  </wsdl:message>
+  <wsdl:message name="connectUserResponse">
+  	<wsdl:part name="parameters" element="tns:connectUserResponse"/>
+  </wsdl:message>
+  <wsdl:message name="validEmailWithRequest">
+  	<wsdl:part name="parameters" element="tns:validEmailWith"/>
+  </wsdl:message>
+  <wsdl:message name="validEmailWithResponse">
+  	<wsdl:part name="parameters" element="tns:validEmailWithResponse"/>
+  </wsdl:message>
+  <wsdl:message name="resendVerificationEmailRequest">
+  	<wsdl:part name="parameters" element="tns:resendVerificationEmail"/>
+  </wsdl:message>
+  <wsdl:message name="resendVerificationEmailResponse">
+  	<wsdl:part name="parameters" element="tns:resendVerificationEmailResponse"/>
+  </wsdl:message>
+  <wsdl:message name="requestPasswordResetRequest">
+  	<wsdl:part name="parameters" element="tns:requestPasswordReset"/>
+  </wsdl:message>
+  <wsdl:message name="requestPasswordResetResponse">
+  	<wsdl:part name="parameters" element="tns:requestPasswordResetResponse"/>
+  </wsdl:message>
+  <wsdl:message name="resetPasswordRequest">
+  	<wsdl:part name="parameters" element="tns:resetPassword"/>
+  </wsdl:message>
+  <wsdl:message name="resetPasswordResponse">
+  	<wsdl:part name="parameters" element="tns:resetPasswordResponse"/>
+  </wsdl:message>
+  <wsdl:message name="updatePasswordRequest">
+  	<wsdl:part name="parameters" element="tns:updatePassword"/>
+  </wsdl:message>
+  <wsdl:message name="updatePasswordResponse">
+  	<wsdl:part name="parameters" element="tns:updatePasswordResponse"/>
+  </wsdl:message>
+  <wsdl:message name="updateUserInfosRequest">
+  	<wsdl:part name="parameters" element="tns:updateUserInfos"/>
+  </wsdl:message>
+  <wsdl:message name="updateUserInfosResponse">
+  	<wsdl:part name="parameters" element="tns:updateUserInfosResponse"/>
+  </wsdl:message>
+  <wsdl:message name="getBorrowingForRequest">
+  	<wsdl:part name="parameters" element="tns:getBorrowingFor"/>
+  </wsdl:message>
+  <wsdl:message name="getBorrowingForResponse">
+  	<wsdl:part name="parameters" element="tns:getBorrowingForResponse"/>
+  </wsdl:message>
+  <wsdl:message name="checkExpirationRequest">
+  	<wsdl:part name="parameters" element="tns:checkExpiration"/>
+  </wsdl:message>
+  <wsdl:message name="checkExpirationResponse">
+  	<wsdl:part name="parameters" element="tns:checkExpirationResponse"/>
+  </wsdl:message>
+  <wsdl:message name="addCommentRequest">
+  	<wsdl:part name="parameters" element="tns:addComment"/>
+  </wsdl:message>
+  <wsdl:message name="addCommentResponse">
+  	<wsdl:part name="parameters" element="tns:addCommentResponse"/>
+  </wsdl:message>
+
+  <!-- Fault message -->
+  <wsdl:message name="LoginException">
+    <wsdl:part name="fault" element="tns:LoginFault"/>
+  </wsdl:message>
+  <wsdl:message name="RegisterException">
+    <wsdl:part name="fault" element="tns:RegisterFault"/>
+  </wsdl:message>
+  <wsdl:message name="ForgotPasswordException">
+    <wsdl:part name="fault" element="tns:ForgotPasswordFault"/>
+  </wsdl:message>
+  <wsdl:message name="EmailSendingException">
+    <wsdl:part name="fault" element="tns:EmailSendingFault"/>
+  </wsdl:message>
+  <wsdl:message name="UpdateUserException">
+    <wsdl:part name="fault" element="tns:UpdateUserFault"/>
+  </wsdl:message>
+  <wsdl:message name="BookBorrowingExtensionException">
+    <wsdl:part name="fault" element="tns:BookBorrowingExtensionFault"/>
+  </wsdl:message>
+
+
+
+  <wsdl:portType name="LibraryService">
+    <wsdl:operation name="getBookAvailability">
+      <wsdl:input message="tns:getBookAvailabilityRequest"/>
+      <wsdl:output message="tns:getBookAvailabilityResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="borrowABook">
+    	<wsdl:input message="tns:borrowABookRequest"/>
+    	<wsdl:output message="tns:borrowABookResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="extendBookBorrowing">
+    	<wsdl:input message="tns:extendBookBorrowingRequest"/>
+    	<wsdl:output message="tns:extendBookBorrowingResponse"/>
+		<wsdl:fault name="BookBorrowingExtensionFault" message="tns:BookBorrowingExtensionException"/>
+    </wsdl:operation>
+    <wsdl:operation name="returnBook">
+    	<wsdl:input message="tns:returnBookRequest"/>
+    	<wsdl:output message="tns:returnBookResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="getBooksWithKeyword">
+    	<wsdl:input message="tns:getBooksWithKeywordRequest"/>
+    	<wsdl:output message="tns:getBooksWithKeywordResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="addUser">
+    	<wsdl:input message="tns:addUserRequest"/>
+    	<wsdl:output message="tns:addUserResponse"/>
+    	<wsdl:fault name="RegisterFault" message="tns:RegisterException"/>
+    </wsdl:operation>
+    <wsdl:operation name="connectUser">
+    	<wsdl:input message="tns:connectUserRequest"/>
+    	<wsdl:output message="tns:connectUserResponse"/>
+    	<wsdl:fault name="LoginFault" message="tns:LoginException"/>
+    </wsdl:operation>
+    <wsdl:operation name="validEmailWith">
+    	<wsdl:input message="tns:validEmailWithRequest"/>
+    	<wsdl:output message="tns:validEmailWithResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="resendVerificationEmail">
+    	<wsdl:input message="tns:resendVerificationEmailRequest"/>
+    	<wsdl:output message="tns:resendVerificationEmailResponse"/>
+    	<wsdl:fault name="EmailSendingFault" message="tns:EmailSendingException"/>
+    </wsdl:operation>
+    <wsdl:operation name="requestPasswordReset">
+    	<wsdl:input message="tns:requestPasswordResetRequest"/>
+    	<wsdl:output message="tns:requestPasswordResetResponse"/>
+    	<wsdl:fault name="ForgotPasswordFault" message="tns:ForgotPasswordException"/>
+    </wsdl:operation>
+    <wsdl:operation name="resetPassword">
+    	<wsdl:input message="tns:resetPasswordRequest"/>
+    	<wsdl:output message="tns:resetPasswordResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="updatePassword">
+    	<wsdl:input message="tns:updatePasswordRequest"/>
+    	<wsdl:output message="tns:updatePasswordResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="updateUserInfos">
+    	<wsdl:input message="tns:updateUserInfosRequest"/>
+    	<wsdl:output message="tns:updateUserInfosResponse"/>
+    	<wsdl:fault name="UpdateUserFault" message="tns:UpdateUserException"/>
+    </wsdl:operation>
+    <wsdl:operation name="getBorrowingFor">
+    	<wsdl:input message="tns:getBorrowingForRequest"/>
+    	<wsdl:output message="tns:getBorrowingForResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="checkExpiration">
+    	<wsdl:input message="tns:checkExpirationRequest"/>
+    	<wsdl:output message="tns:checkExpirationResponse"/>
+    </wsdl:operation>
+    <wsdl:operation name="addComment">
+    	<wsdl:input message="tns:addCommentRequest"/>
+    	<wsdl:output message="tns:addCommentResponse"/>
+    </wsdl:operation>
+  </wsdl:portType>
+
+
+
+  <wsdl:binding name="LibraryServiceSOAP" type="tns:LibraryService">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getBookAvailability">
+      <soap:operation soapAction="http://LibraryService/getBookAvailability"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="borrowABook">
+      <soap:operation soapAction="http://LibraryService/borrowABook"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="extendBookBorrowing">
+      <soap:operation soapAction="http://LibraryService/extendBookBorrowing"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+		<wsdl:fault name="BookBorrowingExtensionFault">
+			<soap:fault name="BookBorrowingExtensionFault" use="literal" />
+		</wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="returnBook">
+      <soap:operation soapAction="http://LibraryService/returnBook"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getBooksWithKeyword">
+      <soap:operation soapAction="http://LibraryService/getBooksWithKeyword"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="addUser">
+      <soap:operation soapAction="http://LibraryService/addUser"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="RegisterFault">
+      	<soap:fault name="RegisterFault" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="connectUser">
+      <soap:operation soapAction="http://LibraryService/connectUser"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="LoginFault">
+      	<soap:fault name="LoginFault" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="validEmailWith">
+      <soap:operation soapAction="http://LibraryService/validEmailWith"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="resendVerificationEmail">
+      <soap:operation soapAction="http://LibraryService/resendVerificationEmail"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="EmailSendingFault">
+      	<soap:fault name="EmailSendingFault" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="requestPasswordReset">
+      <soap:operation soapAction="http://LibraryService/requestPasswordReset"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="ForgotPasswordFault">
+      	<soap:fault name="ForgotPasswordFault" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="resetPassword">
+      <soap:operation soapAction="http://LibraryService/resetPassword"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updatePassword">
+      <soap:operation soapAction="http://LibraryService/updatePassword"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="updateUserInfos">
+      <soap:operation soapAction="http://LibraryService/updateUserInfos"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+      <wsdl:fault name="UpdateUserFault">
+      	<soap:fault name="UpdateUserFault" use="literal" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="getBorrowingFor">
+      <soap:operation soapAction="http://LibraryService/getBorrowingFor"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="checkExpiration">
+      <soap:operation soapAction="http://LibraryService/checkExpiration"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  	<wsdl:operation name="addComment">
+      <soap:operation soapAction="http://LibraryService/addComment"/>
+      <wsdl:input>
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+
+
+
+  <wsdl:service name="LibraryService">
+    <wsdl:port binding="tns:LibraryServiceSOAP" name="LibraryServiceSOAP">
+      <soap:address location="http://localhost:8080/libraryservice"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

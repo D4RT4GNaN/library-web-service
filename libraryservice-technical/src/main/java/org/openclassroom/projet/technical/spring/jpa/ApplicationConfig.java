@@ -21,15 +21,27 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Properties;
 
+/**
+ * Application configuration class.
+ * */
 @Configuration
 @EnableJpaRepositories
 @EnableTransactionManagement
 @PropertySource("classpath:application.properties")
 public class ApplicationConfig {
 
+    // ==================== Attributes ====================
     @Autowired
     private Environment env;
 
+
+
+    // ==================== Beans ====================
+    /**
+     * Set up the {@link DataSource datasource} to access the database.
+     *
+     * @return The configured {@link DataSource datasource}.
+     * */
     @Bean
     public DataSource dataSource() {
         DriverManagerDataSource dataSource = new DriverManagerDataSource();
@@ -42,6 +54,13 @@ public class ApplicationConfig {
         return dataSource;
     }
 
+
+
+    /**
+     * Set up the {@link javax.persistence.EntityManager} with the {@link LocalContainerEntityManagerFactoryBean}.
+     *
+     * @return The configured {@link EntityManagerFactory}
+     * */
     @Bean
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
 
@@ -56,6 +75,15 @@ public class ApplicationConfig {
         return factory;
     }
 
+
+
+    /**
+     * Configure the {@link PlatformTransactionManager} with the {@link JpaTransactionManager}
+     *
+     * @param entityManagerFactory - The previously configured {@link EntityManagerFactory} object.
+     *
+     * @return The new configured {@link PlatformTransactionManager}.
+     * */
     @Bean
     public PlatformTransactionManager transactionManager(EntityManagerFactory entityManagerFactory) {
 
@@ -64,21 +92,43 @@ public class ApplicationConfig {
         return txManager;
     }
 
+
+
+    /**
+     * To enable exception translation from Spring Data JPA
+     *
+     * @return An instance of {@link PersistenceExceptionTranslationPostProcessor}
+     * */
     @Bean
     public PersistenceExceptionTranslationPostProcessor exceptionTranslation() {
         return new PersistenceExceptionTranslationPostProcessor();
     }
 
+
+
+    /**
+     * Configure the implementation of the password encoder
+     *
+     * @return An instance of {@link BCryptPasswordEncoder}
+     * */
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
+
+
+
+    // ==================== Methods ====================
+    /**
+     * Additional properties for configuring the database connection.
+     *
+     * @return {@link Properties} that contains custom properties
+     * */
     Properties additionalProperties() {
         Properties properties = new Properties();
         properties.setProperty("hibernate.hbm2ddl.auto", "update");
         properties.setProperty("hibernate.dialect", "org.hibernate.dialect.PostgreSQL92Dialect");
 
         return properties;
-    }
-
-    @Bean
-    public PasswordEncoder passwordEncoder() {
-        return new BCryptPasswordEncoder();
     }
 }

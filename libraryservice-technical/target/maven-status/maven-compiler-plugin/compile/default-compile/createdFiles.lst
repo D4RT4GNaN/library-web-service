@@ -1,5 +1,4 @@
 org\openclassroom\projet\technical\spring\jpa\ApplicationConfig.class
-org\openclassroom\projet\technical\spring\exceptions\UserNotFound.class
 org\openclassroom\projet\technical\spring\security\CustomAuthenticationProvider.class
 org\openclassroom\projet\technical\spring\properties\MailConfig.class
 org\openclassroom\projet\technical\spring\security\SecurityConfig.class

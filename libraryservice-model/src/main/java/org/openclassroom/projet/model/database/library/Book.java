@@ -8,7 +8,7 @@ import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
 @Entity
-@Table(name = "books")
+@Table(name = "book")
 public class Book {
 
     // ==================== Attributes ====================
@@ -47,7 +47,6 @@ public class Book {
 
 
     // ==================== Constructors ====================
-    /**/
     public Book() {
     }
 
@@ -127,7 +126,5 @@ public class Book {
     public void setMark(int mark) {
         this.mark = mark;
     }
-
-    // ==================== Methods ====================
 
 }

@@ -1,14 +1,25 @@
 package utils.converters;
 
+import generated.libraryservice.GeneratedBook;
 import org.openclassroom.projet.model.database.library.Book;
 
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * Allows conversion between {@link GeneratedBook} and {@link Book}.
+ * */
 public class BookConverter {
 
-    public static generated.libraryservice.Book fromDatabase(Book book) {
-        generated.libraryservice.Book generatedBook = new generated.libraryservice.Book();
+    /**
+     * Converts a {@link Book} object from the database to a {@link GeneratedBook} object.
+     *
+     * @param book - {@link Book} object from database.
+     *
+     * @return A {@link GeneratedBook} object for sending to the client via WSDL.
+     * */
+    public static GeneratedBook fromDatabase(Book book) {
+        GeneratedBook generatedBook = new GeneratedBook();
 
         generatedBook.setReference(book.getReference());
         generatedBook.setImageUrl(book.getImageUrl());
@@ -23,30 +34,23 @@ public class BookConverter {
         return generatedBook;
     }
 
-    public static List<generated.libraryservice.Book> fromDatabase(List<Book> books) {
-        List<generated.libraryservice.Book> generatedBooks = new ArrayList<>();
+
+
+    /**
+     * Converts a list of {@link Book} object from the database to a list of {@link GeneratedBook} object.
+     *
+     * @param books - A list of {@link Book} object from database.
+     *
+     * @return A list of {@link GeneratedBook} object for sending to the client via WSDL.
+     * */
+    public static List<GeneratedBook> fromDatabase(List<Book> books) {
+        List<GeneratedBook> generatedBooks = new ArrayList<>();
 
         for (Book book : books) {
             generatedBooks.add(fromDatabase(book));
         }
 
         return generatedBooks;
-    }
-
-    public static Book fromClient(generated.libraryservice.Book generatedBook) {
-        Book book = new Book();
-
-        book.setReference(generatedBook.getReference());
-        book.setImageUrl(generatedBook.getImageUrl());
-        book.setTitle(generatedBook.getTitle());
-        book.setAuthor(generatedBook.getAuthor());
-        book.setSynopsis(generatedBook.getSynopsis());
-        book.setPublisher(generatedBook.getPublisher());
-        book.setCategory(generatedBook.getCategory());
-        book.setLanguage(generatedBook.getLanguage());
-        book.setMark(generatedBook.getMark());
-
-        return book;
     }
 
 }

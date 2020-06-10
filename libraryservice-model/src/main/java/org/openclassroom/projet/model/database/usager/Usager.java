@@ -19,7 +19,11 @@ public class Usager implements Serializable, UserDetails {
 
     private String email;
     private String password;
+
+    @Column(name = "first_name")
     private String firstName;
+
+    @Column(name = "last_name")
     private String lastName;
     private String address;
 
@@ -28,7 +32,6 @@ public class Usager implements Serializable, UserDetails {
 
 
     // ==================== Constructors ====================
-    /**/
     public Usager() {
         super();
         this.enabled = false;
@@ -102,34 +105,78 @@ public class Usager implements Serializable, UserDetails {
 
 
     // ==================== Methods ====================
+    /**
+     * Override method from UserDetails.
+     * Return the username of the uer.
+     *
+     * @return Here, the username is the email.
+     * */
     @Override
     public String getUsername() { return email; }
 
+
+
+    /**
+     * Override method from UserDetails.
+     * Not used here.
+     * */
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
         return null;
     }
 
+
+
+    /**
+     * Override method from UserDetails.
+     * Not used here.
+     * */
     @Override
     public boolean isAccountNonExpired() {
         return false;
     }
 
+
+
+    /**
+     * Override method from UserDetails.
+     * Not used here.
+     * */
     @Override
     public boolean isAccountNonLocked() {
         return false;
     }
 
+
+
+    /**
+     * Override method from UserDetails.
+     * Not used here.
+     * */
     @Override
     public boolean isCredentialsNonExpired() {
         return false;
     }
 
+
+
+    /**
+     * Indicates whether the account is activated/verified.
+     * */
     @Override
     public boolean isEnabled() {
         return this.enabled;
     }
 
+
+
+    /**
+     * Encode the password with {@link BCryptPasswordEncoder}.
+     *
+     * @param password - The password to be encoded.
+     *
+     * @return The encoded password.
+     * */
     private String encodePassword(String password) {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder();
         return bCryptPasswordEncoder.encode(password);

@@ -1,28 +1,31 @@
 package utils.converters;
 
-import generated.libraryservice.Library;
+import generated.libraryservice.GeneratedLibrary;
+import generated.libraryservice.GeneratedStock;
+import org.openclassroom.projet.model.database.library.Library;
 import org.openclassroom.projet.model.database.library.Stock;
 
+/**
+ * Allows conversion between {@link GeneratedStock}, {@link Library} and {@link Stock}.
+ * */
 public class StockConverter {
 
-    public static generated.libraryservice.Stock fromDatabase(Stock stock, Library library) {
-        generated.libraryservice.Stock generatedStock = new generated.libraryservice.Stock();
+    /**
+     * Pack a {@link Library} object and a {@link Stock} object into a {@link GeneratedStock} object.
+     *
+     * @param stock - {@link Stock} object from database that contains the book's availability.
+     * @param library - {@link Library} object from database.
+     *
+     * @return A {@link GeneratedStock} object for sending to the client via WSDL.
+     * */
+    public static GeneratedStock fromDatabase(Stock stock, GeneratedLibrary library) {
+        GeneratedStock generatedStock = new GeneratedStock();
 
         generatedStock.setLibrary(library);
-        generatedStock.setReferenceBook(stock.getStockId().getReferenceBook());
-        generatedStock.setQuantity(stock.getQuantity() - stock.getQuantityLoaned());
+        generatedStock.setReferenceBook(stock.getStockId().getBookReference());
+        generatedStock.setQuantity(stock.getQuantity() - stock.getQuantityBorrowed());
 
         return generatedStock;
     }
-
-//    public static List<generated.libraryservice.Book> fromDatabase(List<Book> books) {
-//        List<generated.libraryservice.Book> generatedBooks = new ArrayList<>();
-//
-//        for (Book book : books) {
-//            generatedBooks.add(fromDatabase(book));
-//        }
-//
-//        return generatedBooks;
-//    }
 
 }

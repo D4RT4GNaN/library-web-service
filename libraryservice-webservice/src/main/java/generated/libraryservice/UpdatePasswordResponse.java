@@ -3,7 +3,6 @@ package generated.libraryservice;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -18,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="status" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="updated" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -29,36 +28,27 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "status"
+    "updated"
 })
 @XmlRootElement(name = "updatePasswordResponse")
 public class UpdatePasswordResponse {
 
-    @XmlElement(required = true)
-    protected String status;
+    protected boolean updated;
 
     /**
-     * Gets the value of the status property.
+     * Gets the value of the updated property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
      */
-    public String getStatus() {
-        return status;
+    public boolean isUpdated() {
+        return updated;
     }
 
     /**
-     * Sets the value of the status property.
+     * Sets the value of the updated property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
      */
-    public void setStatus(String value) {
-        this.status = value;
+    public void setUpdated(boolean value) {
+        this.updated = value;
     }
 
 }

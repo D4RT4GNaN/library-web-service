@@ -23,7 +23,7 @@ import javax.xml.datatype.XMLGregorianCalendar;
  *         &lt;element name="borrowingDate" type="{http://www.w3.org/2001/XMLSchema}date"/>
  *         &lt;element name="libraryId" type="{http://www.w3.org/2001/XMLSchema}int"/>
  *         &lt;element name="bookReference" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="usager" type="{http://LibraryService/}usager"/>
+ *         &lt;element name="usager" type="{http://LibraryService/}generatedUsager"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -49,7 +49,7 @@ public class ReturnBook {
     @XmlElement(required = true)
     protected String bookReference;
     @XmlElement(required = true)
-    protected Usager usager;
+    protected GeneratedUsager usager;
 
     /**
      * Gets the value of the borrowingDate property.
@@ -120,10 +120,10 @@ public class ReturnBook {
      * 
      * @return
      *     possible object is
-     *     {@link Usager }
+     *     {@link GeneratedUsager }
      *     
      */
-    public Usager getUsager() {
+    public GeneratedUsager getUsager() {
         return usager;
     }
 
@@ -132,10 +132,10 @@ public class ReturnBook {
      * 
      * @param value
      *     allowed object is
-     *     {@link Usager }
+     *     {@link GeneratedUsager }
      *     
      */
-    public void setUsager(Usager value) {
+    public void setUsager(GeneratedUsager value) {
         this.usager = value;
     }
 

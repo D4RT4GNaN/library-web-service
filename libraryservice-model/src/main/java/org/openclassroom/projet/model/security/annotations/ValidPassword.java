@@ -13,6 +13,9 @@ import static java.lang.annotation.ElementType.TYPE;
 import static java.lang.annotation.ElementType.ANNOTATION_TYPE;
 import static java.lang.annotation.RetentionPolicy.RUNTIME;
 
+/**
+ * Verifies that the password corresponds to the restrictions imposed.
+ * */
 @Documented
 @Constraint(validatedBy = PasswordConstraintValidator.class)
 @Target({ TYPE, FIELD, ANNOTATION_TYPE })

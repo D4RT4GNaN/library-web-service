@@ -27,7 +27,7 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "")
-@XmlRootElement(name = "CheckExpiration")
+@XmlRootElement(name = "checkExpiration")
 public class CheckExpiration {
 
 

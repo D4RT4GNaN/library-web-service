@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="loansOverdue" type="{http://LibraryService/}loan" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="overdueBorrowings" type="{http://LibraryService/}generatedBorrowing" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -30,40 +30,40 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "loansOverdue"
+    "overdueBorrowings"
 })
-@XmlRootElement(name = "CheckExpirationResponse")
+@XmlRootElement(name = "checkExpirationResponse")
 public class CheckExpirationResponse {
 
-    protected List<Loan> loansOverdue;
+    protected List<GeneratedBorrowing> overdueBorrowings;
 
     /**
-     * Gets the value of the loansOverdue property.
+     * Gets the value of the overdueBorrowings property.
      * 
      * <p>
      * This accessor method returns a reference to the live list,
      * not a snapshot. Therefore any modification you make to the
      * returned list will be present inside the JAXB object.
-     * This is why there is not a <CODE>set</CODE> method for the loansOverdue property.
+     * This is why there is not a <CODE>set</CODE> method for the overdueBorrowings property.
      * 
      * <p>
      * For example, to add a new item, do as follows:
      * <pre>
-     *    getLoansOverdue().add(newItem);
+     *    getOverdueBorrowings().add(newItem);
      * </pre>
      * 
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Loan }
+     * {@link GeneratedBorrowing }
      * 
      * 
      */
-    public List<Loan> getLoansOverdue() {
-        if (loansOverdue == null) {
-            loansOverdue = new ArrayList<Loan>();
+    public List<GeneratedBorrowing> getOverdueBorrowings() {
+        if (overdueBorrowings == null) {
+            overdueBorrowings = new ArrayList<GeneratedBorrowing>();
         }
-        return this.loansOverdue;
+        return this.overdueBorrowings;
     }
 
 }

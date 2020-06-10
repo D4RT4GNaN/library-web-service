@@ -3,7 +3,6 @@ package generated.libraryservice;
 
 import javax.xml.bind.annotation.XmlAccessType;
 import javax.xml.bind.annotation.XmlAccessorType;
-import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlType;
 
@@ -18,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="status" type="{http://www.w3.org/2001/XMLSchema}string"/>
+ *         &lt;element name="valid" type="{http://www.w3.org/2001/XMLSchema}boolean"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -29,36 +28,27 @@ import javax.xml.bind.annotation.XmlType;
  */
 @XmlAccessorType(XmlAccessType.FIELD)
 @XmlType(name = "", propOrder = {
-    "status"
+    "valid"
 })
 @XmlRootElement(name = "validEmailWithResponse")
 public class ValidEmailWithResponse {
 
-    @XmlElement(required = true)
-    protected String status;
+    protected boolean valid;
 
     /**
-     * Gets the value of the status property.
+     * Gets the value of the valid property.
      * 
-     * @return
-     *     possible object is
-     *     {@link String }
-     *     
      */
-    public String getStatus() {
-        return status;
+    public boolean isValid() {
+        return valid;
     }
 
     /**
-     * Sets the value of the status property.
+     * Sets the value of the valid property.
      * 
-     * @param value
-     *     allowed object is
-     *     {@link String }
-     *     
      */
-    public void setStatus(String value) {
-        this.status = value;
+    public void setValid(boolean value) {
+        this.valid = value;
     }
 
 }

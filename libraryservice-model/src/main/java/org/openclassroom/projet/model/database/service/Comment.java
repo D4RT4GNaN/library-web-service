@@ -97,8 +97,4 @@ public class Comment {
         this.date = date;
     }
 
-
-
-    // ==================== Methods ====================
-
 }

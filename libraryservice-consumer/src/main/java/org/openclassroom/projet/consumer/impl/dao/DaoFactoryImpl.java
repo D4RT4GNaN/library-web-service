@@ -7,10 +7,14 @@ import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 import javax.inject.Named;
 
+/**
+ * Implementation of the access interface to the DAO module.
+ * */
 @Named("daoFactory")
 @EnableJpaRepositories(basePackages = "org.openclassroom.projet.consumer.repository")
 public class DaoFactoryImpl implements DaoFactory {
 
+    // ==================== Attributes ====================
     @Autowired
     private UsagerRepository usagerRepository;
 
@@ -27,11 +31,14 @@ public class DaoFactoryImpl implements DaoFactory {
     private LibraryRepository libraryRepository;
 
     @Autowired
-    private LoanRepository loanRepository;
+    private BorrowingRepository borrowingRepository;
 
     @Autowired
     private CommentRepository commentRepository;
 
+
+
+    // ==================== Getters ====================
     @Override
     public UsagerRepository getUsagerRepository() {
         return usagerRepository;
@@ -54,7 +61,7 @@ public class DaoFactoryImpl implements DaoFactory {
     public LibraryRepository getLibraryRepository() { return libraryRepository; }
 
     @Override
-    public LoanRepository getLoanRepository() { return loanRepository; }
+    public BorrowingRepository getBorrowingRepository() { return borrowingRepository; }
 
     @Override
     public CommentRepository getCommentRepository() { return commentRepository; }

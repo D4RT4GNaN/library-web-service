@@ -79,6 +79,13 @@ public class VerificationToken {
     }
 
     // ==================== Methods ====================
+    /**
+     * Calculates the expiration date of the token.
+     *
+     * @param expiryTimeInMinutes - Here correspond to 1 day.
+     *
+     * @return The token expiration date.
+     * */
     private Date calculateExpiryDate(int expiryTimeInMinutes) {
         Calendar cal = Calendar.getInstance();
         cal.setTime(new Timestamp(cal.getTime().getTime()));
@@ -86,6 +93,11 @@ public class VerificationToken {
         return new Date(cal.getTime().getTime());
     }
 
+
+
+    /**
+     * Resets the expiration date when changing tokens.
+     * */
     public void resetExpiryDate() {
         this.expiryDate = calculateExpiryDate(EXPIRATION);
     }

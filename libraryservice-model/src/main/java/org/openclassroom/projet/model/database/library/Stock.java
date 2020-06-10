@@ -18,18 +18,18 @@ public class Stock {
 
     @NotNull
     @NotEmpty
-    private int quantityLoaned;
+    @Column(name = "quantity_borrowed")
+    private int quantityBorrowed;
 
 
     // ==================== Constructors ====================
-    /**/
     public Stock() {
     }
 
-    public Stock(StockId stockId, int quantity, int quantityLoaned) {
+    public Stock(StockId stockId, int quantity, int quantityBorrowed) {
         this.stockId = stockId;
         this.quantity = quantity;
-        this.quantityLoaned = quantityLoaned;
+        this.quantityBorrowed = quantityBorrowed;
     }
 
 
@@ -48,14 +48,11 @@ public class Stock {
         this.quantity = quantity;
     }
 
-    public int getQuantityLoaned() {
-        return quantityLoaned;
+    public int getQuantityBorrowed() {
+        return quantityBorrowed;
     }
-    public void setQuantityLoaned(int quantityLoaned) {
-        this.quantityLoaned = quantityLoaned;
+    public void setQuantityBorrowed(int quantityBorrowed) {
+        this.quantityBorrowed = quantityBorrowed;
     }
-
-
-    // ==================== Methods ====================
 
 }

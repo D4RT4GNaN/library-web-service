@@ -1,5 +1,6 @@
 package utils.converters;
 
+import generated.libraryservice.GeneratedComment;
 import org.openclassroom.projet.model.database.service.Comment;
 import org.openclassroom.projet.model.database.usager.Usager;
 
@@ -8,10 +9,20 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
+/**
+ * Allows conversion between {@link GeneratedComment} and {@link Comment}.
+ * */
 public class CommentConverter extends AbstractConverter {
 
-    public static generated.libraryservice.Comment fromDatabase(Comment comment) {
-        generated.libraryservice.Comment generatedComment = new generated.libraryservice.Comment();
+    /**
+     * Converts a {@link Comment} object from the database to a {@link GeneratedComment} object.
+     *
+     * @param comment - {@link Comment} object from database.
+     *
+     * @return A {@link GeneratedComment} object for sending to the client via WSDL.
+     * */
+    public static GeneratedComment fromDatabase(Comment comment) {
+        GeneratedComment generatedComment = new GeneratedComment();
 
         try {
             generatedComment.setAuthor(UsagerConverter.fromDatabase(comment.getUsager()));
@@ -24,9 +35,18 @@ public class CommentConverter extends AbstractConverter {
 
         return generatedComment;
     }
+    
+    
 
-    public static List<generated.libraryservice.Comment> fromDatabase(List<Comment> comments) {
-        List<generated.libraryservice.Comment> generatedComments = new ArrayList<>();
+    /**
+     * Converts a list of {@link Comment} object from the database to a list of {@link GeneratedComment} object.
+     *
+     * @param comments - A list of {@link Comment} object from database.
+     *
+     * @return A list of {@link GeneratedComment} object for sending to the client via WSDL.
+     * */
+    public static List<GeneratedComment> fromDatabase(List<Comment> comments) {
+        List<GeneratedComment> generatedComments = new ArrayList<>();
 
         for (Comment comment : comments) {
             generatedComments.add(fromDatabase(comment));
@@ -35,7 +55,16 @@ public class CommentConverter extends AbstractConverter {
         return generatedComments;
     }
 
-    public static Comment fromClient(generated.libraryservice.Comment generatedComment) {
+
+    
+    /**
+     * Converts a {@link GeneratedComment} object from the client to a {@link Comment} object.
+     *
+     * @param generatedComment - {@link GeneratedComment} object from client.
+     *
+     * @return A {@link Comment} object saved in database.
+     * */
+    public static Comment fromClient(GeneratedComment generatedComment) {
         Comment comment = new Comment();
 
         comment.setDate(new Date());

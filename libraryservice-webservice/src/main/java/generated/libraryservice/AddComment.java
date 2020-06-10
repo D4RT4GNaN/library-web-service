@@ -18,7 +18,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="comment" type="{http://LibraryService/}comment"/>
+ *         &lt;element name="comment" type="{http://LibraryService/}generatedComment"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -31,21 +31,21 @@ import javax.xml.bind.annotation.XmlType;
 @XmlType(name = "", propOrder = {
     "comment"
 })
-@XmlRootElement(name = "AddComment")
+@XmlRootElement(name = "addComment")
 public class AddComment {
 
     @XmlElement(required = true)
-    protected Comment comment;
+    protected GeneratedComment comment;
 
     /**
      * Gets the value of the comment property.
      * 
      * @return
      *     possible object is
-     *     {@link Comment }
+     *     {@link GeneratedComment }
      *     
      */
-    public Comment getComment() {
+    public GeneratedComment getComment() {
         return comment;
     }
 
@@ -54,10 +54,10 @@ public class AddComment {
      * 
      * @param value
      *     allowed object is
-     *     {@link Comment }
+     *     {@link GeneratedComment }
      *     
      */
-    public void setComment(Comment value) {
+    public void setComment(GeneratedComment value) {
         this.comment = value;
     }
 

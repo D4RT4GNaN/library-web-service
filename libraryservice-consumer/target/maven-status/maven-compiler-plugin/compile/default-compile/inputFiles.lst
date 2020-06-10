@@ -3,7 +3,7 @@ C:\Users\maxim\Desktop\Projet 7\library-web-service\libraryservice-consumer\src\
 C:\Users\maxim\Desktop\Projet 7\library-web-service\libraryservice-consumer\src\main\java\org\openclassroom\projet\consumer\repository\CommentRepository.java
 C:\Users\maxim\Desktop\Projet 7\library-web-service\libraryservice-consumer\src\main\java\org\openclassroom\projet\consumer\repository\VerificationTokenRepository.java
 C:\Users\maxim\Desktop\Projet 7\library-web-service\libraryservice-consumer\src\main\java\org\openclassroom\projet\consumer\repository\BookRepository.java
-C:\Users\maxim\Desktop\Projet 7\library-web-service\libraryservice-consumer\src\main\java\org\openclassroom\projet\consumer\repository\LoanRepository.java
 C:\Users\maxim\Desktop\Projet 7\library-web-service\libraryservice-consumer\src\main\java\org\openclassroom\projet\consumer\repository\UsagerRepository.java
 C:\Users\maxim\Desktop\Projet 7\library-web-service\libraryservice-consumer\src\main\java\org\openclassroom\projet\consumer\impl\dao\DaoFactoryImpl.java
 C:\Users\maxim\Desktop\Projet 7\library-web-service\libraryservice-consumer\src\main\java\org\openclassroom\projet\consumer\repository\StockRepository.java
+C:\Users\maxim\Desktop\Projet 7\library-web-service\libraryservice-consumer\src\main\java\org\openclassroom\projet\consumer\repository\BorrowingRepository.java

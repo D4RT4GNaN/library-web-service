@@ -9,35 +9,35 @@ import java.util.Objects;
 public class StockId implements Serializable {
 
     // ==================== Attributes ====================
-    @Column(name = "number_ref_library")
-    private int numberRefLibrary;
+    @Column(name = "library_number_ref")
+    private int libaryNumberRef;
 
-    @Column(name = "reference_book")
-    private String referenceBook;
+    @Column(name = "book_reference")
+    private String bookReference;
 
 
     // ==================== Constructors ====================
     public StockId() {}
 
-    public StockId(int numberRefLibrary, String referenceBook) {
-        this.numberRefLibrary = numberRefLibrary;
-        this.referenceBook = referenceBook;
+    public StockId(int libaryNumberRef, String bookReference) {
+        this.libaryNumberRef = libaryNumberRef;
+        this.bookReference = bookReference;
     }
 
 
     // ==================== Getters/Setters ====================
-    public int getNumberRefLibrary() {
-        return numberRefLibrary;
+    public int getLibaryNumberRef() {
+        return libaryNumberRef;
     }
-    public void setNumberRefLibrary(int numberRefLibrary) {
-        this.numberRefLibrary = numberRefLibrary;
+    public void setLibaryNumberRef(int libaryNumberRef) {
+        this.libaryNumberRef = libaryNumberRef;
     }
 
-    public String getReferenceBook() {
-        return referenceBook;
+    public String getBookReference() {
+        return bookReference;
     }
-    public void setReferenceBook(String referenceBook) {
-        this.referenceBook = referenceBook;
+    public void setBookReference(String bookReference) {
+        this.bookReference = bookReference;
     }
 
 
@@ -47,13 +47,13 @@ public class StockId implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         StockId stockId = (StockId) o;
-        return Objects.equals(numberRefLibrary, stockId.numberRefLibrary) &&
-                Objects.equals(referenceBook, stockId.referenceBook);
+        return Objects.equals(libaryNumberRef, stockId.libaryNumberRef) &&
+                Objects.equals(bookReference, stockId.bookReference);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(numberRefLibrary, referenceBook);
+        return Objects.hash(libaryNumberRef, bookReference);
     }
 
 }

@@ -1,7 +1,6 @@
 package org.openclassroom.projet.business.services.impl;
 
 import org.openclassroom.projet.model.database.usager.Usager;
-import org.openclassroom.projet.model.database.usager.VerificationToken;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.beans.factory.annotation.Value;
@@ -17,6 +16,9 @@ import javax.mail.internet.MimeMessage;
 import java.util.Date;
 import java.util.Properties;
 
+/**
+ * Service implementation of the business module for email sending methods.
+ * */
 @Service
 public class MailService {
 
@@ -37,29 +39,72 @@ public class MailService {
 
 
     // ==================== Public Methods ====================
+    /**
+     * Sends an email reminder regarding an expired {@link org.openclassroom.projet.model.database.service.Borrowing borrowing}.
+     *
+     * @param usager - The {@link Usager user} to whom the mail is to be sent.
+     * */
     public void sendReminderEmail(Usager usager) {
         String toAddress = usager.getEmail();
-        String title = "Reminder : Loan expired !";
-        String content = "Your loan has expired please extend it if it's not already done or return quickly your book !";
+        String title = "Reminder : Borrowing expired !";
+        String content = "Your borrowing has expired please extend it if it's not already done or return quickly your book !";
 
         sendMailSMTP(toAddress, title, content, true);
     }
 
+
+
+    /**
+     * Sending an account verification email.
+     *
+     * @param usager - The {@link Usager user} to whom the mail is to be sent.
+     * @param token - A string contained in the link sent by email to identify the account to be validated.
+     * */
     public void sendConfirmationEmail(Usager usager, String token) {
         sendMailSMTP(usager.getEmail(), "Confirm your account", createVerificationEmailContent(token) ,true);
     }
 
-    public void resendConfirmationEmail(Usager usager, String newToken) {
-        sendMailSMTP(usager.getEmail(), "Resend : Confirm your account", createVerificationEmailContent(newToken), true);
+
+
+    /**
+     * Sends a new account verification email.
+     *
+     * @param usager - The {@link Usager user} to whom the mail is to be sent.
+     * @param newToken - The new token to replace the old one.
+     *
+     * @return If the email was indeed sent.
+     * */
+    public boolean resendConfirmationEmail(Usager usager, String newToken) {
+        return sendMailSMTP(usager.getEmail(), "Resend : Confirm your account", createVerificationEmailContent(newToken), true);
     }
 
-    public void sendResetPasswordEmail(Usager usager, String token) {
-        sendMailSMTP(usager.getEmail(), "Forgotten password", createResetPasswordEmailContent(token), true);
+
+
+    /**
+     * Sending an email containing a link to change your password when you have forgotten it.
+     *
+     * @param usager - The {@link Usager user} to whom the mail is to be sent.
+     * @param token - A string contained in the link sent by e-mail to identify the account whose password needs to be changed.
+     *
+     * @return If the email was indeed sent.
+     * */
+    public boolean sendResetPasswordEmail(Usager usager, String token) {
+        return sendMailSMTP(usager.getEmail(), "Forgotten password", createResetPasswordEmailContent(token), true);
     }
 
 
 
     // ==================== Private Methods ====================
+    /**
+     * The basic function that allows you to send mail via JavaMail.
+     *
+     * @param toAddress - The email address to which the email should be sent.
+     * @param title - The title that appears in the header of the email.
+     * @param content - The content of the email where the possible links can be found.
+     * @param debug - Allows the display of messages in the logs to debug the code in case of error.
+     *
+     * @return If the email was indeed sent.
+     * */
     private boolean sendMailSMTP(String toAddress, String title, String content, boolean debug) {
         boolean result = false;
         String username = customMailProperties.getProperty("mail.user");
@@ -95,6 +140,15 @@ public class MailService {
         return result;
     }
 
+
+
+    /**
+     * Allows you to create the content of the account verification email by adding the personalized link containing the identification token.
+     *
+     * @param token - A string contained in the link sent by email to identify the account to be validated.
+     *
+     * @return the content of the account verification email
+     * */
     private String createVerificationEmailContent(String token) {
         String lineBreak = "\n\n";
         String before = "Thanks for signing up on our service! You must follow this link to activate your account:";
@@ -104,6 +158,15 @@ public class MailService {
         return before + lineBreak + clientUrl + confirmEmailUrl + "?token=" + token + lineBreak + after;
     }
 
+
+
+    /**
+     * Allows you to create the content of the password reset email by adding the personalized link containing the identification token.
+     *
+     * @param token - A string contained in the link sent by e-mail to identify the account whose password needs to be changed.
+     *
+     * @return the content of the password reset email
+     * */
     private String createResetPasswordEmailContent(String token) {
         String lineBreak = "\n\n";
         String before = "To reset your password, follow this link and change it:";

@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
  *         &lt;element name="email" type="{http://www.w3.org/2001/XMLSchema}string"/>
- *         &lt;element name="usager" type="{http://LibraryService/}usager"/>
+ *         &lt;element name="usager" type="{http://LibraryService/}generatedUsager"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -39,7 +39,7 @@ public class UpdateUserInfos {
     @XmlElement(required = true)
     protected String email;
     @XmlElement(required = true)
-    protected Usager usager;
+    protected GeneratedUsager usager;
 
     /**
      * Gets the value of the email property.
@@ -70,10 +70,10 @@ public class UpdateUserInfos {
      * 
      * @return
      *     possible object is
-     *     {@link Usager }
+     *     {@link GeneratedUsager }
      *     
      */
-    public Usager getUsager() {
+    public GeneratedUsager getUsager() {
         return usager;
     }
 
@@ -82,10 +82,10 @@ public class UpdateUserInfos {
      * 
      * @param value
      *     allowed object is
-     *     {@link Usager }
+     *     {@link GeneratedUsager }
      *     
      */
-    public void setUsager(Usager value) {
+    public void setUsager(GeneratedUsager value) {
         this.usager = value;
     }
 

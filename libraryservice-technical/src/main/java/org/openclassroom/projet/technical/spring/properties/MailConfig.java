@@ -8,13 +8,26 @@ import org.springframework.core.env.Environment;
 
 import java.util.Properties;
 
+/**
+ * JavaMail sending configuration class.
+ * */
 @Configuration
 @PropertySource("classpath:mail.properties")
 public class MailConfig {
 
+    // ==================== Attributes ====================
     @Autowired
     private Environment env;
 
+
+
+    // ==================== Beans ====================
+    /**
+     * Allows you to configure the parameters necessary to send an email with JavaMail such as the identifiers, the port, ...
+     * All configurations are done in the associated .properties file.
+     *
+     * @return A {@link Properties} object containing the configurations made as properties.
+     * */
     @Bean
     public Properties customProperties() {
         Properties props = new Properties();

@@ -8,12 +8,31 @@ import javax.validation.ConstraintValidator;
 import javax.validation.ConstraintValidatorContext;
 import java.util.Arrays;
 
+/**
+ * Validates a password according to certain constraints.
+ * */
 public class PasswordConstraintValidator implements ConstraintValidator<ValidPassword, String> {
 
+    // ==================== Methods ====================
+    /**
+     * Override method for initialize attributes.
+     * Not used here.
+     * */
     @Override
-    public void initialize(ValidPassword arg0) {
-    }
+    public void initialize(ValidPassword arg0) {}
 
+
+
+    /**
+     * Override validation method.
+     * Check whether the password contains 3 lower case minimum, 1 upper case minimum,
+     * 5 digits maximum or special character and no white space.
+     *
+     * @param password - The password to test.
+     * @param context - {@link ConstraintValidatorContext}
+     *
+     * @return If the email is valid according to the constraints.
+     * */
     @Override
     public boolean isValid(String password, ConstraintValidatorContext context) {
         PasswordValidator validator = new PasswordValidator(Arrays.asList(

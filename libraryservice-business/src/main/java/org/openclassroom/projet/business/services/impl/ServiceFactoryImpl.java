@@ -5,8 +5,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import javax.inject.Named;
 
+/**
+ * Implementation of Spring's control inversion for the Business module.
+ * */
 @Named("serviceFactory")
 public class ServiceFactoryImpl implements ServiceFactory {
+
+    // ==================== Attributes ====================
     @Autowired
     private UserService userService;
 
@@ -17,7 +22,7 @@ public class ServiceFactoryImpl implements ServiceFactory {
     private LibraryService libraryService;
 
     @Autowired
-    private LoanService loanService;
+    private BorrowingService borrowingService;
 
     @Autowired
     private StockService stockService;
@@ -25,13 +30,16 @@ public class ServiceFactoryImpl implements ServiceFactory {
     @Autowired
     private CommentService commentService;
 
+
+
+    // ==================== Public Methods ====================
     @Override
     public UserService getUserService() {
         return userService;
     }
 
     @Override
-    public BookService getBookFactory() {
+    public BookService getBookService() {
         return bookService;
     }
 
@@ -39,7 +47,7 @@ public class ServiceFactoryImpl implements ServiceFactory {
     public LibraryService getLibraryService() { return libraryService; }
 
     @Override
-    public LoanService getLoanService() { return loanService; }
+    public BorrowingService getBorrowingService() { return borrowingService; }
 
     @Override
     public StockService getStockService() {

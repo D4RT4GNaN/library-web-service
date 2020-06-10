@@ -9,19 +9,35 @@ import org.springframework.security.config.annotation.authentication.builders.Au
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+/**
+ * Application security configuration class.
+ * */
 @Configuration
 @EnableWebSecurity
 @ComponentScan("org.openclassroom.projet")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    // ==================== Attributes ====================
     @Autowired
     private CustomAuthenticationProvider authProvider;
 
+
+
+    // ==================== Methods ====================
+    /**
+     * Tells the application to use the custom class of {@link org.springframework.security.authentication.AuthenticationProvider}.
+     * */
     @Override
     protected void configure(AuthenticationManagerBuilder auth) {
         auth.authenticationProvider(authProvider);
     }
 
+
+
+    // ==================== Beans ====================
+    /**
+     * Tells the application to use the custom class of {@link org.springframework.security.authentication.AuthenticationManager}.
+     * */
     @Bean
     public AuthenticationManager customAuthenticationManager() throws Exception {
         return authenticationManager();

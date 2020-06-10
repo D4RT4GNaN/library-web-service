@@ -27,7 +27,6 @@ public class Library {
 
 
     // ==================== Constructors ====================
-    /**/
     public Library() {
     }
 
@@ -60,8 +59,5 @@ public class Library {
     public void setAddress(String address) {
         this.address = address;
     }
-
-
-    // ==================== Methods ====================
 
 }

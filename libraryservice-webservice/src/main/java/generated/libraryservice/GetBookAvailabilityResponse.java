@@ -19,7 +19,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="bookAvailability" type="{http://LibraryService/}stock" maxOccurs="unbounded" minOccurs="0"/>
+ *         &lt;element name="bookAvailability" type="{http://LibraryService/}generatedStock" maxOccurs="unbounded" minOccurs="0"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
  *   &lt;/complexContent>
@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlType;
 @XmlRootElement(name = "getBookAvailabilityResponse")
 public class GetBookAvailabilityResponse {
 
-    protected List<Stock> bookAvailability;
+    protected List<GeneratedStock> bookAvailability;
 
     /**
      * Gets the value of the bookAvailability property.
@@ -55,13 +55,13 @@ public class GetBookAvailabilityResponse {
      * 
      * <p>
      * Objects of the following type(s) are allowed in the list
-     * {@link Stock }
+     * {@link GeneratedStock }
      * 
      * 
      */
-    public List<Stock> getBookAvailability() {
+    public List<GeneratedStock> getBookAvailability() {
         if (bookAvailability == null) {
-            bookAvailability = new ArrayList<Stock>();
+            bookAvailability = new ArrayList<GeneratedStock>();
         }
         return this.bookAvailability;
     }

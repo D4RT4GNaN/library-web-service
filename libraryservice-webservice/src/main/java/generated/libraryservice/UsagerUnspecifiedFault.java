@@ -17,7 +17,7 @@ import javax.xml.bind.annotation.XmlType;
  *   &lt;complexContent>
  *     &lt;restriction base="{http://www.w3.org/2001/XMLSchema}anyType">
  *       &lt;sequence>
- *         &lt;element name="usager" type="{http://LibraryService/}usager"/>
+ *         &lt;element name="usager" type="{http://LibraryService/}generatedUsager"/>
  *         &lt;element name="message" type="{http://www.w3.org/2001/XMLSchema}string"/>
  *       &lt;/sequence>
  *     &lt;/restriction>
@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlType;
 public class UsagerUnspecifiedFault {
 
     @XmlElement(required = true)
-    protected Usager usager;
+    protected GeneratedUsager usager;
     @XmlElement(required = true)
     protected String message;
 
@@ -44,10 +44,10 @@ public class UsagerUnspecifiedFault {
      * 
      * @return
      *     possible object is
-     *     {@link Usager }
+     *     {@link GeneratedUsager }
      *     
      */
-    public Usager getUsager() {
+    public GeneratedUsager getUsager() {
         return usager;
     }
 
@@ -56,10 +56,10 @@ public class UsagerUnspecifiedFault {
      * 
      * @param value
      *     allowed object is
-     *     {@link Usager }
+     *     {@link GeneratedUsager }
      *     
      */
-    public void setUsager(Usager value) {
+    public void setUsager(GeneratedUsager value) {
         this.usager = value;
     }
 

@@ -8,6 +8,9 @@ import javax.persistence.Transient;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 
+/**
+ * Transition class for releasing a user object.
+ * */
 @PasswordMatches
 public class UsagerDto {
 
@@ -41,7 +44,6 @@ public class UsagerDto {
 
 
     // ==================== Constructors ====================
-    /**/
     public UsagerDto() {
         super();
         this.enabled = false;
